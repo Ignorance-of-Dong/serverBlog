@@ -1,0 +1,524 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang=""><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#ccc"><meta name="keywords" content="scholar"><meta name="keywords" content="前端文档,vue,js"><meta name="keywords" content="vue,js"><meta name="keywords" content="文档,vue,js"><meta name="keywords" content="js"><meta name="keywords" content="vuepress"><meta name="keywords" content="markdown"><meta name="keywords" content="前端笔记"><meta name="keywords" content="学习"><meta name="keywords" content="react"><meta name="keywords" content="javaScript"><meta name="author" content="Ignorance,1054914660@qq.com"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#ccc"><meta name="keywords" content="js,react,"><meta name="description" content="对react-router的封装直接上代码吧  config.js // 该文件是对路由的配置  //组件的引入 import Home from &amp;#39;../contentais/home/index&amp;#39; import Login from &amp;quot;../contentais/login/index&amp;quot; import Business from &amp;#39;./../cont"><meta name="keywords" content="js,react"><meta property="og:type" content="article"><meta property="og:title" content="对react-router的封装及api"><meta property="og:url" content="http://my.ignorantscholar.cn/2019/04/03/react-router/index.html"><meta property="og:site_name" content="倥侗无知"><meta property="og:description" content="对react-router的封装直接上代码吧  config.js // 该文件是对路由的配置  //组件的引入 import Home from &amp;#39;../contentais/home/index&amp;#39; import Login from &amp;quot;../contentais/login/index&amp;quot; import Business from &amp;#39;./../cont"><meta property="og:locale" content="default"><meta property="og:updated_time" content="2019-04-03T11:10:01.553Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="对react-router的封装及api"><meta name="twitter:description" content="对react-router的封装直接上代码吧  config.js // 该文件是对路由的配置  //组件的引入 import Home from &amp;#39;../contentais/home/index&amp;#39; import Login from &amp;quot;../contentais/login/index&amp;quot; import Business from &amp;#39;./../cont"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Ignorance"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://my.ignorantscholar.cn/2019/04/03/react-router/"><title>对react-router的封装及api | 倥侗无知</title><script>var titleTime,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="Web page loss ~ ~",clearTimeout(titleTime)):(document.title="(ฅ>ω<*ฅ) ~"+OriginTitle,titleTime=setTimeout(function(){document.title=OriginTitle},2e3))})</script></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">倥侗无知</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 主页</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-档案室"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 档案室</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://my.ignorantscholar.cn/2019/04/03/react-router/"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="Ignorance"><meta itemprop="description" content=""><meta itemprop="image" content="/images/header.png"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="倥侗无知"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">对react-router的封装及api</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-03T19:10:00+08:00">2019-04-03</time></span> <span class="post-meta-divider">|</span><span class="page-pv"><i class="fa fa-file-o"></i> 浏览<span class="busuanzi-value" id="busuanzi_value_page_pv"></span> 次</span></div></header><div class="post-body" itemprop="articleBody"><h2 id="对react-router的封装"><a href="#对react-router的封装" class="headerlink" title="对react-router的封装"></a>对react-router的封装</h2><p><strong>直接上代码吧</strong></p><blockquote><p>config.js // 该文件是对路由的配置</p></blockquote><pre><code>//组件的引入
+import Home from &#39;../contentais/home/index&#39;
+import Login from &quot;../contentais/login/index&quot;
+import Business from &#39;./../contentais/home/business/index&#39;;
+import Finance from &#39;./../contentais/home/finance/index&#39;;
+import Tissue from &#39;./../contentais/home/tissue/index&#39;;
+import Statistics from &#39;./../contentais/home/statistics/index&#39;;
+import Order from &#39;./../contentais/home/order/index&#39;;
+import UserHome from &#39;./../contentais/home/userHome/index&#39;;
+import Loans from &#39;./../contentais/home/order/loans/index&#39;;
+import Transfer from &#39;./../contentais/home/order/transfer/index&#39;;
+import Insurance from &#39;./../contentais/home/order/insurance/index&#39;;
+
+const RouteConfig = [
+    {
+        //title 
+        title: &quot;首页&quot;,
+        //路由地址
+        path: &quot;/Home&quot;,
+        //关键字重定向
+        defaultRedirect: true,
+        //组件
+        component: Home,
+        //二级路由
+        children: [
+            {
+                key: &quot;1&quot;,
+                defaultRedirect: true,
+
+                title: &quot;首页&quot;,
+                path: &quot;/Home/one&quot;,
+                component: UserHome,
+            },
+            {
+                key: &quot;sub1&quot;,
+                title: &quot;订单管理&quot;,
+                path: &quot;/Home/order&quot;,
+                component: Order,
+                //三级路由
+                children: [
+                    {
+                        defaultRedirect: true,
+
+                        key: &quot;2&quot;,
+                        title: &quot;贷款订单&quot;,
+                        path: &quot;/Home/order/loans&quot;,
+                        component: Loans,
+                    },
+                    {
+                        key: &quot;3&quot;,
+                        title: &quot;转单订单&quot;,
+                        path: &quot;/Home/order/transfer&quot;,
+                        component: Transfer,
+                    },
+                    {
+                        key: &quot;4&quot;,
+                        title: &quot;保险订单&quot;,
+                        path: &quot;/Home/order/insurance&quot;,
+                        component: Insurance,
+                    },
+                    //三级路由的重定向   默认显示的页面
+                    {
+                        path: &quot;/Home/order&quot;,
+                        redirect: &quot;/Home/order/loans&quot;
+                    }
+                ]
+            },
+            {
+                key: &quot;5&quot;,
+                title: &quot;财务管理&quot;,
+                path: &quot;/Home/finance&quot;,
+                component: Finance,
+            }
+            ,
+            {
+                key: &quot;6&quot;,
+                title: &quot;组织架构&quot;,
+                path: &quot;/Home/tissue&quot;,
+                component: Tissue,
+            },
+            {
+                key: &quot;7&quot;,
+                title: &quot;数据统计&quot;,
+                path: &quot;/Home/statistics&quot;,
+                component: Statistics,
+            },
+            {
+                key: &quot;8&quot;,
+                title: &quot;商务管理&quot;,
+                path: &quot;/Home/business&quot;,
+                component: Business,
+            },
+            //二级路由的重定向   默认显示的页面
+            {
+                path: &quot;/Home&quot;,
+                redirect: &quot;/Home/one&quot;
+            }
+        ]
+    },
+    {
+        title: &quot;登陆&quot;,
+        path: &quot;/Login&quot;,
+        component: Login,
+    }, {
+        //一级路由的重定向
+        path: &quot;/&quot;,
+        redirect: &quot;/Home&quot;
+    }
+]
+export default RouteConfig;
+</code></pre><blockquote><p>routerView.js // 路由递归逻辑实现</p></blockquote><pre><code>import { Route, Switch, Redirect } from &quot;react-router-dom&quot;
+import React, { Component } from &#39;react&#39;;
+class RouteView extends Component {
+    render() {
+
+        // props接收配置文件
+        // routers 下一级路由的参数
+        // defaultConfig默认传参
+
+        const { routers, defaultConfig } = this.props
+
+        // 这里判断【下一级路由的参数】是否有值 ? 【使用下一级路由的参数】 ： 【默认路由参数】
+
+        let routerDate = routers ? routers : defaultConfig;
+
+        //数据二次处理
+
+        //筛除没有重定向的
+        let routerDatepath = routerDate.filter((item) =&gt; {
+            return !item.redirect
+        })
+
+        //筛选重定向
+        let defualtRouter = routerDate.filter((item) =&gt; {
+            return item.redirect
+        })
+
+        //重定向
+        let defualtRedirect = defualtRouter.map((item, i) =&gt; {
+            return &lt;Redirect key={i} path={item.path} to={item.redirect}&gt;&lt;/Redirect&gt;
+        })
+
+        return (&lt;Switch&gt;
+            {
+                routerDatepath &amp;&amp; routerDatepath.map((item, index) =&gt; {
+                    const Comp = item.component
+                    // 一个大坑 要用render 不然用component会导致页面的回流
+                    return &lt;Route path={item.path} render={
+                        //api 路由相关参数参数及其它
+                        (api) =&gt; {
+                            //动态的title
+                            document.title = item.title || &quot;路由配置&quot;
+                            //把下一级路由参数存入props中
+                            return &lt;Comp routers={item.children} {...api}&gt;&lt;/Comp&gt;
+                        }
+                    } key={&quot;key&quot; + item.key}&gt;&lt;/Route&gt;
+                    //重定向
+                }).concat(defualtRedirect)
+            }
+        &lt;/Switch&gt;)
+    }
+}
+export default RouteView;
+</code></pre><blockquote><p>app.js // 路由调用的使用方式</p></blockquote><pre><code>import React, { Component } from &#39;react&#39;;
+import { BrowserRouter as Router } from &quot;react-router-dom&quot;
+import RouteConfig from &#39;./config.js&#39;; // 引入路由的配置信息
+import RouteView from &#39;./routeView,js&#39;; // 引入路由的逻辑实现
+class App extends Component {
+    render() {
+        return &lt;div className=&quot;wrapper&quot;&gt;
+            &lt;Router&gt;
+                //传入默认路由配置文件
+                &lt;RouteView defaultConfig={RouteConfig}&gt;&lt;/RouteView&gt;
+            &lt;/Router&gt;
+        &lt;/div&gt;
+    }
+}
+export default App;
+</code></pre><blockquote><p>二级路由的调用</p></blockquote><pre><code>import React, { Component } from &#39;react&#39;;
+import RouteView from &#39;./../../router/RouteView&#39;;
+import SiderMenu from &#39;./../../components/SiderMenu/index&#39;;
+import &quot;./index.css&quot;
+class Home extends Component {
+    render() {
+        //接收路由配置
+        const { routers } = this.props
+        return &lt;div className=&quot;home-wrapper&quot;&gt;
+            &lt;div className=&quot;left&quot;&gt;
+                &lt;div className=&quot;user&quot;&gt;
+                    &lt;div className=&quot;user-img&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;p className=&quot;mt12&quot;&gt;你瞅啥&lt;/p&gt;
+                    &lt;b className=&quot;mt12 radius&quot;&gt;&lt;/b&gt;
+                &lt;/div&gt;
+                //侧边栏的组件
+                &lt;SiderMenu style={{ background:"#2F3B4C"}} {...this.props}&gt;&lt;/SiderMenu&gt;
+            &lt;div className=&quot;ri
+            &lt;/div&gt;ght&quot;&gt;
+                //传入RouteView当中进行处理
+                &lt;RouteView routers={routers}&gt;&lt;/RouteView&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    }
+
+}
+export default Home;
+</code></pre><h2 id="‘react-router-dom的api"><a href="#‘react-router-dom的api" class="headerlink" title="‘react-router-dom的api"></a>‘react-router-dom的api</h2><p><strong>react-router-dom提供了BrowserRouter, Route, Link等api,我们可以通过dom的事件控制路由。例如点击一个按钮进行跳转，大多数情况下我们是这种情况，所以在开发过程中，我们更多是使用React-router-dom。安装很简单npm i react-router-dom –save,安装了淘宝镜像的就用cnpm吧。</strong></p><h3 id="常用的路由api"><a href="#常用的路由api" class="headerlink" title="常用的路由api"></a>常用的路由api</h3><hr><ul><li>HashRouter和BrowserRouter</li></ul><p><strong>它们两个是路由的基本，就像盖房子必须有地基一样，我们需要将它们包裹在最外层，我们只要选择其一就可以了。现在讲它们的不同：</strong></p><blockquote><p>HashRouter</p></blockquote><p><strong>如果你使用过react-router2或3或者vue-router，你经常会发现一个现象就是url中会有个#，例如localhost:3000/#，HashRouter就会出现这种情况，它是通过hash值来对路由进行控制。如果你使用HashRouter，你的路由就会默认有这个#。</strong></p><blockquote><p>BrowserRouter</p></blockquote><p><strong>很多情况下我们则不是这种情况，我们不需要这个#，因为它看起来很怪，这时我们就需要用到BrowserRouter。</strong></p><hr><ul><li>Route</li></ul><p><strong>Route是路由的一个原材料，它是控制路径对应显示的组件。我们经常用的是exact、path以及component属性。</strong></p><pre><code>&lt;Route path=&#39;/&#39; component=&#39;&#39; exact&gt;&lt;/Route&gt;
+</code></pre><blockquote><p>exact控制匹配到/路径时不会再继续向下匹配，</p><p>path标识路由的路径</p><p>component表示路径对应显示的组件</p></blockquote><hr><ul><li>Link和NavLink的选择</li></ul><p><strong>两者都是可以控制路由跳转的，不同点是NavLink的api更多，更加满足你的需求。</strong></p><blockquote><p>Link</p></blockquote><p><strong>主要api是to，to可以接受string或者一个object，来控制url。使用方法如下</strong></p><link to="/api"><blockquote><p>NavLink</p></blockquote><p><strong>它可以为当前选中的路由设置类名、样式以及回调函数等。使用如下</strong></p><pre><code>&lt;Navlink to=&#39;&#39; activeClassName=&#39;actived&#39;&gt;
+</code></pre><p><strong>activeClassName是选中状态的类名，我们可以为其添加样式</strong></p><hr><ul><li>Switch</li></ul><p><strong>Switch常常会用来包裹Route，它里面不能放其他元素，用来只显示一个路由。</strong></p><hr></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>Post author:</strong> Ignorance</li><li class="post-copyright-link"> <strong>Post link:</strong> <a href="https://blog.csdn.net/zhang_z97" title="对react-router的封装及api">https://blog.csdn.net/zhang_z97</a></li><li class="post-copyright-license"> <strong>Copyright Notice:</strong> All articles should not be used in other businesses. All rights reserved by the author.</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/js/" rel="tag"># js</a> <a href="/tags/react/" rel="tag"># react</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/04/03/react-optimization/" rel="next" title="react组件优化及组件通讯"><i class="fa fa-chevron-left"></i> react组件优化及组件通讯</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2019/04/03/react-task/" rel="prev" title="react的概述">react的概述<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjQyNC8xODk3MQ=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概要</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/header.png" alt="Ignorance"><p class="site-author-name" itemprop="name">Ignorance</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">55</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">54</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Ignorance-of-Dong" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://blog.csdn.net/zhang_z97" target="_blank" title="CSDN"><i class="fa fa-fw fa-stack-overflow"></i> CSDN</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对react-router的封装"><span class="nav-number">1.</span> <span class="nav-text">对react-router的封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#‘react-router-dom的api"><span class="nav-number">2.</span> <span class="nav-text">‘react-router-dom的api</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的路由api"><span class="nav-number">2.1.</span> <span class="nav-text">常用的路由api</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Ignorance</span></div><div class="powered-by">备案/许可证编号为：晋ICP备18012867号"</div> <span class="post-meta-divider">|</span><div class="theme-info"><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span></span></div> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script></body></html>

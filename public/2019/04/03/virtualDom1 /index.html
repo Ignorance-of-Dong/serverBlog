@@ -1,0 +1,445 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang=""><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#ccc"><meta name="keywords" content="scholar"><meta name="keywords" content="前端文档,vue,js"><meta name="keywords" content="vue,js"><meta name="keywords" content="文档,vue,js"><meta name="keywords" content="js"><meta name="keywords" content="vuepress"><meta name="keywords" content="markdown"><meta name="keywords" content="前端笔记"><meta name="keywords" content="学习"><meta name="keywords" content="react"><meta name="keywords" content="javaScript"><meta name="author" content="Ignorance,1054914660@qq.com"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#ccc"><meta name="keywords" content="js,react,"><meta name="description" content="浅谈React的最大亮点——虚拟DOMReact非常快速是因为它从不直接操作DOM。 虚拟DOM是在DOM的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟DOM，最后再批量同步到DOM中。 在React中，render执行的结果得到的并不是真正的DOM节点，而仅仅是JavaScript对象，称之为虚拟DOM。 虚拟DOM具有批处理和高效的Diff算法，可以无需担心"><meta name="keywords" content="js,react"><meta property="og:type" content="article"><meta property="og:title" content="浅谈React的最大亮点——虚拟DOM"><meta property="og:url" content="http://my.ignorantscholar.cn/2019/04/03/virtualDom1 /index.html"><meta property="og:site_name" content="倥侗无知"><meta property="og:description" content="浅谈React的最大亮点——虚拟DOMReact非常快速是因为它从不直接操作DOM。 虚拟DOM是在DOM的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟DOM，最后再批量同步到DOM中。 在React中，render执行的结果得到的并不是真正的DOM节点，而仅仅是JavaScript对象，称之为虚拟DOM。 虚拟DOM具有批处理和高效的Diff算法，可以无需担心"><meta property="og:locale" content="default"><meta property="og:updated_time" content="2019-04-03T07:09:42.574Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="浅谈React的最大亮点——虚拟DOM"><meta name="twitter:description" content="浅谈React的最大亮点——虚拟DOMReact非常快速是因为它从不直接操作DOM。 虚拟DOM是在DOM的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟DOM，最后再批量同步到DOM中。 在React中，render执行的结果得到的并不是真正的DOM节点，而仅仅是JavaScript对象，称之为虚拟DOM。 虚拟DOM具有批处理和高效的Diff算法，可以无需担心"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Ignorance"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://my.ignorantscholar.cn/2019/04/03/virtualDom1 /"><title>浅谈React的最大亮点——虚拟DOM | 倥侗无知</title><script>var titleTime,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="Web page loss ~ ~",clearTimeout(titleTime)):(document.title="(ฅ>ω<*ฅ) ~"+OriginTitle,titleTime=setTimeout(function(){document.title=OriginTitle},2e3))})</script></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">倥侗无知</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 主页</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-档案室"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 档案室</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://my.ignorantscholar.cn/2019/04/03/virtualDom1 /"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="Ignorance"><meta itemprop="description" content=""><meta itemprop="image" content="/images/header.png"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="倥侗无知"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">浅谈React的最大亮点——虚拟DOM</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-03T15:09:41+08:00">2019-04-03</time></span> <span class="post-meta-divider">|</span><span class="page-pv"><i class="fa fa-file-o"></i> 浏览<span class="busuanzi-value" id="busuanzi_value_page_pv"></span> 次</span></div></header><div class="post-body" itemprop="articleBody"><h2 id="浅谈React的最大亮点——虚拟DOM"><a href="#浅谈React的最大亮点——虚拟DOM" class="headerlink" title="浅谈React的最大亮点——虚拟DOM"></a>浅谈React的最大亮点——虚拟DOM</h2><p><strong>React非常快速是因为它从不直接操作DOM。</strong></p><p><strong>虚拟DOM是在DOM的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟DOM，最后再批量同步到DOM中。</strong></p><p><strong>在React中，render执行的结果得到的并不是真正的DOM节点，而仅仅是JavaScript对象，称之为虚拟DOM。</strong></p><p><strong>虚拟DOM具有批处理和高效的Diff算法，可以无需担心性能问题而随时“刷新”整个页面，因为虚拟DOM可以确保只对界面上真正变化的部分进行实际的DOM操作。</strong></p><h2 id="虚拟DOM的原理："><a href="#虚拟DOM的原理：" class="headerlink" title="虚拟DOM的原理："></a>虚拟DOM的原理：</h2><p><strong>React会在内存中维护一个虚拟DOM树，对这个树进行读或写，实际上是对虚拟DOM进行。当数据变化时，React会自动更新虚拟DOM，然后将新的虚拟DOM和旧的虚拟DOM进行对比，找到变更的部分，得出一个diff，然后将diff放到一个队列里，最终批量更新这些diff到DOM中。</strong></p><h2 id="虚拟DOM的优点："><a href="#虚拟DOM的优点：" class="headerlink" title="虚拟DOM的优点："></a>虚拟DOM的优点：</h2><p><strong>最终表现在DOM上的修改只是变更的部分，可以保证非常高效的渲染。</strong></p><h2 id="虚拟DOM的缺点："><a href="#虚拟DOM的缺点：" class="headerlink" title="虚拟DOM的缺点："></a>虚拟DOM的缺点：</h2><p><strong>首次渲染大量DOM时，由于多了一层虚拟DOM的计算，会比innerHTML插入慢。</strong></p><h2 id="虚拟DOM的理解误区"><a href="#虚拟DOM的理解误区" class="headerlink" title="虚拟DOM的理解误区"></a>虚拟DOM的理解误区</h2><p><strong>对虚拟DOM的理解往往停留在：通过JavaScript对象模拟原生DOM，加上DOM Diff 极大提升了DOM操作的性能。然而，虚拟DOM最大的意义不在于性能的提升（JavaScript对象比DOM对象性能高），而在于抽象了DOM的具体实现（对DOM进行了一层抽象），这在浏览器中使用 React时不是特别明显，因为写的DOM标签跟原生的没有区别，并且最终都被渲染成了DOM，在React Native中将会有很好的说明。</strong></p><h2 id="模拟方法和渲染方法"><a href="#模拟方法和渲染方法" class="headerlink" title="模拟方法和渲染方法"></a>模拟方法和渲染方法</h2><blockquote><p>调用</p></blockquote><pre><code>let virtualDom1 = createElement(&#39;ul&#39;, {class: &#39;list&#39;}, [
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;a&#39;]),
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;b&#39;]),
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;c&#39;]),
+])
+let virtualDom2 = createElement(&#39;ul&#39;, {class: &#39;list&#39;}, [
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;1&#39;]),
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;2&#39;]),
+    createElement(&#39;li&#39;, {class: &#39;item&#39;}, [&#39;3&#39;]),
+])
+let el = render(virtualDom);
+renderDom(el, window.root);
+let patchs = diff(virtualDom1, virtualDom2);
+</code></pre><blockquote><p>生成虚拟对象的方法createElement</p></blockquote><pre><code>function createElement(type, props, children) {
+    return new Element(type, props, children)
+}
+class Element{
+    constructor(type, props, children){
+        this.type = type;
+        this.props = props;
+        this.children = children
+    }
+}
+</code></pre><blockquote><p>将虚拟对象渲染成真实DOM的render方法</p></blockquote><pre><code>//render方法将vNode转化成真实DOM
+function render(eleObj){
+    //创建元素
+    let el = document.createElement(eleObj.type);
+    //设置属性
+    for(let key in eleObj.props) {
+        setAttr(el, key, eleObj.props[key]);
+    }
+    //递归渲染子元素
+    eleObj.children.foEach(child =&gt; {
+        child = child instanceof Element ? render(child) : document.createTextNode(child);
+        el.appendChild(child);
+    })
+}
+setAttr(node, key, value) {
+    switch(key) {
+        case &#39;value&#39;:
+            if (node.tagName.toUpperCase() === &#39;INPUT&#39; || node.tagName.toUpperCase() === &#39;TEXTAREA&#39;) {
+                node.value = value;          
+            }else {
+                node.setAttribute(key, value);
+            }
+            break;
+        case &#39;style&#39;:
+            node.style.cssText = value;
+            break;
+        default:
+            node.setAttribute(key, value);
+            break;
+    }
+}
+</code></pre><blockquote><p>渲染节点到页面的方法renderDom</p></blockquote><pre><code>//将真实DOM渲染到页面
+function renderDom(el, target) {
+    target.appendChild(el);
+}
+</code></pre><h2 id="DOM-DIFF-算法"><a href="#DOM-DIFF-算法" class="headerlink" title="DOM DIFF 算法"></a>DOM DIFF 算法</h2><p><strong>DOM DIFF 就是比较两个虚拟DOM的区别，实际上就是比较两个对象的区别。根据两个虚拟对象创建出补丁，描述改变的内容。将这个补丁用来更新DOM。</strong></p><blockquote><p>【注意】不会更改所有节点，只更改有改变的部分</p></blockquote><h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><blockquote><p>差异计算：先序深度优先遍历</p></blockquote><h4 id="规则："><a href="#规则：" class="headerlink" title="规则："></a>规则：</h4><ol><li>若节点类型不相同，直接采用替换模式，{type:’REPLACE’,newNode:newNode}</li><li>当节点类型相同时，去看一下属性是否相同，产生一个属性的补丁包，比如{type:’ATTRS’,attrs:{class: ‘list-group’}</li><li>新的DOM节点不存在，也返回一个不存在的补丁包{type:’REMOVE’,index:XXX}</li><li>文本的变化{type:’TEXT’, text:1}</li></ol><hr><pre><code>//diff 算法
+let Index = 0;
+function diff(oldTree, newTree) {
+    let patches = {};
+    let index = 0;
+    //递归数比较后的结果放到补丁包中
+    walk(oldTree, newTree, index, patches);
+    return patches;
+}
+function walk(oldTree, newTree, index, patches){
+    let currentPatch = [];//每个元素都有一个补丁对象
+    if (!newTree) {
+        currentPatch.push({type:&#39;REMOVE&#39;, index})
+    } 
+    if (isString(oldTree) &amp;&amp; isString(newTree)) {
+        // 判断文本是否一致
+        if (oldTree !== newTree) {
+            currentPatch.push({type:&#39;TEXT&#39;,text:newTree}); 
+        }
+    }else if(oldTree.type === newTree.type) {
+        //比较属性是否有更改
+        let attrs = diffAttr(oldTree.props, newTree.props);
+        if(Object.keys(attrs).length) {
+            currentPatch.push({type:&#39;ATTRS&#39;, attrs});
+        }
+        // 如果有儿子节点，遍历子节点
+          diffChildren(oldTree.children, newTree.children, index, patches);
+    } else {
+        // 节点类型不同的时候，直接替换
+        currentPatch.push({type:&#39;REPLACE&#39;, newTree});
+    }
+    // 当前元素有补丁的情况下，将元素和补丁对应起来，放到大补丁包中
+    if(currentPatch.length) {
+        patches[index] = currentPatch; 
+    }
+}
+function diffAttr(oldAttrs, newAttrs) {
+    let patch = {};
+    for(let key in oldAttrs) {
+        if(oldAttrs[key] !== newAttrs[key]) {
+            patch[key] = newAttrs[key];//有可能是undefined，新节点没有旧节点的属性      
+        }
+    }
+    for(let key in newAttrs) {
+        //老节点没有新节点的属性
+        if(! oldAttrs.hasOwnProperty(key)) {
+            patch[key] = newAttrs[key]
+        }
+    }
+    return patch;
+}
+
+function diffChildren(oldChildren, newChildren, index, patches){
+    // 比较老的第一个和新的第一个
+    oldChildren.forEach((child, idx) =&gt; {
+        // 记得索引得改
+        // Index 每次传递给walk时，index是递增的，所有节点都基于一个序号实现，因此需要维护一个全局Index
+        walk(child, newChildren[idx], ++Index, patches);
+    }) 
+}
+
+
+function isString(node) {
+    return Object.prototype.toString.call(node) === &#39;[object string]&#39;;
+}
+
+
+function patch(node, patches) {
+ // 给某个元素打补丁
+
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul><li>dom结构发生改变： 直接卸载并重新create</li><li>dom结构一样： 不会卸载，但是会更新</li><li>在同一层级的子节点，他们都可以通过key开区分【同时遵循上面两点】</li></ul><h2 id="衍生："><a href="#衍生：" class="headerlink" title="衍生："></a>衍生：</h2><h3 id="加了key的好处"><a href="#加了key的好处" class="headerlink" title="加了key的好处:"></a>加了key的好处:</h3><blockquote><p>加了key值可以具体确定哪些元素被修改，便于对比新旧dom树，加快虚拟dom的渲染速度</p></blockquote><h3 id="我们该不该把map的index作为key"><a href="#我们该不该把map的index作为key" class="headerlink" title="我们该不该把map的index作为key"></a>我们该不该把map的index作为key</h3><blockquote><p>最好将数据本身的id最为key值，如果使用index作为key值，如果前后两次两次arr分别为[1,2,3,4]和[5,6,7,8]和前后两次arr分别为[1,2,3,4]和[4,3,2,1]的情况,很明显前者可以认为是DOM改变了,后者可以认为是DOM节点的位移操作,那么对于第一种情况来说index作为key和没有key值无区别,但是第二种情况用index作为key值效果没有比用数据本身作为key值好</p></blockquote><h3 id="key值必须唯一且不重复么"><a href="#key值必须唯一且不重复么" class="headerlink" title="key值必须唯一且不重复么"></a>key值必须唯一且不重复么</h3><blockquote><p>前提条件是是否为同一父节点</p></blockquote><hr><blockquote><p><a href="https://www.jianshu.com/p/8c1505ebcf0e" target="_blank" rel="noopener">参考文章：飞飞廉的简书</a></p></blockquote></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>Post author:</strong> Ignorance</li><li class="post-copyright-link"> <strong>Post link:</strong> <a href="https://blog.csdn.net/zhang_z97" title="浅谈React的最大亮点——虚拟DOM">https://blog.csdn.net/zhang_z97</a></li><li class="post-copyright-license"> <strong>Copyright Notice:</strong> All articles should not be used in other businesses. All rights reserved by the author.</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/js/" rel="tag"># js</a> <a href="/tags/react/" rel="tag"># react</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/04/03/react-question/" rel="next" title="React组件销毁中清理异步操作和取消请求"><i class="fa fa-chevron-left"></i> React组件销毁中清理异步操作和取消请求</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2019/04/03/react-optimization/" rel="prev" title="react组件优化及组件通讯">react组件优化及组件通讯<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjQyNC8xODk3MQ=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概要</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/header.png" alt="Ignorance"><p class="site-author-name" itemprop="name">Ignorance</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">55</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">54</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Ignorance-of-Dong" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://blog.csdn.net/zhang_z97" target="_blank" title="CSDN"><i class="fa fa-fw fa-stack-overflow"></i> CSDN</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅谈React的最大亮点——虚拟DOM"><span class="nav-number">1.</span> <span class="nav-text">浅谈React的最大亮点——虚拟DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟DOM的原理："><span class="nav-number">2.</span> <span class="nav-text">虚拟DOM的原理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟DOM的优点："><span class="nav-number">3.</span> <span class="nav-text">虚拟DOM的优点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟DOM的缺点："><span class="nav-number">4.</span> <span class="nav-text">虚拟DOM的缺点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟DOM的理解误区"><span class="nav-number">5.</span> <span class="nav-text">虚拟DOM的理解误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟方法和渲染方法"><span class="nav-number">6.</span> <span class="nav-text">模拟方法和渲染方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-DIFF-算法"><span class="nav-number">7.</span> <span class="nav-text">DOM DIFF 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">7.1.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则："><span class="nav-number">7.1.1.</span> <span class="nav-text">规则：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#衍生："><span class="nav-number">9.</span> <span class="nav-text">衍生：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加了key的好处"><span class="nav-number">9.1.</span> <span class="nav-text">加了key的好处:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们该不该把map的index作为key"><span class="nav-number">9.2.</span> <span class="nav-text">我们该不该把map的index作为key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#key值必须唯一且不重复么"><span class="nav-number">9.3.</span> <span class="nav-text">key值必须唯一且不重复么</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Ignorance</span></div><div class="powered-by">备案/许可证编号为：晋ICP备18012867号"</div> <span class="post-meta-divider">|</span><div class="theme-info"><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span></span></div> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script></body></html>
