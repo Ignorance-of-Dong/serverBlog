@@ -3,10 +3,19 @@
   <entry>
     <title><![CDATA[node + koa2基础]]></title>
     <url>%2F2019%2F09%2F26%2Fkoa%2F</url>
-    <content type="text"><![CDATA[node + koa2基础 使用koa2，必须保持你的node版本在7.6以上，最好实在10以上，如低于7.6版本请更新您的node版本 搭建http服务+ 使用koa2搭建服务，只需要三步 /index.js const Koa = require(&#39;koa&#39;) const app = new Koa() app.listen(3000) 使用node命令运行即可 node index.js 打开浏览器输入http://loaclhost:3000访问，页面中会显示Not Found，这是因为我们没有去指定koa该返回什么内容，这一点与express不同，koa内部会自动判断，是否有返回内容 Context对象koa内部提供了一个Context对象，表示一次对话的上下文【包括http的请求对象和响应对象】，通过操控这个对象我们可以控制返回给用户的内容 /index.js const Koa = require(&#39;koa&#39;) const app = new Koa() app.use(async (ctx, next) =&gt; { ctx.response.body = &#39;hello&#39; await next() }) app.listen(3000) 路由【koa-router】的使用const router = require(&#39;koa-router&#39;)() const Koa = require(&#39;koa&#39;) const app = new Koa() router.get(&#39;/list&#39;, ctx =&gt; { ctx.response.body = &#39;hellow, list&#39; }) router.get(&#39;/home&#39;, ctx =&gt; { ctx.response.body = &#39;hellow, home&#39; }) app.use(router.routes()).use(router.allowedMethods()) // 启动路由 中间件应用级别中间件 任何路由都会经过应用级别中间件,当执行玩成后next()去匹配相应的路由 app.use(async (ctx, next) =&gt; { await next() }) 错误处理中间件app.use(async (ctx, next) =&gt; { await next() if (ctx.status == 404) { ctx.body = &#39;404&#39; } }) 路由中间件 在匹配路由的过程中匹配到的路由会依次执行中间件,知道最后一个没有next参数 router.get(&#39;/&#39;, async (ctx, next) =&gt; { ctx.response.body = &#39;hellow&#39; ctx.response.status = 200 await next() }) router.get(&#39;/home&#39;, ctx =&gt; { ctx.body = &#39;hellow, world&#39; }) 中间件的合成 koa-compose 模块可以将多个中间件合成为一个 const Koa = require(&#39;koa&#39;) const app = new Koa() const compose = require(&#39;koa-compose&#39;) const logger = (ctx,next) =&gt; { console.log(new Date()) next() } const main = (ctx,next) =&gt; { ctx.response.body = &#39;hello world&#39; } const middleWares = compose([logger,main]) app.use(middleWares) app.listen(3000) xtemplate模板渲染【koa-xtpl】const xtpl = require(&#39;koa-xtpl&#39;) app.use(xtpl({ root: path.join(__dirname, &#39;template&#39;), // 获取到模板所在的文件夹 extname: &#39;xtpl&#39;, // 模板后缀 commands: {} })) 新建template/login/index.xtpl（模板必须以xtpl后缀结尾） &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;后台管理系统&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&quot;container-fluid&quot;&gt; hellow, world &lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 打开index.js router.get(&#39;/&#39;, async (ctx, next) =&gt; { await ctx.render(&#39;login/index&#39;, { title: new Date() }) await next() }) 运行就可以看到页面中出现 hellow, world 静态资源 如果网站提供了静态资源（图片，字体，样式，脚本），为他们一个个写路由就很麻烦，也没必要 koa-static 模块封装了这部分的请求 const Koa = require(&#39;koa&#39;) const app = new Koa() const serve = require(&#39;koa-static&#39;) const path = require(&#39;path&#39;) const main = serve(path.join(__dirname)) app.use(main) app.listen(3000) 设置之后可以直接在URL地址中输入静态资源文件名进行访问]]></content>
+    <content type="text"><![CDATA[node + koa2基础 使用koa2，必须保持你的node版本在7.6以上，最好实在10以上，如低于7.6版本请更新您的node版本 搭建http服务+ 使用koa2搭建服务，只需要三步 /index.js const Koa = require(&#39;koa&#39;) const app = new Koa() app.listen(3000) 使用node命令运行即可 node index.js 打开浏览器输入http://loaclhost:3000访问，页面中会显示Not Found，这是因为我们没有去指定koa该返回什么内容，这一点与express不同，koa内部会自动判断，是否有返回内容 Context对象koa内部提供了一个Context对象，表示一次对话的上下文【包括http的请求对象和响应对象】，通过操控这个对象我们可以控制返回给用户的内容 /index.js const Koa = require(&#39;koa&#39;) const app = new Koa() app.use(async (ctx, next) =&gt; { ctx.response.body = &#39;hello&#39; await next() }) app.listen(3000) 路由【koa-router】的使用const router = require(&#39;koa-router&#39;)() const Koa = require(&#39;koa&#39;) const app = new Koa() router.get(&#39;/list&#39;, ctx =&gt; { ctx.response.body = &#39;hellow, list&#39; }) router.get(&#39;/home&#39;, ctx =&gt; { ctx.response.body = &#39;hellow, home&#39; }) app.use(router.routes()).use(router.allowedMethods()) // 启动路由 中间件应用级别中间件 任何路由都会经过应用级别中间件,当执行玩成后next()去匹配相应的路由 app.use(async (ctx, next) =&gt; { await next() }) 错误处理中间件app.use(async (ctx, next) =&gt; { await next() if (ctx.status == 404) { ctx.body = &#39;404&#39; } }) 路由中间件 在匹配路由的过程中匹配到的路由会依次执行中间件,知道最后一个没有next参数 router.get(&#39;/&#39;, async (ctx, next) =&gt; { ctx.response.body = &#39;hellow&#39; ctx.response.status = 200 await next() }) router.get(&#39;/home&#39;, ctx =&gt; { ctx.body = &#39;hellow, world&#39; }) 中间件的合成 koa-compose 模块可以将多个中间件合成为一个 const Koa = require(&#39;koa&#39;) const app = new Koa() const compose = require(&#39;koa-compose&#39;) const logger = (ctx,next) =&gt; { console.log(new Date()) next() } const main = (ctx,next) =&gt; { ctx.response.body = &#39;hello world&#39; } const middleWares = compose([logger,main]) app.use(middleWares) app.listen(3000) xtemplate模板渲染【koa-xtpl】app.use(xtpl({ root: path.join(__dirname, &#39;template&#39;), // 获取到模板所在的文件夹 extname: &#39;xtpl&#39;, // 模板后缀 commands: {} })) 新建template/login/index.xtpl（模板必须以xtpl后缀结尾） &lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;后台管理系统&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&quot;container-fluid&quot;&gt; hellow, world &lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 打开index.js router.get(&#39;/&#39;, async (ctx, next) =&gt; { await ctx.render(&#39;login/index&#39;, { title: new Date() }) await next() }) 运行就可以看到页面中出现 hellow, world 静态资源 如果网站提供了静态资源（图片，字体，样式，脚本），为他们一个个写路由就很麻烦，也没必要 koa-static 模块封装了这部分的请求 const Koa = require(&#39;koa&#39;) const app = new Koa() const serve = require(&#39;koa-static&#39;) const path = require(&#39;path&#39;) const main = serve(path.join(__dirname)) app.use(main) app.listen(3000) 设置之后可以直接在URL地址中输入静态资源文件名进行访问]]></content>
+      <tags>
+        <tag>node</tag>
+        <tag>koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[node简单的压缩/解压缩]]></title>
+    <url>%2F2019%2F08%2F10%2Fnode_zip%2F</url>
+    <content type="text"><![CDATA[node简单的压缩/解压缩 为了减少网络传输数据量，http传输过程中会采用通用的压缩算法来压缩数据，gzip属于最常用的压缩算法。 压缩文件//压缩文件 let zlib=require(&quot;zlib&quot;) let fs=require(&quot;fs&quot;) var gzip=zlib.createGzip() let rs=fs.createReadStream(&#39;./copy.js&#39;) let ws=fs.createWriteStream(&#39;./copy.js.gz&#39;) re.pipe(gzip).pipe.(ws) 解压文件//解压文件 let zlib=require(&quot;zlib&quot;) let fs=require(&quot;fs&quot;) var gzip=zlib.createGzip() let rs=fs.createReadStream(&#39;./copy.js.gz&#39;) let ws=fs.createWriteStream(&#39;./copy.js&#39;) re.pipe(gzip).pipe.(ws) 服务端的gzip压缩//服务端的gzip压缩 //先起一个服务，判断req.headers[&#39;accept-encoding&#39;]是否包含gzip let server=http.createServer(function(req,res){ console.log(req) var zp=req.headers[[&#39;accept-encoding&#39;]] console.log(zp) if(zp.indexOf(&#39;gzip&#39;)!=-1){//判断是否需要gzip压缩 var gzip = zlib.createGzip(); res.writeHead(200, {//记得响应 Content-Encoding，告诉浏览器：文件被 gzip 压缩过 &#39;Content-Encoding&#39;: &#39;gzip&#39; }); let ws=fs.createWriteStream(&quot;./cop.js.gz&quot;) fs.createReadStream(&quot;./cop.js&quot;).pipe(gzip).pipe(ws); }else{ fs.createReadStream(&quot;./cop.js&quot;).pipe(res); } res.end() }).listen(3000)]]></content>
       <tags>
         <tag>js</tag>
-        <tag>koa</tag>
+        <tag>node</tag>
       </tags>
   </entry>
   <entry>
@@ -163,8 +172,8 @@
     <url>%2F2019%2F04%2F01%2Fvue-react-diff%2F</url>
     <content type="text"><![CDATA[vue和react的区别 react和vue都是组件化，整体功能类似，但是设计思路有有所不同， 出身 react React是由Facebook创建的JavaScript UI框架，它的诞生改变了JavaScript世界，最大的一个改变就是React推广了Virtual DOM， 并且创造了新的语法 – JSX，JSX 允许在JavaScript中写html代码。 vue Vue是由尤大大开发的一个MVVM框架，它采用的是模板系统而不是JSX。 模板渲染方式不同 react React是通过JSX来渲染模板，React通过原生JS实现模板中的常见语法，比如说条件啊、循环啊、三元运算符啊等，都是通过JS语法实现 vue vue是通过扩展的HTML来进行模板的渲染，Vue是在和组件代码分离的单独模板中，通过指令v-if、v-for等实现 Virtual DOM react React默认是通过比较引用得方式进行，当某个组件的状态发生变化时，它会以该组件为根，重新渲染整个组件子树。如果想避免不必要的子组件重新渲染，你需要在所有可能的地方使用PureComponent，或者手动实现shouldComponentUpdate方法。但是Vue中，你可以认定它是默认的优化。 vue Vue可以更快地计算出Virtual DOM的差异，这是由于它在渲染过程中，由于vue会跟踪每一个组件的依赖收集，通过setter / getter 以及一些函数的劫持，能够精确地知道变化，并在编译过程标记了static静态节点，在接下来新的Virtual DOM 并且和原来旧的 Virtual DOM进行比较时候，跳过static静态节点。所以不需要重新渲染整个组件树。 数据流Vuex 和 Redux react 在React中，我们需要每一个组件都引入connect，目的就是把props和dispatch连接起来。redux只能通过dispatch，然后在reducer里，接收到action，通过判断action的type，从而进行对应的操作，redux不能直接调用reducer进行修改！！ vue 在vuex中，我们可以通过在main.js中，引入 store文件夹，并把store挂载到new Vue实例中，这样我们可以直接通过$store灵活使用。 你可以通过dispatch和commit进行更新数据， 通过this.$store.state.xx读取数据 你可以通过mapState / mapActions 进行vuex的操作 总结 组件的创建方式不一样 react使用class和函数创建组件【只有局部】 vue则使用vue的实例的components方法和components属性【有局部和全局一说】 在react中没有指令，计算属性，watch监听，computed，这些内容 在react组件中只有几个概念，生命周期，state。props。合成事件 在vue中可以使用v-modle完成数据的双向绑定，而在react并没有指令的概念，所以使用受控组件代替 在vue中使用getter，setter拦截器，处理数据的绑定，而react则使用的是setState手动触发]]></content>
       <tags>
-        <tag>react</tag>
         <tag>vue</tag>
+        <tag>react</tag>
       </tags>
   </entry>
   <entry>
@@ -273,8 +282,8 @@
     <url>%2F2019%2F03%2F28%2Fnodemd%2F</url>
     <content type="text"><![CDATA[node配置一、安装node： 1.下载并安装NVM脚本 curl https://raw.githubusercontent.com/creationix/nvm/v0.13.1/install.sh | bash source ~/.bash_profile 2.列出所需要的版本 nvm list-remote 3.安装相应的版本 nvm install v8.3.0 4.查看已安装的版本 nvm list 5.切换版本 nvm use v8.3.0 6.设置默认版本 nvm alias default v8.3.0]]></content>
       <tags>
-        <tag>linux服务器配置</tag>
         <tag>node</tag>
+        <tag>linux服务器配置</tag>
       </tags>
   </entry>
   <entry>
@@ -445,21 +454,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Vue transfrom属性]]></title>
-    <url>%2F2019%2F01%2F27%2Ftransition%2F</url>
-    <content type="text"><![CDATA[Vue transfrom属性vue中的动画可以使用transfrom组件完成transfrom组件提供两个过渡状态 进入 enter 离开 leave 每个状态有三个步骤【自动添加类名 v代表的是transfrom组件上的name属性指定的值】 v-enter v-enter-active v-enter-to v-leave v-leave-active v-leave-to 通过结合css过渡动画和关键帧动画可以实现切换动画 动画触发场景 跟组件初始化渲染 v-show，v-if，component动态组件切换的时候 router-view 路由切换的时候 transfrom 组件还可以通过属性去改变不同状态自动添加的class类名 enter-active-class=”animated slideInDown” leave-active-class=”animated bounceOutDown” 这种方式适合配合第三方动画库实现动画&lt;transition v-on:before-enter=&quot;berforeEnter&quot; //可以做一些初始化样式设置 v-on:enter=&quot;enter&quot; //执行js操作dom完成的动画效果 v-on:after-enter=&quot;afterEnter&quot; //动画执行结束（也就是在enter中调用了done函数） v-on:enter-cancelled=&quot;enterCancelled&quot; 动画还没有结束，就执行下一次动画了，这时候不会触发动画结束，而是触发这个时间（取消） v-on:before-leave=&quot;beforeLeave&quot; v-on:leave=&quot;leave&quot; v-on:after-leave=&quot;afterLeave&quot; v-on:leave-cancelled=&quot;leaveCancelled&quot; &gt; &lt;!--...--&gt; &lt;/transition&gt;]]></content>
-      <tags>
-        <tag>vue</tag>
-        <tag>transfrom</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[vue中的Dom操作]]></title>
     <url>%2F2019%2F01%2F27%2Fvue-dom%2F</url>
     <content type="text"><![CDATA[vue中的Dom操作在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作dom操作的方法 transition:组件中的钩子函数可以接受一个el属性，作用动画的dom，可以多dom添加实现动画效果 ref：ref可以作用在dom元素和组件元素上，作用在dom元素上通过refs获取到就是dom节点，作用在组件元素上获取到组件实例 在mounted生命周期中我们可以使用document的dom的操作方法，比如添加一些滚动事件… #el：可以获取组件的根节点元素 ￥mount()：可以手动渲染组件，成为真实的dom节点 事件中的e.target可以获取都绑定事件的dom，但不准确，因为获取到的是点击最内层的元素，当然如果作用在表单元素就无所谓 指令也可以操作dom的]]></content>
       <tags>
         <tag>vue</tag>
         <tag>dom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue transfrom属性]]></title>
+    <url>%2F2019%2F01%2F27%2Ftransition%2F</url>
+    <content type="text"><![CDATA[Vue transfrom属性vue中的动画可以使用transfrom组件完成transfrom组件提供两个过渡状态 进入 enter 离开 leave 每个状态有三个步骤【自动添加类名 v代表的是transfrom组件上的name属性指定的值】 v-enter v-enter-active v-enter-to v-leave v-leave-active v-leave-to 通过结合css过渡动画和关键帧动画可以实现切换动画 动画触发场景 跟组件初始化渲染 v-show，v-if，component动态组件切换的时候 router-view 路由切换的时候 transfrom 组件还可以通过属性去改变不同状态自动添加的class类名 enter-active-class=”animated slideInDown” leave-active-class=”animated bounceOutDown” 这种方式适合配合第三方动画库实现动画&lt;transition v-on:before-enter=&quot;berforeEnter&quot; //可以做一些初始化样式设置 v-on:enter=&quot;enter&quot; //执行js操作dom完成的动画效果 v-on:after-enter=&quot;afterEnter&quot; //动画执行结束（也就是在enter中调用了done函数） v-on:enter-cancelled=&quot;enterCancelled&quot; 动画还没有结束，就执行下一次动画了，这时候不会触发动画结束，而是触发这个时间（取消） v-on:before-leave=&quot;beforeLeave&quot; v-on:leave=&quot;leave&quot; v-on:after-leave=&quot;afterLeave&quot; v-on:leave-cancelled=&quot;leaveCancelled&quot; &gt; &lt;!--...--&gt; &lt;/transition&gt;]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>transfrom</tag>
       </tags>
   </entry>
   <entry>
@@ -493,16 +502,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[sass基本语法使用]]></title>
-    <url>%2F2018%2F08%2F04%2Fsass%2F</url>
-    <content type="text"><![CDATA[1/26/2019 10:54:49 AM sass学过CSS的人都知道，它不是一种编程语言。你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。基本语法 变量SASS允许使用变量，所有变量以$开头。 $blue : #1875e7; div { color : $blue; } 如果变量需要镶嵌在字符串之中，就必须需要写在#{}之中。 $side : left; .rounded { border-#{$side}-radius: 5px; } 计算功能SASS允许在代码中使用算式： body { margin: (14px/2); top: 50px + 100px; right: $var * 10%; } 嵌套SASS允许选择器嵌套。比如，下面的CSS代码： div h1 { color : red; } 可以写成： div { hi { color:red; } } 代码的重用 【继承】 SASS允许一个选择器，继承另一个选择器。比如，现有class1： .class1 { border: 1px solid #ddd; } class2要继承class1，就要使用@extend命令： .class2 { @extend .class1; font-size:120%; } MixinMixin有点像C语言的宏（macro），是可以重用的代码块。使用@mixin命令，定义一个代码块。 @mixin left { float: left; margin-left: 10px; } 使用@include命令，调用这个mixin。 div { @include left; } mixin的强大之处，在于可以指定参数和缺省值。 @mixin left($value: 10px) { float: left; margin-right: $value; } 使用的时候，根据需要加入参数： div { @include left(20px); } 下面是一个mixin的实例，用来生成浏览器前缀。 @mixin rounded($vert, $horz, $radius: 10px) { border-#{$vert}-#{$horz}-radius: $radius; -moz-border-radius-#{$vert}#{$horz}: $radius; -webkit-border-#{$vert}-#{$horz}-radius: $radius; } 使用的时候，可以像下面这样调用： .navbar li { @include rounded(top, left); } .footer { @include rounded(top, left, 5px); } 插入文件@import命令，用来插入外部文件。 @import &quot;path/filename.scss&quot;; 如果插入的是.css文件，则等同于css的import命令。 @import &quot;foo.css&quot;; 高级用法 ### 1. 条件语句 #### @if可以用来判断： p { @if 1 + 1 == 2 { border: 1px solid; } @if 5 &lt; 3 { border: 2px dotted; } } #### 配套的还有@else命令： @if lightness($color) &gt; 30% { background-color: #000; } @else { background-color: #fff; } ### 2. 循环语句 #### SASS支持for循环： @for $i from 1 to 10 { .border-#{$i} { border: #{$i}px solid blue; } } #### 也支持while循环： $i: 6; @while $i &gt; 0 { .item-#{$i} { width: 2em * $i; } $i: $i - 2; } #### each命令，作用与for类似： @each $member in a, b, c, d { .#{$member} { background-image: url(&quot;/image/#{$member}.jpg&quot;); } } ### 3. 自定义函数 #### SASS允许用户编写自己的函数。 @function double($n) { @return $n * 2; } #sidebar { width: double(5px); }]]></content>
-      <tags>
-        <tag>css</tag>
-        <tag>scss</tag>
-        <tag>sass</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Vue slot-scope的理解（适合初学者）]]></title>
     <url>%2F2018%2F08%2F04%2Fvue%20slot-scope%2F</url>
     <content type="text"><![CDATA[Vue slot-scope的理解（适合初学者） 1/26/2019 2:58:04 PM Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。 实际上，插槽的概念很简单 slot 概念：插槽，也就是槽，是组件的一块HTML模板，这块模板显示不显示，以及怎样显示由父组件来决定。 插槽可以分为3部分来说 单个插槽 首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。 单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。 下面通过一个例子来展示。 父组件： &lt;div class=&quot;slot-righ&quot;&gt; &lt;p&gt;22222&lt;/p&gt; &lt;Slo&gt; &lt;div class=&quot;con&quot;&gt; 111111 &lt;/div&gt; &lt;/Slo&gt; &lt;/div&gt; 子组件： &lt;div class=&quot;sol&quot;&gt; &lt;p&gt;11111&lt;/p&gt; &lt;slot&gt;&lt;/slot&gt; &lt;/div&gt; 具名插槽 匿名插槽没有名称属性，所以是匿名插槽，那么，插槽加了名称属性，就变成了具名插槽。具名插槽可以在一个组件中出现Ñ次，出现在不同的位置。下面的例子，一个就是有两个具名插槽状语从句：单个插槽的组件，这三个插槽被父组件用同一套的CSS样式显示了出来，不同的是内容上略有区别。 下面通过一个例子来展示。 父组件： &lt;div class=&quot;slot-righ&quot;&gt; &lt;p&gt;22222&lt;/p&gt; &lt;Slo&gt; &lt;div class=&quot;con&quot; slot=&quot;up&quot;&gt; 111111 &lt;/div&gt; &lt;/Slo&gt; &lt;/div&gt; 子组件： &lt;div class=&quot;sol&quot;&gt; &lt;p&gt;11111&lt;/p&gt; &lt;slot name=&quot;up&quot;&gt;&lt;/slot&gt;//具名插槽 &lt;/div&gt; 作用域插槽| 带数据的插槽 最后，就是我们的作用域插槽。这个稍微难理解一点。官方叫它作用域插槽，实际上，对比前面两种插槽，我们可以叫它带数据的插槽。什么意思呢，就是前面两种，都是在组件的模板里面写 下面通过一个例子来展示。 父组件： &lt;div class=&quot;slot-righ&quot;&gt; &lt;p&gt;22222&lt;/p&gt; &lt;Slo&gt; &lt;div class=&quot;con&quot; slot-scope=&quot;user&quot;&gt;//父组件拿到数据 {{user.data}} &lt;/div&gt; &lt;/Slo&gt; &lt;/div&gt; 子组件： &lt;template&gt; &lt;div class=&quot;sol&quot;&gt; &lt;p&gt;11111&lt;/p&gt; &lt;slot :data=&quot;data&quot;&gt;&lt;/slot&gt;//这里再插槽上绑定数据 &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { data(){ return { data:11111111 } } } &lt;/script&gt; 正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。]]></content>
@@ -510,6 +509,16 @@
         <tag>js</tag>
         <tag>vue</tag>
         <tag>slot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sass基本语法使用]]></title>
+    <url>%2F2018%2F08%2F04%2Fsass%2F</url>
+    <content type="text"><![CDATA[1/26/2019 10:54:49 AM sass学过CSS的人都知道，它不是一种编程语言。你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。基本语法 变量SASS允许使用变量，所有变量以$开头。 $blue : #1875e7; div { color : $blue; } 如果变量需要镶嵌在字符串之中，就必须需要写在#{}之中。 $side : left; .rounded { border-#{$side}-radius: 5px; } 计算功能SASS允许在代码中使用算式： body { margin: (14px/2); top: 50px + 100px; right: $var * 10%; } 嵌套SASS允许选择器嵌套。比如，下面的CSS代码： div h1 { color : red; } 可以写成： div { hi { color:red; } } 代码的重用 【继承】 SASS允许一个选择器，继承另一个选择器。比如，现有class1： .class1 { border: 1px solid #ddd; } class2要继承class1，就要使用@extend命令： .class2 { @extend .class1; font-size:120%; } MixinMixin有点像C语言的宏（macro），是可以重用的代码块。使用@mixin命令，定义一个代码块。 @mixin left { float: left; margin-left: 10px; } 使用@include命令，调用这个mixin。 div { @include left; } mixin的强大之处，在于可以指定参数和缺省值。 @mixin left($value: 10px) { float: left; margin-right: $value; } 使用的时候，根据需要加入参数： div { @include left(20px); } 下面是一个mixin的实例，用来生成浏览器前缀。 @mixin rounded($vert, $horz, $radius: 10px) { border-#{$vert}-#{$horz}-radius: $radius; -moz-border-radius-#{$vert}#{$horz}: $radius; -webkit-border-#{$vert}-#{$horz}-radius: $radius; } 使用的时候，可以像下面这样调用： .navbar li { @include rounded(top, left); } .footer { @include rounded(top, left, 5px); } 插入文件@import命令，用来插入外部文件。 @import &quot;path/filename.scss&quot;; 如果插入的是.css文件，则等同于css的import命令。 @import &quot;foo.css&quot;; 高级用法 ### 1. 条件语句 #### @if可以用来判断： p { @if 1 + 1 == 2 { border: 1px solid; } @if 5 &lt; 3 { border: 2px dotted; } } #### 配套的还有@else命令： @if lightness($color) &gt; 30% { background-color: #000; } @else { background-color: #fff; } ### 2. 循环语句 #### SASS支持for循环： @for $i from 1 to 10 { .border-#{$i} { border: #{$i}px solid blue; } } #### 也支持while循环： $i: 6; @while $i &gt; 0 { .item-#{$i} { width: 2em * $i; } $i: $i - 2; } #### each命令，作用与for类似： @each $member in a, b, c, d { .#{$member} { background-image: url(&quot;/image/#{$member}.jpg&quot;); } } ### 3. 自定义函数 #### SASS允许用户编写自己的函数。 @function double($n) { @return $n * 2; } #sidebar { width: double(5px); }]]></content>
+      <tags>
+        <tag>css</tag>
+        <tag>scss</tag>
+        <tag>sass</tag>
       </tags>
   </entry>
 </search>

@@ -4,24 +4,14 @@
 /node_modules
 /.pnp
 .pnp.js
+/public
 
 # testing
 /coverage
 
 # production
-/build
-/copy_item_obkoro
-/scaffolds
-/source
-/themes
-/_config.yml
-/db.json
-/gulpfile.js
-/handleImg.js
-/package-lock.json
-/package.json
-/yarn.lock
-public
+
+
 
 # misc
 .DS_Store

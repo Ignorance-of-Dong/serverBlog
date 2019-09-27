@@ -1,0 +1,26 @@
+menu:
+#  项目作品: /projects
+#  关于我: /aboutme
+rss: /atom.xml
+# description: blog description
+social:
+  github: https://github.com/lenbo-ma
+  twitter: https://twitter.com/lenbo_
+#  weibo: 
+#  stack_overflow: 
+#  facebook: 
+#  google_plus: 
+
+page_comment: false
+logo: /images/logo2.jpg
+background:
+  cover: /images/background-cover.jpg
+  color: cover-blue
+
+archive_date_format: MMM DD
+fancybox: true
+
+# duoshuo_shortname: 
+
+# google_analytics: 
+favicon: /images/favicon.png
