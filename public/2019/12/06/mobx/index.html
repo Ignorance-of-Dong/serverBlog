@@ -1,0 +1,524 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang=""><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#ccc"><meta name="keywords" content="scholar"><meta name="keywords" content="前端文档,vue,js"><meta name="keywords" content="vue,js"><meta name="keywords" content="文档,vue,js"><meta name="keywords" content="js"><meta name="keywords" content="vuepress"><meta name="keywords" content="markdown"><meta name="keywords" content="前端笔记"><meta name="keywords" content="学习"><meta name="keywords" content="react"><meta name="keywords" content="javaScript"><meta name="author" content="Ignorance,1054914660@qq.com"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#ccc"><meta name="keywords" content="js,mobx,"><meta name="description" content="👑Mobx👑 简单的，可扩展的状态管理器  👀如何使用使用👀npm install mobx  npm install mobx-react 👒核心API👒😻observable😻 使用  observable(value) @observable classProperty = value observable的值可以是js的基本类型，引用类型，普通对象，类实例，数组和映射，匹配"><meta name="keywords" content="js,mobx"><meta property="og:type" content="article"><meta property="og:title" content="👑Mobx.👑"><meta property="og:url" content="http://my.ignorantscholar.cn/2019/12/06/mobx/index.html"><meta property="og:site_name" content="倥侗无知"><meta property="og:description" content="👑Mobx👑 简单的，可扩展的状态管理器  👀如何使用使用👀npm install mobx  npm install mobx-react 👒核心API👒😻observable😻 使用  observable(value) @observable classProperty = value observable的值可以是js的基本类型，引用类型，普通对象，类实例，数组和映射，匹配"><meta property="og:locale" content="default"><meta property="og:updated_time" content="2019-12-06T07:27:34.208Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="👑Mobx.👑"><meta name="twitter:description" content="👑Mobx👑 简单的，可扩展的状态管理器  👀如何使用使用👀npm install mobx  npm install mobx-react 👒核心API👒😻observable😻 使用  observable(value) @observable classProperty = value observable的值可以是js的基本类型，引用类型，普通对象，类实例，数组和映射，匹配"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Ignorance"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://my.ignorantscholar.cn/2019/12/06/mobx/"><title>👑Mobx.👑 | 倥侗无知</title><script>var titleTime,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="Web page loss ~ ~",clearTimeout(titleTime)):(document.title="(ฅ>ω<*ฅ) ~"+OriginTitle,titleTime=setTimeout(function(){document.title=OriginTitle},2e3))})</script></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">倥侗无知</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 主页</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-档案室"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 档案室</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://my.ignorantscholar.cn/2019/12/06/mobx/"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="Ignorance"><meta itemprop="description" content=""><meta itemprop="image" content="/images/headers.png"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="倥侗无知"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">👑Mobx.👑</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-06T15:28:01+08:00">2019-12-06</time></span> <span class="post-meta-divider">|</span><span class="page-pv"><i class="fa fa-file-o"></i> 浏览<span class="busuanzi-value" id="busuanzi_value_page_pv"></span> 次</span></div></header><div class="post-body" itemprop="articleBody"><h1 id="👑Mobx👑"><a href="#👑Mobx👑" class="headerlink" title="👑Mobx👑"></a>👑Mobx👑</h1><blockquote><p>简单的，可扩展的状态管理器</p></blockquote><h2 id="👀如何使用使用👀"><a href="#👀如何使用使用👀" class="headerlink" title="👀如何使用使用👀"></a>👀如何使用使用👀</h2><pre><code>npm install mobx
+
+npm install mobx-react
+</code></pre><h2 id="👒核心API👒"><a href="#👒核心API👒" class="headerlink" title="👒核心API👒"></a>👒核心API👒</h2><h3 id="😻observable😻"><a href="#😻observable😻" class="headerlink" title="😻observable😻"></a>😻observable😻</h3><blockquote><p>使用</p></blockquote><pre><code>observable(value)
+@observable classProperty = value
+</code></pre><p><strong>observable的值可以是js的基本类型，引用类型，普通对象，类实例，数组和映射，匹配类型应用转换规则：</strong></p><h4 id="🐢-observable🐢"><a href="#🐢-observable🐢" class="headerlink" title="🐢@observable🐢"></a>🐢@observable🐢</h4><pre><code>import * as React from &#39;react&#39;
+import {observer, inject} from &#39;mobx-react&#39;
+import Stores from &quot;./store&quot;;
+@inject(&#39;Pubcli&#39;)
+@observer
+class IntegerStep extends React.Component&lt;any, any&gt; {
+    Stores = Stores
+    render() {
+        console.log(this.props, &#39;Stores&#39;)
+        let { changValue, total } = this.props.Pubcli
+        return &lt;&gt;
+            &lt;div&gt;{total}&lt;/div&gt;
+
+            &lt;button onClick={() =&gt; {
+                changValue()
+            }}&gt;change&lt;/button&gt;
+
+        &lt;/&gt;
+    }
+}
+export default IntegerStep
+</code></pre><hr><pre><code>import { observable, configure, runInAction, action, computed } from &quot;mobx&quot;;
+
+
+// configure({ enforceActions: &#39;always&#39; }) // 强制进行action
+
+
+class Pubcli {
+    @observable price = 1
+    changValue = () =&gt; {
+        this.price = this.price + 1
+    }
+
+    @computed get total() {
+        return this.price * 10
+    }
+}
+
+export default new Pubcli()
+</code></pre><hr><h4 id="🐍规则：🐍"><a href="#🐍规则：🐍" class="headerlink" title="🐍规则：🐍"></a>🐍规则：🐍</h4><ul><li><p>Map: 会返回一个新的Observerable Map</p><p> observable.map(values, options?)</p></li></ul><hr><p><strong>创建一个动态键的observerable映射</strong></p><p><strong>下列observable映射所暴露的方法是依据Es6 Map规范</strong></p><blockquote><ul><li>has(key) : 返回映射是否有提供键对应的项</li><li>set(key, value) : 把定键的值设置为value，提供的键如果不存在的话，那么他会被添加到映射中</li><li>delete(key) : 把给定键和它 的值从映射中删除</li><li>get(key) : 返回给定键的值（或 undefined）</li><li>keys() : 返回映射中所有存在的所有键的迭代器，插入顺序会被保留</li><li>value() : 返回映射中所有存在的所有值的迭代器，插入顺序会被保留</li><li>entries() : 返回一个（保留插入顺序）的数组迭代器，映射中的每个键值都会对应数组中的一项[key, value]</li><li>clean() : 移除映射中的所有项</li><li>size : 返回映射中项的数量</li></ul></blockquote><hr><ul><li>数组：会返回一个Observerable Array</li></ul><hr><ul><li>没有原型的对象： 那么对象会被克隆并且所有属性都会被转成可观察的</li></ul><hr><ul><li>有原型的对象【javascript原始数据类型或者函数】： 返回一个Boxed Observerable</li></ul><h3 id="🌳如何对observable做出响应🌳"><a href="#🌳如何对observable做出响应🌳" class="headerlink" title="🌳如何对observable做出响应🌳"></a>🌳如何对observable做出响应🌳</h3><h4 id="🌲-computed-计算值🌲"><a href="#🌲-computed-计算值🌲" class="headerlink" title="🌲@computed 计算值🌲"></a>🌲@computed 计算值🌲</h4><blockquote><p>计算值是根据现有状态或其他计算值所衍生的值，计算是经过高度优化，因此在计算某些值的时候尽可能的使用它</p></blockquote><p><strong>计算值如何使用observable第一条以举出了例子</strong></p><ul><li>getter // 用来获取计算出的结果值</li></ul><hr><pre><code>get total() {
+    return this.price * this.amount
+},
+</code></pre><ul><li>setter // 不能直接改变值，但是可以做逆向衍生</li></ul><hr><pre><code>set total(total) {
+    this.price = total / this.amount // 从 total 中推导出 price
+}
+</code></pre><h4 id="🍙autorun-自定义反应🍙"><a href="#🍙autorun-自定义反应🍙" class="headerlink" title="🍙autorun // 自定义反应🍙"></a>🍙autorun // 自定义反应🍙</h4><p><strong>适用于打印日志，持久化或更新UI代码，当使用autorun时，所提供的函数总时立即被触发，相比之下，computed创建的函数只有当他有自己的观察者才会计算，否则认为他的值是不相关的</strong></p><pre><code>disposer = autorun(() =&gt; {
+    console.log(this.price)
+});
+</code></pre><h4 id="🎨when-自定义反应🎨"><a href="#🎨when-自定义反应🎨" class="headerlink" title="🎨when //自定义反应🎨"></a>🎨when //自定义反应🎨</h4><p><strong>when观察值，当值满足条件的时，就会执行执行第二参数，when需要写在constructor内，否者会被当做原生的when去执行</strong></p><pre><code>constructor () {
+    when(
+        () =&gt; this.total &gt; 20,
+        () =&gt; this.init()
+    )
+}
+
+@observable price = 1
+
+@computed get total() {
+    return this.price * 10
+}
+
+init() {
+    console.log(this.count++, &#39;否者&#39;)
+}
+</code></pre><h4 id="👹reaction-autorun-的变种👹"><a href="#👹reaction-autorun-的变种👹" class="headerlink" title="👹reaction // autorun 的变种👹"></a>👹reaction // autorun 的变种👹</h4><p><strong>接受两个函数参数，第一个函数是根据可观察函数，数据变化后，返回的一个新值，该值作为第二个函数的参数</strong></p><pre><code>@observable todos = [
+    {
+        title: &quot;Make coffee&quot;,
+        done: true,
+    },
+    {
+        title: &quot;Find biscuit&quot;,
+        done: false
+    }
+]
+
+reactions = reaction( // 当被观察的值改变时，执行
+    () =&gt; this.todos.map(todo =&gt; todo.title),
+    titles =&gt; console.log(&quot;reaction oy:&quot;, titles.join(&quot;, &quot;))
+);
+
+changValue = () =&gt; {
+    this.todos = [
+        ...this.todos,
+        {
+            title: &quot;Find biscuit&quot;,
+            done: false
+        }
+    ]
+    this.price = this.price + 1
+}
+</code></pre><h4 id="⌛-observer-mobx-react⌛"><a href="#⌛-observer-mobx-react⌛" class="headerlink" title="⌛@observer // mobx-react⌛"></a>⌛@observer // mobx-react⌛</h4><p><strong>observer函数或装饰器可以将react组件转换成响应式组件，他用mobx.autorun包装了组件的render函数，以确保任何组件渲染的数据变化时都可以强制刷新组件，observer是单独由mobx-react提供的</strong></p><pre><code>import {observer, inject} from &quot;mobx-react&quot;;
+@inject(&#39;Pubcli&#39;)
+@observer
+class IntegerStep extends React.Component&lt;any, any&gt; {
+    render() {
+        console.log(this.props, &#39;Stores&#39;)
+        let { changValue, total } = this.props.Pubcli
+        return &lt;&gt;
+            &lt;div&gt;{total}&lt;/div&gt;
+
+            &lt;button onClick={() =&gt; {
+                changValue()
+            }}&gt;change&lt;/button&gt;
+
+        &lt;/&gt;
+    }
+}
+export default IntegerStep
+</code></pre><blockquote><p>无状态函数组件</p></blockquote><pre><code>import {observer, inject} from &quot;mobx-react&quot;;
+
+const IntegerStep = inject(&#39;Pubcli&#39;)(observer((props) =&gt; {
+    let { changValue, total } = props.Pubcli
+    console.log(props)
+    return &lt;&gt;
+        &lt;div&gt;{total}&lt;/div&gt;
+
+        &lt;button onClick={() =&gt; {
+            changValue()
+        }}&gt;change&lt;/button&gt;
+
+    &lt;/&gt;
+}))
+export default IntegerStep
+</code></pre><blockquote><p>如上我们发现了inject这个函数【是将组件连接到提供的store】</p></blockquote><ul><li>使用Provider注入stores</li></ul><p><strong>mobx-react提供了Provider组件，它使用了react的上下文（context）机制，可以用来向下传递stores，要连接到这些stores，需要传递一个stores名称给inject，这使得stores可以做为组件得props使用</strong></p><p>上面有完整得例子🔜⤴</p><blockquote><p>componentWillReact(生命周期钩子函数)</p></blockquote><p><strong>改变react组件有多种状态，这样我们很难知道，组件是通过什么改变来进行数据渲染，使用一个新得生命周期函数componentWillReact，当组件因为他观察得数据发生改变时，这时候componentWillReact会被触发，从而找到渲染源</strong></p><pre><code>import {observer, inject} from &quot;mobx-react&quot;;
+@inject(&#39;Pubcli&#39;)
+@observer
+class IntegerStep extends React.Component&lt;any, any&gt; {
+
+    componentWillReact() {
+        console.log(&quot;I will re-render, since the todo has changed!&quot;);
+    }
+    render() {
+        console.log(this.props, &#39;Stores&#39;)
+        let { changValue, total } = this.props.Pubcli
+        return &lt;&gt;
+            &lt;div&gt;{total}&lt;/div&gt;
+
+            &lt;button onClick={() =&gt; {
+                changValue()
+            }}&gt;change&lt;/button&gt;
+
+        &lt;/&gt;
+    }
+}
+export default IntegerStep
+</code></pre><blockquote><ul><li>componentWillReac不接受任何参数</li><li>componentWillReact初始化渲染前不会触发</li></ul></blockquote><h3 id="🔗改变-observables🔗"><a href="#🔗改变-observables🔗" class="headerlink" title="🔗改变 observables🔗"></a>🔗改变 observables🔗</h3><h4 id="📙action-动作-📙"><a href="#📙action-动作-📙" class="headerlink" title="📙action (动作)📙"></a>📙action (动作)📙</h4><p><strong>任何应用都是有动作得，动作是用来修改状态得东西</strong></p><blockquote><p>action</p></blockquote><pre><code>import { observable, action } from &#39;mobx&#39;
+
+class States {
+
+    @observable timer = null;
+    @observable secend = 0;
+
+    @action 
+    add = () =&gt; {
+        this.secend++
+    }
+}
+
+export default new States()
+</code></pre><blockquote><p>action.bound</p></blockquote><p><strong>action装饰器/函数遵循JavaScript中标准得绑定规则，但是action.bound可以用来自动得将动作绑定到目标对象</strong></p><pre><code>import { observable, action } from &#39;mobx&#39;
+
+class States {
+
+    @observable timer = null;
+    @observable secend = 0;
+
+    @action.bound 
+    add = () =&gt; {
+        this.secend++
+    }
+}
+
+export default new States()
+</code></pre><blockquote><p><strong>action.bound不要和箭头函数一起使用；箭头函数已经是绑定过并且不能重复绑定</strong></p></blockquote><blockquote><p>runInAction</p></blockquote><p><strong>runInAction是个简单得工具函数，他接受代码块并且（异步动作）中执行，这对即时创建和执行动作非常有用</strong></p><blockquote><p>runInAction(f) 是 action(f) 的语法糖</p></blockquote><pre><code>@observable showErrType = true
+@observable money = 230
+
+runInAction(() =&gt; {
+    this.showErrType = false
+    this.money = 8888
+})
+</code></pre><blockquote><p>当然runInAction配合async await 异步调用，会有更好的体验</p></blockquote><blockquote><p>flows</p></blockquote><p><strong>然而更好的方式是使用flow的内置概念，他们使用生成器，他们的工作原理和async await 一样，他的优点是不需要手动用@action来包装异步代码。这样代码更加简洁</strong></p><blockquote><p>flow 只能作为函数使用，不能作为装饰器使用</p></blockquote><pre><code>class Store {
+    @observable githubProjects = []
+    @observable state = &quot;pending&quot;
+
+    fetchProjects = flow(function * () { // &lt;- 注意*号，这是生成器函数！
+        this.githubProjects = []
+        this.state = &quot;pending&quot;
+        try {
+            const projects = yield fetchGithubProjectsSomehow() // 用 yield 代替 await
+            const filteredProjects = somePreprocessing(projects)
+            // 异步代码块会被自动包装成动作并修改状态
+            this.state = &quot;done&quot;
+            this.githubProjects = filteredProjects
+        } catch (error) {
+            this.state = &quot;error&quot;
+        }
+    })
+}
+</code></pre><h3 id="📢工具函数📢"><a href="#📢工具函数📢" class="headerlink" title="📢工具函数📢"></a>📢工具函数📢</h3><h4 id="🌀toJS🌀"><a href="#🌀toJS🌀" class="headerlink" title="🌀toJS🌀"></a>🌀toJS🌀</h4><p><strong>递归的将一个observable对象转换为JavaScript原始数据解构</strong></p><pre><code>var obj = mobx.observable({
+    x: 1
+});
+
+var clone = mobx.toJS(obj);
+</code></pre><p>####</p></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>Post author:</strong> Ignorance</li><li class="post-copyright-link"> <strong>Post link:</strong> <a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" title="11111">https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts</a></li><li class="post-copyright-license"> <strong>Copyright Notice:</strong> All articles should not be used in other businesses. All rights reserved by the author.</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/js/" rel="tag"># js</a> <a href="/tags/mobx/" rel="tag"># mobx</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/10/12/Flutter_navigation/" rel="next" title="🌑Flutter 页面导航及打包🌑"><i class="fa fa-chevron-left"></i> 🌑Flutter 页面导航及打包🌑</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2019/12/06/duboule/" rel="prev" title="👮0.1+0.2 != 0.3??.👮">👮0.1+0.2 != 0.3??.👮<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjQyNC8xODk3MQ=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概要</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/headers.png" alt="Ignorance"><p class="site-author-name" itemprop="name">Ignorance</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">65</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">58</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Ignorance-of-Dong" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" target="_blank" title="掘金"><i class="fa fa-fw fa-instagram"></i> 掘金</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#👑Mobx👑"><span class="nav-number">1.</span> <span class="nav-text">👑Mobx👑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#👀如何使用使用👀"><span class="nav-number">1.1.</span> <span class="nav-text">👀如何使用使用👀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#👒核心API👒"><span class="nav-number">1.2.</span> <span class="nav-text">👒核心API👒</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#😻observable😻"><span class="nav-number">1.2.1.</span> <span class="nav-text">😻observable😻</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🐢-observable🐢"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">🐢@observable🐢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🐍规则：🐍"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">🐍规则：🐍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🌳如何对observable做出响应🌳"><span class="nav-number">1.2.2.</span> <span class="nav-text">🌳如何对observable做出响应🌳</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🌲-computed-计算值🌲"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">🌲@computed 计算值🌲</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🍙autorun-自定义反应🍙"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">🍙autorun // 自定义反应🍙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#🎨when-自定义反应🎨"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">🎨when //自定义反应🎨</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#👹reaction-autorun-的变种👹"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">👹reaction // autorun 的变种👹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⌛-observer-mobx-react⌛"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">⌛@observer // mobx-react⌛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🔗改变-observables🔗"><span class="nav-number">1.2.3.</span> <span class="nav-text">🔗改变 observables🔗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#📙action-动作-📙"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">📙action (动作)📙</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#📢工具函数📢"><span class="nav-number">1.2.4.</span> <span class="nav-text">📢工具函数📢</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#🌀toJS🌀"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">🌀toJS🌀</span></a></li></ol></li></ol></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Ignorance</span></div><div class="powered-by">备案/许可证编号为：晋ICP备18012867号"</div> <span class="post-meta-divider">|</span><div class="theme-info"><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span></span></div> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script></body></html>

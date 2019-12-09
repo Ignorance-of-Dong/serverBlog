@@ -1,0 +1,446 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang=""><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#ccc"><meta name="keywords" content="scholar"><meta name="keywords" content="前端文档,vue,js"><meta name="keywords" content="vue,js"><meta name="keywords" content="文档,vue,js"><meta name="keywords" content="js"><meta name="keywords" content="vuepress"><meta name="keywords" content="markdown"><meta name="keywords" content="前端笔记"><meta name="keywords" content="学习"><meta name="keywords" content="react"><meta name="keywords" content="javaScript"><meta name="author" content="Ignorance,1054914660@qq.com"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#ccc"><meta name="keywords" content="Dart,flutter,"><meta name="description" content="🍉Dart学习【基础】🍉🍌Dart简介 在Dart中，一切都是对象，一切对象都是class实例，哪怕是数字类型，方法甚至是null都是对象，所有对象继承于Object  Dart是强语言类型，但是Dart可以自动推变变量类型，所以也可以支持动态类型  Dart具有强大的异步编程能力   🍍Dart用法 import 导入库  import &amp;#39;package:flutter/mate"><meta name="keywords" content="Dart,flutter"><meta property="og:type" content="article"><meta property="og:title" content="🍉Dart学习【基础】🍉"><meta property="og:url" content="http://my.ignorantscholar.cn/2019/10/09/Flutter_Dart/index.html"><meta property="og:site_name" content="倥侗无知"><meta property="og:description" content="🍉Dart学习【基础】🍉🍌Dart简介 在Dart中，一切都是对象，一切对象都是class实例，哪怕是数字类型，方法甚至是null都是对象，所有对象继承于Object  Dart是强语言类型，但是Dart可以自动推变变量类型，所以也可以支持动态类型  Dart具有强大的异步编程能力   🍍Dart用法 import 导入库  import &amp;#39;package:flutter/mate"><meta property="og:locale" content="default"><meta property="og:updated_time" content="2019-10-15T05:52:04.002Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="🍉Dart学习【基础】🍉"><meta name="twitter:description" content="🍉Dart学习【基础】🍉🍌Dart简介 在Dart中，一切都是对象，一切对象都是class实例，哪怕是数字类型，方法甚至是null都是对象，所有对象继承于Object  Dart是强语言类型，但是Dart可以自动推变变量类型，所以也可以支持动态类型  Dart具有强大的异步编程能力   🍍Dart用法 import 导入库  import &amp;#39;package:flutter/mate"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Ignorance"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://my.ignorantscholar.cn/2019/10/09/Flutter_Dart/"><title>🍉Dart学习【基础】🍉 | 倥侗无知</title><script>var titleTime,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="Web page loss ~ ~",clearTimeout(titleTime)):(document.title="(ฅ>ω<*ฅ) ~"+OriginTitle,titleTime=setTimeout(function(){document.title=OriginTitle},2e3))})</script></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">倥侗无知</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 主页</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-档案室"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 档案室</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://my.ignorantscholar.cn/2019/10/09/Flutter_Dart/"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="Ignorance"><meta itemprop="description" content=""><meta itemprop="image" content="/images/headers.png"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="倥侗无知"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">🍉Dart学习【基础】🍉</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-09T11:42:35+08:00">2019-10-09</time></span> <span class="post-meta-divider">|</span><span class="page-pv"><i class="fa fa-file-o"></i> 浏览<span class="busuanzi-value" id="busuanzi_value_page_pv"></span> 次</span></div></header><div class="post-body" itemprop="articleBody"><h1 id="🍉Dart学习【基础】🍉"><a href="#🍉Dart学习【基础】🍉" class="headerlink" title="🍉Dart学习【基础】🍉"></a>🍉Dart学习【基础】🍉</h1><h2 id="🍌Dart简介"><a href="#🍌Dart简介" class="headerlink" title="🍌Dart简介"></a>🍌Dart简介</h2><ul><li><p>在Dart中，一切都是对象，一切对象都是class实例，哪怕是数字类型，方法甚至是null都是对象，所有对象继承于Object</p></li><li><p>Dart是强语言类型，但是Dart可以自动推变变量类型，所以也可以支持动态类型</p></li><li><p>Dart具有强大的异步编程能力</p></li></ul><h2 id="🍍Dart用法"><a href="#🍍Dart用法" class="headerlink" title="🍍Dart用法"></a>🍍Dart用法</h2><blockquote><p>import 导入库</p></blockquote><pre><code>import &#39;package:flutter/material.dart&#39;;
+</code></pre><blockquote><p>注释【和js一样】</p></blockquote><pre><code>//单行注释
+/****/多行注释
+</code></pre><blockquote><p>=&gt; [Dart的箭头函数，即Lambda表达式]</p></blockquote><pre><code>void main() =&gt; runApp(MyApp());
+</code></pre><blockquote><p>extends 继承</p></blockquote><pre><code>class MyApp extends StatelessWidget {
+
+    var content = &#39;Dart&#39;; // 声明并初始化变量
+    String _name = &quot;Flutter&quot;;
+
+    @override
+    Widget build(BuildContext context) {
+
+        print(&#39;display $content&#39;); // 打印【对应js的console】
+
+        // return a Widget
+        return MaterialApp(
+        title: &quot;Flutter Demo&quot;,
+        theme: ThemeData(
+            primaryColor: Colors.blue,
+        ),
+        home: Scaffold(
+            appBar: AppBar(title: Text(&quot;Flutter Dart 语法&quot;)),
+            body: Text(content+_name)
+            ),
+        );
+    }
+}
+</code></pre><blockquote><p>var 变量申明并且不指定其类型的方法</p></blockquote><pre><code>var content = &#39;Dart 语法&#39;; // 声明并初始化变量
+</code></pre><blockquote><p>_ 以下划线 _ 开头的类或成员变量是私有的</p></blockquote><p><strong>Dart 没有 Public、Protected、Private 的关键字，在 Dart 里，类或成员变量默认都是 Public 的，以下划线 _ 开头的就是私有的，例如成员变量 _name 就是私有的。</strong></p><pre><code>String _name = &quot;Flutter&quot;;
+</code></pre><blockquote><p>String 在声明变量时也可以指定具体类型，String 是字符串，还有其他的数据类型：int、double等。</p></blockquote><pre><code>String _name = &quot;Flutter&quot;;
+</code></pre><blockquote><p>$variableName 或 ${expression}</p></blockquote><p><strong>字符串插值：将变量的值直接插入字符串中。</strong></p><pre><code>print(&#39;display $content&#39;);
+</code></pre><h2 id="🍑变量声明（一共有四种方式）"><a href="#🍑变量声明（一共有四种方式）" class="headerlink" title="🍑变量声明（一共有四种方式）"></a>🍑变量声明（一共有四种方式）</h2><ul><li><ol><li>var</li></ol></li></ul><hr><pre><code>var content = &#39;Dart 语法&#39;
+
+var switchOn = false
+
+var current = 0
+</code></pre><p><strong>使用var来申明变量，不需要指定变量的数据类型，因为Dart会自动推断其数据类型，所以可以使用var来定义任何变量</strong></p><blockquote><p>var不是直接储存值，而是存储的对象的引用，例如：var content = ‘Dart’,是名字为content的var的变量存储了值为Dart的String对象的引用，因此var可以定义定义任何变量</p></blockquote><ul><li><ol start="2"><li>明确数据类型</li></ol></li></ul><hr><pre><code>String name = &#39;Flutter&#39;
+int count = 0
+</code></pre><p><strong>就是在声明变量的时候，使用明确的数据类型</strong></p><ul><li>dynamic</li></ul><hr><pre><code>dynamic example = &#39;example&#39;
+</code></pre><p><strong>意思是数据类型是动态可变的，也可以定义任何变量，但是和var不同，var一旦赋值以后，就不能改变数据类型了</strong></p><ul><li>Object</li></ul><hr><pre><code>Object index = 100
+</code></pre><p><strong>Dart里面的所有东西都是对象，因为Dart的所有东西都是对象，都继承于Object，因此可以定义任意类型，而且赋值以后也可以更改</strong></p><pre><code>Object index = 100
+
+index = &#39;string&#39; √  因为&#39;string&#39;也是object
+</code></pre><p><strong>！！！注意： 请不要滥用dynamic，一般情况下都可以使用Object来代替</strong></p><h3 id="dynamic-使用场景"><a href="#dynamic-使用场景" class="headerlink" title="dynamic 使用场景"></a>dynamic 使用场景</h3><blockquote><p>在与native对接时，对传入的参数类型不确定时，进行使用</p></blockquote><h3 id="常量：final-和-const"><a href="#常量：final-和-const" class="headerlink" title="常量：final 和 const"></a>常量：final 和 const</h3><pre><code>final content = &#39;Dart
+
+static const bool switch = false
+</code></pre><p><strong>使用的时候需要注意一下几点</strong></p><ul><li>使用final和const时候可以把var省略</li><li>final和const变量只能赋值一次，并且他在声明的时候就已经赋值</li><li>const是隐式的const</li><li>在使用const的时候，如果是在全局声明的话，不需要加static属性，如果是在类里面声明，则需要加上</li></ul><blockquote><p>final与const的区别</p></blockquote><p><strong>const是编译时常量，在编译的时候就已经初始化了，而final变量是当类创建的时候才初始化</strong></p><h2 id="🍓Dart支持的数据类型"><a href="#🍓Dart支持的数据类型" class="headerlink" title="🍓Dart支持的数据类型"></a>🍓Dart支持的数据类型</h2><ul><li>int</li></ul><blockquote><p>整数，范围带-2^63到2^63-1</p></blockquote><pre><code>int x = 1; // 没有小数点就是int
+</code></pre><ul><li>double</li></ul><blockquote><p>浮点数，64位，双精度- 浮点数</p></blockquote><pre><code>double y = 1.1; // 有小数的就是浮点数
+</code></pre><ul><li>num</li></ul><blockquote><p>num是数字类型，既可以表示整数，也可以表示浮点数，具体看赋值</p></blockquote><pre><code>num x = 1;
+
+num y = 2;
+</code></pre><ul><li>String</li></ul><blockquote><p>字符串【Dart字符串采用UTF-8编码，可以采用单引号或双引号】</p></blockquote><pre><code>var s1 = &#39;string&#39;
+
+String s1 = &#39;string&#39;
+</code></pre><ul><li>bool</li></ul><blockquote><p>布尔值</p></blockquote><pre><code>var isShow = true
+
+bool isShow = true
+</code></pre><ul><li>List</li></ul><blockquote><p>List[E] E表示List里面的数据类型</p></blockquote><pre><code>List&lt;int&gt; = [1, 2, 3]
+</code></pre><ul><li>Set</li></ul><blockquote><p>Set&lt;\E&gt; E表示Set的数据类型，使用大括号进行赋值</p></blockquote><pre><code>Set&lt;String&gt; halong = {&#39;hellow&#39;, &#39;world&#39;, &#39;koal&#39;}
+</code></pre><ul><li>Map</li></ul><blockquote><p>Map&lt;\k, v&gt;k是Key的数据类型，V是Value的数据类型</p></blockquote><pre><code>Map&lt;String, String&gt; gits = {
+    &#39;first&#39;: &#39;partridge&#39;,
+    &#39;second&#39;: &#39;turtledoves&#39;,
+}
+</code></pre><ul><li>Runes</li></ul><blockquote><p>表示采用UTF-32字符串，用于显示Unicode，因为Dart字符串是UTF-16，因此在Dart中表示32位的Unicode需要Runes这个特殊的语法</p></blockquote><pre><code>Runes input = new Runes(&#39;\u{1f600}&#39;);
+print(new String.fromCharCodes(input));
+打印出来的是笑脸emoji：😆
+</code></pre><h2 id="🍄函数"><a href="#🍄函数" class="headerlink" title="🍄函数"></a>🍄函数</h2><blockquote><p>在Dart中函数也是对象,函数的类型是Function</p></blockquote><h3 id="函数的写作格式"><a href="#函数的写作格式" class="headerlink" title="函数的写作格式"></a>函数的写作格式</h3><pre><code>bool say(String msg , String from, int clock){
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock?.toString());
+    return true;
+}
+
+返回类型 函数名(函数参数){
+
+}   
+</code></pre><h3 id="函数的类型"><a href="#函数的类型" class="headerlink" title="函数的类型"></a>函数的类型</h3><pre><code>print(say is Function) // 判断say是否为函数
+</code></pre><h3 id="函数的参数：-必选参数-可选参数"><a href="#函数的参数：-必选参数-可选参数" class="headerlink" title="函数的参数： 必选参数 ===== 可选参数"></a>函数的参数： 必选参数 ===== 可选参数</h3><blockquote><p>首先必选参数必须在前面，和普通函数一样，后面跟可选参数，可选参数需要用{}或者[]包起来，用不同的括号，可选参数的意义也不一样</p></blockquote><p><strong>必选参数和普通函数一样，这里不多阐述，主要说明可选参数</strong></p><blockquote><p><strong>可选参数</strong></p></blockquote><ul><li><strong>可选命名参数：</strong>：使用{}包起来的参数是可选命名参数</li><li><strong>可选位置参数：</strong>：使用[]包起来的参数是可选位置参数</li></ul><blockquote><p>可选命名参数：{}</p></blockquote><p><strong>用{}包起来的参数，前面说的数据类型，使用{}来赋值的数据类型是Map，所以可选参数的的类型也是Map，因此调用函数时，可选参数的赋值必须是key: value这种格式的，如下：</strong></p><pre><code>bool say(String msg , {String from, int clock}){
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+}
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//✅ 因为 from 和 clock 是可选参数，所以可以不填
+
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;);//对 用命名参数格式 paramName: value 为 from 赋值
+say(&#39;Hello Flutter&#39;, clock: 11);//✅
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;, clock: 11);//✅
+</code></pre><p><strong>同时也可以给命名参数加@required，意思是这个也是必选参数，如下：</strong></p><pre><code>bool say(String msg , {@required String from, int clock}){
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+}
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//❌  错误调用方式，因为 from 是必选参数，不填的话会报错
+
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;);//✅ 正确调用方式
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;, clock: 11);//✅ 这个调用方式也是正确的
+</code></pre><blockquote><p>可选位置参数：[]</p></blockquote><p><strong>用[ ]包起来的参数是可选位置参数，前面说的数据类型的时候，使用[ ]来赋值的数据类型是List，所以可选参数的命名参数也是List，所以赋值和参数是一一对应的，如下：</strong></p><pre><code>bool say(String msg , [String from , int clock]){
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+}
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//✅ 因为 from 和 clock 是可选参数，所以可以不填
+
+say(&#39;Hello Flutter&#39;, &#39;XiaoMing&#39;,1);//✅ 为可选位置参数赋值，只能一个参数一个参数对应的赋值，所以要全部赋值
+
+say(&#39;Hello Flutter&#39;, &#39;XiaoMing&#39;)//✅
+say(&#39;Hello Flutter&#39;, 1)//❌ 因为  1 赋值给了 from,但是 from 是String，所以会报错
+</code></pre><blockquote><p>可选参数的默认值： =</p></blockquote><p><strong>因为参数是可选的，那么参数的值很可能没有赋值，也就是null，我们如果需要用到该参数，可以赋值给他一个默认值</strong></p><pre><code>bool say(String msg , {String from = &#39;empty&#39;, int clock = 0}){
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+}
+</code></pre><h2 id="🍒-gt-箭头语法"><a href="#🍒-gt-箭头语法" class="headerlink" title="🍒=&gt; 箭头语法"></a>🍒=&gt; 箭头语法</h2><blockquote><p>=&gt; 语句后面的只能加一行代码，而且这一行代码只能一个表达式，而且不能跟语句，表达式可以使函数或值</p></blockquote><pre><code>void main() =&gt; runApp(MyApp());
+</code></pre><p>等价于：</p><pre><code>void main(){
+    return runApp(MyApp());//runApp() 返回的是 void
+}
+</code></pre><h2 id="🍭操作符"><a href="#🍭操作符" class="headerlink" title="🍭操作符"></a>🍭操作符</h2><blockquote><p>类型判断操作符</p></blockquote><ul><li>as</li></ul><p><strong>类型转换</strong></p><pre><code>(emp as Person).firstName = &#39;Bob&#39;;
+</code></pre><ul><li>is</li></ul><p><strong>判断是否为某个类型，如果是的话，就返回true</strong></p><pre><code>if (emp is Person) {    // 如果 emp 是 Person 类型
+    emp.firstName =&#39;Bob&#39;;
+}
+</code></pre><ul><li>is!</li></ul><p><strong>判断是否不是某个类型，如果不是的话就返回true</strong></p><pre><code>if (emp is! Person) {
+    // 如果 emp 不是 Person 类型
+}
+</code></pre><h2 id="🍬条件运算符"><a href="#🍬条件运算符" class="headerlink" title="🍬条件运算符"></a>🍬条件运算符</h2><pre><code>condition ? expr1 : expr2
+</code></pre><blockquote><p>如果condition为true的时候，返回expr1，否则返回expr2</p></blockquote><pre><code>var visibility = isPublic ? &#39;public&#39; : &#39;private&#39;;
+</code></pre><hr><pre><code>expr1 ?? expr2
+</code></pre><blockquote><p>如果 expr1 为 null，就返回 expr2 的值，否则返回 expr1 的值。</p></blockquote><p><strong>如果需要根据一个 boolean 表达式是否为 null 来作为条件，可以使用 ??，例如：</strong></p><pre><code>String playerName(String name) =&gt; name ?? &#39;Guest&#39;;
+</code></pre></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>Post author:</strong> Ignorance</li><li class="post-copyright-link"> <strong>Post link:</strong> <a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" title="11111">https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts</a></li><li class="post-copyright-license"> <strong>Copyright Notice:</strong> All articles should not be used in other businesses. All rights reserved by the author.</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/Dart/" rel="tag"># Dart</a> <a href="/tags/flutter/" rel="tag"># flutter</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/10/08/flutter-windows/" rel="next" title="😎flutter环境搭建（window）🤔"><i class="fa fa-chevron-left"></i> 😎flutter环境搭建（window）🤔</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2019/10/10/Flutter_view/" rel="prev" title="🥰Flutter 常用组件🥰">🥰Flutter 常用组件🥰<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjQyNC8xODk3MQ=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概要</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/headers.png" alt="Ignorance"><p class="site-author-name" itemprop="name">Ignorance</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">65</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">58</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Ignorance-of-Dong" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" target="_blank" title="掘金"><i class="fa fa-fw fa-instagram"></i> 掘金</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🍉Dart学习【基础】🍉"><span class="nav-number">1.</span> <span class="nav-text">🍉Dart学习【基础】🍉</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🍌Dart简介"><span class="nav-number">1.1.</span> <span class="nav-text">🍌Dart简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍍Dart用法"><span class="nav-number">1.2.</span> <span class="nav-text">🍍Dart用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍑变量声明（一共有四种方式）"><span class="nav-number">1.3.</span> <span class="nav-text">🍑变量声明（一共有四种方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-使用场景"><span class="nav-number">1.3.1.</span> <span class="nav-text">dynamic 使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量：final-和-const"><span class="nav-number">1.3.2.</span> <span class="nav-text">常量：final 和 const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍓Dart支持的数据类型"><span class="nav-number">1.4.</span> <span class="nav-text">🍓Dart支持的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍄函数"><span class="nav-number">1.5.</span> <span class="nav-text">🍄函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的写作格式"><span class="nav-number">1.5.1.</span> <span class="nav-text">函数的写作格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的类型"><span class="nav-number">1.5.2.</span> <span class="nav-text">函数的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的参数：-必选参数-可选参数"><span class="nav-number">1.5.3.</span> <span class="nav-text">函数的参数： 必选参数 ===== 可选参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍒-gt-箭头语法"><span class="nav-number">1.6.</span> <span class="nav-text">🍒=&gt; 箭头语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍭操作符"><span class="nav-number">1.7.</span> <span class="nav-text">🍭操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🍬条件运算符"><span class="nav-number">1.8.</span> <span class="nav-text">🍬条件运算符</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Ignorance</span></div><div class="powered-by">备案/许可证编号为：晋ICP备18012867号"</div> <span class="post-meta-divider">|</span><div class="theme-info"><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span></span></div> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script></body></html>

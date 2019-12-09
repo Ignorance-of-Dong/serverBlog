@@ -1,0 +1,629 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang=""><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#ccc"><meta name="keywords" content="scholar"><meta name="keywords" content="前端文档,vue,js"><meta name="keywords" content="vue,js"><meta name="keywords" content="文档,vue,js"><meta name="keywords" content="js"><meta name="keywords" content="vuepress"><meta name="keywords" content="markdown"><meta name="keywords" content="前端笔记"><meta name="keywords" content="学习"><meta name="keywords" content="react"><meta name="keywords" content="javaScript"><meta name="author" content="Ignorance,1054914660@qq.com"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#ccc"><meta name="keywords" content="Dart,flutter,"><meta name="description" content="Flutter 常用组件 🥰Flutter 常用组件🥰  🌟Text Widget文本组件的使用import &amp;#39;package:flutter/material.dart&amp;#39;; void main () =&amp;gt; runApp(MyApp());  class MyApp extends StatelessWidget{     @override     Widget bu"><meta name="keywords" content="Dart,flutter"><meta property="og:type" content="article"><meta property="og:title" content="🥰Flutter 常用组件🥰"><meta property="og:url" content="http://my.ignorantscholar.cn/2019/10/10/Flutter_view/index.html"><meta property="og:site_name" content="倥侗无知"><meta property="og:description" content="Flutter 常用组件 🥰Flutter 常用组件🥰  🌟Text Widget文本组件的使用import &amp;#39;package:flutter/material.dart&amp;#39;; void main () =&amp;gt; runApp(MyApp());  class MyApp extends StatelessWidget{     @override     Widget bu"><meta property="og:locale" content="default"><meta property="og:updated_time" content="2019-10-15T05:48:00.438Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="🥰Flutter 常用组件🥰"><meta name="twitter:description" content="Flutter 常用组件 🥰Flutter 常用组件🥰  🌟Text Widget文本组件的使用import &amp;#39;package:flutter/material.dart&amp;#39;; void main () =&amp;gt; runApp(MyApp());  class MyApp extends StatelessWidget{     @override     Widget bu"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"Ignorance"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://my.ignorantscholar.cn/2019/10/10/Flutter_view/"><title>🥰Flutter 常用组件🥰 | 倥侗无知</title><script>var titleTime,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="Web page loss ~ ~",clearTimeout(titleTime)):(document.title="(ฅ>ω<*ฅ) ~"+OriginTitle,titleTime=setTimeout(function(){document.title=OriginTitle},2e3))})</script></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">倥侗无知</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 主页</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-档案室"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 档案室</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> Search</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://my.ignorantscholar.cn/2019/10/10/Flutter_view/"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="Ignorance"><meta itemprop="description" content=""><meta itemprop="image" content="/images/headers.png"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="倥侗无知"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">🥰Flutter 常用组件🥰</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">Posted on</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-10T11:42:35+08:00">2019-10-10</time></span> <span class="post-meta-divider">|</span><span class="page-pv"><i class="fa fa-file-o"></i> 浏览<span class="busuanzi-value" id="busuanzi_value_page_pv"></span> 次</span></div></header><div class="post-body" itemprop="articleBody"><h1 id="Flutter-常用组件"><a href="#Flutter-常用组件" class="headerlink" title="Flutter 常用组件"></a>Flutter 常用组件</h1><blockquote><p><strong>🥰Flutter 常用组件🥰</strong></p></blockquote><h2 id="🌟Text-Widget文本组件的使用"><a href="#🌟Text-Widget文本组件的使用" class="headerlink" title="🌟Text Widget文本组件的使用"></a>🌟Text Widget文本组件的使用</h2><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+    @override
+    Widget build(BuildContext context ){
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:Center(
+                    child:Text(&#39;hello Flutter， i like&#39;)
+                ),
+            ),
+        );
+    }
+}
+</code></pre><h3 id="TextAlign属性"><a href="#TextAlign属性" class="headerlink" title="TextAlign属性"></a>TextAlign属性</h3><blockquote><p>TextAlign属性就是文本的对齐方式</p></blockquote><ul><li>center ———- 文本以居中的形式对齐</li><li>left————– 文本以左对齐的方式对齐</li><li>right————- 文本以右对齐的方式对齐</li><li>start————- 文本以开始的位置对齐，类似left</li><li>end ————– 文本以结尾处对齐，类似于right</li></ul><hr><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+)
+</code></pre><h3 id="maxLines属性"><a href="#maxLines属性" class="headerlink" title="maxLines属性"></a>maxLines属性</h3><blockquote><p>设置最多显示行数</p></blockquote><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1 // 最多显示一行
+)
+</code></pre><h3 id="overflow属性"><a href="#overflow属性" class="headerlink" title="overflow属性"></a>overflow属性</h3><blockquote><p>overflow属性是设置文本溢出的</p></blockquote><ul><li>clip：直接切断，相当于css中hidden</li><li>ellipsis：在后面显示省略号</li><li>fade：溢出部分采用渐变消失的状态(是上线渐变消失))</li></ul><hr><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1, // 最多显示一行
+    overflow: TextOverflow.ellipsis // 超出部分以省略号的形式出现
+)
+</code></pre><h3 id="style属性"><a href="#style属性" class="headerlink" title="style属性"></a>style属性</h3><blockquote><p>style的属性比较多，这里只演示部分【下面制作一个字体大小为25.0，颜色为蓝色，有下划线的,下划线颜色为黄色】</p></blockquote><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1, // 最多显示一行
+    overflow: TextOverflow.ellipsis, // 超出部分以省略号的形式出现
+    style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.blue,
+        // color:Color.fromARGB(255, 255, 150, 150), // 颜色也可以用这种方式表示
+        decoration: TextDecoration.underline,
+        decorationStyle: TextDecorationStyle.solid,
+        decorationColor: Colors.yellow
+    ), 
+)
+</code></pre><p><strong>更多属性资料 <a href="https://api.flutter.dev/flutter/painting/TextStyle-class.html" target="_blank" rel="noopener">Flutter中文网 - 文本 Widget</a></strong></p><h2 id="⚡Container容器组件的使用"><a href="#⚡Container容器组件的使用" class="headerlink" title="⚡Container容器组件的使用"></a>⚡Container容器组件的使用</h2><blockquote><p>Container（容器组件）是经常使用的组件，相当于HTML的div标签</p></blockquote><pre><code>class MyApp extends StatelessWidget{
+    @override
+    Widget build(BuildContext context ){
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:Center(
+                    child:Container(
+                        child:new Text(&#39;hello Flutter， i like&#39;),
+                    ),
+                ),
+            ),
+        );
+    }
+}
+</code></pre><h3 id="Alignment属性"><a href="#Alignment属性" class="headerlink" title="Alignment属性"></a>Alignment属性</h3><blockquote><p>这个属性是争对Container内child的对齐方式，也就是容器子内容的对齐方式</p></blockquote><ul><li>bottomCenter ————– 下部居中对齐</li><li>bottomLeft —————- 下部左对齐</li><li>bottomRight ————— 下部右对齐</li><li>center ——————– 纵横双向居中对齐</li><li>centerLeft —————- 纵向居中横向居左对齐。</li><li>centerRight ————— 纵向居中横向居右对齐。</li><li>topLeft ——————- 顶部左侧对齐。</li><li>topCenter —————– 顶部居中对齐。</li><li>topRight —————— 顶部居左对齐。</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+        ),
+    ),
+),
+</code></pre><h3 id="设置宽、高和颜色属性"><a href="#设置宽、高和颜色属性" class="headerlink" title="设置宽、高和颜色属性"></a>设置宽、高和颜色属性</h3><blockquote><p>设置宽高相对容易，只要在属性名称后面加入浮点数字就可以</p></blockquote><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            color: Colors.lightBlue,
+        ),
+    ),
+),
+</code></pre><h3 id="padding属性"><a href="#padding属性" class="headerlink" title="padding属性"></a>padding属性</h3><blockquote><p>padding指的的是Container和child内容器的距离</p></blockquote><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+        ),
+    ),
+),
+</code></pre><p><strong>上面主要说明了padding的一个统一的值，如果我们想分别设置呢</strong></p><pre><code>padding: const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 0.0)
+</code></pre><p><strong>这样我们就可以分别设置各个方向的padding值</strong></p><h3 id="margin属性"><a href="#margin属性" class="headerlink" title="margin属性"></a>margin属性</h3><blockquote><p>用法同上</p></blockquote><pre><code>margin: const EdgeInsets.all(10.0), // 代表上下左右的margin距离都是10
+            ||或
+margin: const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 0.0)
+</code></pre><h3 id="decoration属性"><a href="#decoration属性" class="headerlink" title="decoration属性"></a>decoration属性</h3><blockquote><p>decoration是container的修饰器，主要功能设置背景和边框</p></blockquote><p><strong>如果你想要给一个背景加一个渐变，这时候需要这个BoxDecoation</strong></p><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            // color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+            decoration: new BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [Colors.blue, Colors.red, Colors.white] // 设置渐变色
+                ),
+                border: Border.all(width: 2.0, color: Colors.red) // 设置边框线的样式
+            ),
+        ),
+    ),
+),
+</code></pre><blockquote><p><strong>注意color和decoration不能共存,会有冲突</strong></p></blockquote><h2 id="🔥Image图片的使用"><a href="#🔥Image图片的使用" class="headerlink" title="🔥Image图片的使用"></a>🔥Image图片的使用</h2><ul><li>Image.asset: 加载资源图片,就是加载项目资源的目录中的图片,加入图片会增加打包的体积,以相对路径引入</li><li>Image.network: 网络资源图片,意思就是引入网络图片路径</li><li>Image.file: 加载本地图片,就是加载本地文件中的图片,不会增加打包体积,以绝对路径引入</li><li>Image.memory: 加载Uint8List资源图片</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child: Image.network(
+                &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+                width: 300.0,
+                height: 300.0,
+            ),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            // color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+            decoration: new BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [Colors.blue, Colors.red, Colors.white] // 设置渐变色
+                ),
+                border: Border.all(width: 2.0, color: Colors.red) // 设置边框线的样式
+            ),
+        ),
+    ),
+),
+</code></pre><h3 id="fit属性"><a href="#fit属性" class="headerlink" title="fit属性"></a>fit属性</h3><blockquote><p>fit属性可以控制图片的拉伸和挤压,这些都是根据图片的父级容器来的</p></blockquote><ul><li>BoxFit.fill: 全图显示,图片会被拉伸,并且充满父容器</li><li>BoxFit.contain: 全图显示,显示原比例,可能会有空隙</li><li>BoxFit.cover: 显示可能拉伸,可能裁剪,充满(图片要充满整个容器,还不变形)</li><li>BoxFit.fitWidth: 宽度充满,(横向充满)</li><li>BoxFit.fitHeight: 高度充满 (属相充满)</li><li>BoxFit.scaleDown: 效果和contain差不多,但是此属性不能超过图片大小,可小不可大</li></ul><hr><pre><code>child: Image.network(
+    &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+    width: 300.0,
+    height: 300.0,
+    fit: BoxFit.cover, // 不变形,充满整个容器
+),
+</code></pre><h3 id="图片混合模式"><a href="#图片混合模式" class="headerlink" title="图片混合模式"></a>图片混合模式</h3><blockquote><p>图片混合模式(colorBlendMode) 和 color 属性一起使用,可以让图片改变颜色</p></blockquote><p><strong>！！！！！！colorBlendMode和color需要同时使用,单独使用一个达不到预期效果</strong></p><pre><code>child: Image.network(
+    &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+    width: 300.0,
+    height: 300.0,
+    color: Colors.yellow,
+    colorBlendMode: BlendMode.modulate,
+    fit: BoxFit.cover,
+),
+</code></pre><h3 id="使用项目资源图片"><a href="#使用项目资源图片" class="headerlink" title="使用项目资源图片"></a>使用项目资源图片</h3><pre><code>pubspec.yaml文件
+</code></pre><blockquote><p>如果想配置项目资源文件，就需要使用pubspec.yaml文件，需要把资源文件在这里声明</p></blockquote><p><strong>比如在项目根目录下建立了一个文件images用来存放图片，文件夹下面有一个图片，pic.png，那我们在pubspec.yaml文件中进行声明</strong></p><pre><code>assets:
+    - images/pic.png
+</code></pre><hr><pre><code>child: Image.asset(&#39;images/pic.png&#39;),
+</code></pre><h2 id="💧ListView列表组件"><a href="#💧ListView列表组件" class="headerlink" title="💧ListView列表组件"></a>💧ListView列表组件</h2><h3 id="ListView的声明"><a href="#ListView的声明" class="headerlink" title="ListView的声明"></a>ListView的声明</h3><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+    @override
+    Widget build(BuildContext context ){
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:ListView(
+                    child: &lt;Widget&gt;[
+                        ListTile(
+                            leading: Icon(Icons.assess_time),
+                            title: new Text(&#39;assess_time&#39;)
+                        ),
+                        ListTile(
+                            leading: Icon(Icons.assess_time),
+                            title: new Text(&#39;assess_time&#39;)
+                        )   
+                    ]
+                ),
+            ),
+        );
+    }
+}
+</code></pre><blockquote><p>我们使用了ListView，然后在他的内部children中，使用了widget数组，因为是一个列表，所以他接受一个数组，然后使用了ListTile组件【列表瓦片】，具体效果可以在项目中查看</p></blockquote><h3 id="图片列表的使用"><a href="#图片列表的使用" class="headerlink" title="图片列表的使用"></a>图片列表的使用</h3><blockquote><p>我们使用网络的方式，插入两张图片</p></blockquote><pre><code>body: new ListView(
+    children:&lt;Widget&gt;[
+        new Image.network(&#39;http://jspang.com/static/upload/20181111/G-wj-ZQuocWlYOHM6MT2Hbh5.jpg&#39;),
+        new Image.network(&#39;http://jspang.com/static/upload/20181109/1bHNoNGpZjyriCNcvqdKo3s6.jpg&#39;),
+    ]
+),
+</code></pre><h3 id="横向列表的使用"><a href="#横向列表的使用" class="headerlink" title="横向列表的使用"></a>横向列表的使用</h3><blockquote><p>使用横向列表需要加一个属性scrollDirection</p></blockquote><ul><li>Axis.horizontal: 横向滚动</li><li>Axis.vertical: 纵向滚动 【默认纵向滚动】</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+        height:200.0,
+        child:new ListView(
+            scrollDirection: Axis.horizontal,
+            children: &lt;Widget&gt;[
+                new Container(
+                    width:180.0,
+                    color: Colors.lightBlue,
+                ), 
+                new Container(
+                    width:180.0,
+                    color: Colors.amber,
+                ), 
+                new Container(
+                    width:180.0,
+                    color: Colors.deepOrange,
+                ),
+                new Container(
+                    width:180.0,
+                    color: Colors.deepPurpleAccent,
+                ),
+            ],
+        )
+    ),
+),
+</code></pre><p><strong>从上面代码我们可以看出，代码嵌套比较深，进行优化，提取</strong></p><pre><code>class MyList extends StatelessWidget{
+    @override
+    Widget build(BuildContext context) {
+        return ListView(
+            scrollDirection: Axis.horizontal,
+            children: &lt;Widget&gt;[
+                Container(
+                    width: 180.0,
+                    color: Colors.red,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.yellow,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.red,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.yellow,
+                )
+            ]
+        );
+    }
+}
+
+
+home:Scaffold(
+    body:Center(
+        child:Container(
+        height:200.0,
+        child: MyList()
+    ),
+),
+</code></pre><blockquote><p>这样看就简洁许多</p></blockquote><h3 id="动态列表的使用"><a href="#动态列表的使用" class="headerlink" title="动态列表的使用"></a>动态列表的使用</h3><blockquote><p>上面的列表是写死的，我们在实际开发中，大多数是不会死的</p></blockquote><pre><code>class MyList extends StatelessWidget{
+    final List&lt;String&gt; items = new List&lt;String&gt;.generate(1000, (i)=&gt; &quot;Item $i&quot;); // 使用list中的属性generate方法产生List里面的元素
+    @override
+    Widget build(BuildContext context) {
+        return ListView.builder( // 调用动态列表生成
+            itemCount:items.length,
+                itemBuilder:(context,index){
+                    return new ListTile(
+                        title:new Text(&#39;${items[index]}&#39;),
+                    );
+                }
+            );
+    }
+}
+</code></pre><h2 id="🌊GridView网格列表布局组件"><a href="#🌊GridView网格列表布局组件" class="headerlink" title="🌊GridView网格列表布局组件"></a>🌊GridView网格列表布局组件</h2><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+    @override
+    Widget build(BuildContext context ){
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                body:GridView.count(
+                    padding:const EdgeInsets.all(20.0),
+                    crossAxisSpacing: 10.0,
+                    crossAxisCount: 3,
+                    children: &lt;Widget&gt;[
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        )
+                    ],
+                )
+            ),
+        );
+    }
+}
+</code></pre><ul><li>crossAxisSpacing: 网格之间 的空隙</li><li>crossAxisSpacing：网格列数，相当于一行放置的网格数量</li></ul><blockquote><p>现在做一个图片的网格布局</p></blockquote><pre><code>body: GridView.count(
+    padding: const EdgeInsets.all(10.0),
+    crossAxisSpacing: 2.0,
+    crossAxisCount: 3,
+    mainAxisSpacing: 2,
+    childAspectRatio: 0.7,
+    children: &lt;Widget&gt;[
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/10/22/104316.77318635_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/10/10/112514.30587089_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/13/093605.61422332_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/07/092515.55805319_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/21/090246.16772408_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/17/162028.94879602_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/19/165350.52237320_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/16/115256.24365160_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/20/141608.71613590_135X190X4.jpg&#39;,fit: BoxFit.cover),
+    ],
+),
+</code></pre><ul><li>childAspectRatio： 宽高比， 这个值的意思是宽是高的多少倍</li></ul></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>Post author:</strong> Ignorance</li><li class="post-copyright-link"> <strong>Post link:</strong> <a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" title="11111">https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts</a></li><li class="post-copyright-license"> <strong>Copyright Notice:</strong> All articles should not be used in other businesses. All rights reserved by the author.</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/Dart/" rel="tag"># Dart</a> <a href="/tags/flutter/" rel="tag"># flutter</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/10/09/Flutter_Dart/" rel="next" title="🍉Dart学习【基础】🍉"><i class="fa fa-chevron-left"></i> 🍉Dart学习【基础】🍉</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2019/10/11/Flutter_layout/" rel="prev" title="😈Flutter 布局😈">😈Flutter 布局😈<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MjQyNC8xODk3MQ=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概要</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/headers.png" alt="Ignorance"><p class="site-author-name" itemprop="name">Ignorance</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">65</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">58</span> <span class="site-state-item-name">tags</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Ignorance-of-Dong" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://juejin.im/user/5c8530d16fb9a049fd10aa53/posts" target="_blank" title="掘金"><i class="fa fa-fw fa-instagram"></i> 掘金</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-常用组件"><span class="nav-number">1.</span> <span class="nav-text">Flutter 常用组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🌟Text-Widget文本组件的使用"><span class="nav-number">1.1.</span> <span class="nav-text">🌟Text Widget文本组件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TextAlign属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">TextAlign属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxLines属性"><span class="nav-number">1.1.2.</span> <span class="nav-text">maxLines属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overflow属性"><span class="nav-number">1.1.3.</span> <span class="nav-text">overflow属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style属性"><span class="nav-number">1.1.4.</span> <span class="nav-text">style属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#⚡Container容器组件的使用"><span class="nav-number">1.2.</span> <span class="nav-text">⚡Container容器组件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Alignment属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">Alignment属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置宽、高和颜色属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">设置宽、高和颜色属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padding属性"><span class="nav-number">1.2.3.</span> <span class="nav-text">padding属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#margin属性"><span class="nav-number">1.2.4.</span> <span class="nav-text">margin属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decoration属性"><span class="nav-number">1.2.5.</span> <span class="nav-text">decoration属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🔥Image图片的使用"><span class="nav-number">1.3.</span> <span class="nav-text">🔥Image图片的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit属性"><span class="nav-number">1.3.1.</span> <span class="nav-text">fit属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片混合模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">图片混合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用项目资源图片"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用项目资源图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#💧ListView列表组件"><span class="nav-number">1.4.</span> <span class="nav-text">💧ListView列表组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ListView的声明"><span class="nav-number">1.4.1.</span> <span class="nav-text">ListView的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片列表的使用"><span class="nav-number">1.4.2.</span> <span class="nav-text">图片列表的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#横向列表的使用"><span class="nav-number">1.4.3.</span> <span class="nav-text">横向列表的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态列表的使用"><span class="nav-number">1.4.4.</span> <span class="nav-text">动态列表的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🌊GridView网格列表布局组件"><span class="nav-number">1.5.</span> <span class="nav-text">🌊GridView网格列表布局组件</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Ignorance</span></div><div class="powered-by">备案/许可证编号为：晋ICP备18012867号"</div> <span class="post-meta-divider">|</span><div class="theme-info"><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span></span></div> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script></body></html>
