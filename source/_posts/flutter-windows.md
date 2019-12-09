@@ -189,3 +189,18 @@ Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --statu
 - Flutter Widget Snippets       //提供 Widget 代码片段，
 - Awesome Flutter Snippets      //插件提供常用函数的代码片段。
 - Bracket Pair Colorizer        // 高亮
+
+## 😇附：模拟器名称 默认连接端口
+
+    夜神安卓模拟器                   62001
+    逍遥模拟器                       21503
+    蓝叠模拟器                       5555
+    雷电                             5555
+    天天                             5037
+    mumu                             7555
+    Genymotion                       5555
+    腾讯手游助手 adb connect 127.0.0.1:5555
+
+## 😇附：连接真机命令
+
+    flutter devices
