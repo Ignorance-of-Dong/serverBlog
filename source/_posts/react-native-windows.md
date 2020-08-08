@@ -16,7 +16,7 @@ meta:
 
 ### Android 开发环境搭建 
 
-**下载jdk**
+**下载jdk** 
 > 在这里你可以点击[链接](https://www.oracle.com/technetwork/java/javase/downloads/index.html)去下载
 
 
