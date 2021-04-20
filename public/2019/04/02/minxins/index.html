@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>vue混入【mixins】 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">vue混入【mixins】</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-04-02 11:42:35 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/js/">js</a>&nbsp;</li><li>| <a href="/tags/vue/">vue</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>694 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="vue混入【mixins】"><a href="#vue混入【mixins】" class="headerlink" title="vue混入【mixins】"></a>vue混入【mixins】</h2><p><strong>混入 (mixins) 是一种分发 Vue 组件中可复用功能的非常灵活的方式。混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被混入该组件本身的选项。</strong></p><pre><code>// 定义一个混入对象
+var myMixin = &#123;
+  created: function () &#123;
+    this.hello()
+  &#125;,
+  methods: &#123;
+    hello: function () &#123;
+      console.log(&#39;hello from mixin!&#39;)
+    &#125;
+  &#125;
+&#125;
+
+// 定义一个使用混入对象的组件
+var Component = Vue.extend(&#123;
+  mixins: [myMixin]
+&#125;)
+
+var component = new Component() // =&gt; &quot;hello from mixin!&quot;
+</code></pre><h2 id="选项合并"><a href="#选项合并" class="headerlink" title="选项合并"></a>选项合并</h2><p><strong>当组件和混入对象含有同名选项时，这些选项将以恰当的方式混合。</strong></p><p><strong>比如，数据对象在内部会进行递归合并，在和组件的数据发生冲突时以组件数据优先。</strong></p><pre><code>var mixin = &#123;
+  data: function () &#123;
+    return &#123;
+      message: &#39;hello&#39;,
+      foo: &#39;abc&#39;
+    &#125;
+  &#125;
+&#125;
+
+new Vue(&#123;
+  mixins: [mixin],
+  data: function () &#123;
+    return &#123;
+      message: &#39;goodbye&#39;,
+      bar: &#39;def&#39;
+    &#125;
+  &#125;,
+  created: function () &#123;
+    console.log(this.$data)
+    // =&gt; &#123; message: &quot;goodbye&quot;, foo: &quot;abc&quot;, bar: &quot;def&quot; &#125;
+  &#125;
+&#125;)
+</code></pre><p><strong>同名钩子函数将混合为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子之前调用。</strong></p><pre><code>var mixin = &#123;
+  created: function () &#123;
+    console.log(&#39;混入对象的钩子被调用&#39;)
+  &#125;
+&#125;
+
+new Vue(&#123;
+  mixins: [mixin],
+  created: function () &#123;
+    console.log(&#39;组件钩子被调用&#39;)
+  &#125;
+&#125;)
+
+// =&gt; &quot;混入对象的钩子被调用&quot;
+// =&gt; &quot;组件钩子被调用&quot;
+</code></pre><p><strong>值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。</strong></p><pre><code>var mixin = &#123;
+  methods: &#123;
+    foo: function () &#123;
+      console.log(&#39;foo&#39;)
+    &#125;,
+    conflicting: function () &#123;
+      console.log(&#39;from mixin&#39;)
+    &#125;
+  &#125;
+&#125;
+
+var vm = new Vue(&#123;
+  mixins: [mixin],
+  methods: &#123;
+    bar: function () &#123;
+      console.log(&#39;bar&#39;)
+    &#125;,
+    conflicting: function () &#123;
+      console.log(&#39;from self&#39;)
+    &#125;
+  &#125;
+&#125;)
+
+vm.foo() // =&gt; &quot;foo&quot;
+vm.bar() // =&gt; &quot;bar&quot;
+vm.conflicting() // =&gt; &quot;from self&quot;
+</code></pre><p><strong>注意：Vue.extend() 也使用同样的策略进行合并。</strong></p><h2 id="全局混入"><a href="#全局混入" class="headerlink" title="全局混入"></a>全局混入</h2><p><strong>也可以全局注册混入对象。注意使用！ 一旦使用全局混入对象，将会影响到 所有 之后创建的 Vue 实例。使用恰当时，可以为自定义对象注入处理逻辑。</strong></p><pre><code>// 为自定义的选项 &#39;myOption&#39; 注入一个处理器。
+Vue.mixin(&#123;
+  created: function () &#123;
+    var myOption = this.$options.myOption
+    if (myOption) &#123;
+      console.log(myOption)
+    &#125;
+  &#125;
+&#125;)
+
+new Vue(&#123;
+  myOption: &#39;hello!&#39;
+&#125;)
+// =&gt; &quot;hello!&quot;
+</code></pre><blockquote><p><strong>谨慎使用全局混入对象，因为会影响到每个单独创建的 Vue 实例 (包括第三方模板)。大多数情况下，只应当应用于自定义选项，就像上面示例一样。也可以将其用作 Plugins 以避免产生重复应用</strong></p></blockquote></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：vue混入【mixins】</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-04-02 11:42:35</li><li>本文链接：http://fishfairy.cn/2019/04/02/minxins/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/04/03/PureComponent/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">React.Component 与 React.PureComponent（React之性能优化）</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/04/02/vue-directive/"><span class="title flex-center"><span class="post-nav-title-item">vue自定义指令</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue%E6%B7%B7%E5%85%A5%E3%80%90mixins%E3%80%91"><span class="nav-number">1.</span> <span class="nav-text">vue混入【mixins】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E9%A1%B9%E5%90%88%E5%B9%B6"><span class="nav-number">2.</span> <span class="nav-text">选项合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%B7%B7%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">全局混入</span></a></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

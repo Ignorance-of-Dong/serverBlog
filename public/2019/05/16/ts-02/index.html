@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>ts的学习历程 -- 02 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">ts的学习历程 -- 02</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-05-16 17:36:21 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/ts/">ts</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>6 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="ts的学习历程-–-02"><a href="#ts的学习历程-–-02" class="headerlink" title="ts的学习历程 – 02"></a>ts的学习历程 – 02</h2><h2 id="ts接口"><a href="#ts接口" class="headerlink" title="ts接口"></a>ts接口</h2><p><strong>ts的核心原则之一是对该值所对应的数据类型进行一个检测</strong></p><blockquote><p>作用：为你规定的这些类型命名，【签订契约】</p></blockquote><pre><code>/**
+ * 通过ts对函数的参数进行检测
+ */
+function lable(lable: &#123;lable: string&#125;)&#123;
+  console.log(lable)
+&#125;
+
+let lables = &#123;
+  lable: &#39;storing&#39;,
+  mine: 1
+&#125;
+
+lable(lables)
+</code></pre><blockquote><p>对参数lable进行检测，必须包括一个lable属性，并且值为string类型</p></blockquote><p><strong>使用接口进行描述</strong></p><pre><code>interface lableV &#123;
+  lable: string;
+&#125;
+function lable(lable: lableV)&#123;
+  console.log(lable)
+&#125;
+
+let lables = &#123;
+  lable: &#39;storing&#39;,
+  mine: 1
+&#125;
+
+lable(lables)
+</code></pre><blockquote><p>lableV此接口就相当于一个名字，用来描述参数的要求【它代表了有一个label属性且类型为string的对象】</p></blockquote><h2 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h2><blockquote><p>接口里面的属性不全是必须的，根据页面需求，有些参数可传可不传：</p></blockquote><pre><code>interface lableV &#123;
+  lable?: string;
+  mine?: number
+&#125;
+function lable(lable: lableV)&#123;
+  console.log(lable)
+&#125;
+
+let lables = &#123;
+  lable: &#39;storing&#39;,
+  mine: 1
+&#125;
+
+lable(lables)
+</code></pre><h2 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h2><p><strong>一些对象属性只能在对象创建的时候进行创建的时候修改他的值，你可以使用readonly指定只读属性</strong></p><pre><code>interface lableV &#123;
+  readonly a?: string;
+  readonly b?: number
+&#125;
+
+let str: lableV = &#123;
+  a: &#39;1&#39;,
+  b: 1
+&#125;
+
+str.a = 1  // 报错 。 Cannot assign to &#39;a&#39; because it is a read-only property.ts(2540)
+</code></pre><blockquote><p>确保创建完以后不能再修改</p></blockquote><blockquote><p>typeScript具有ReadonlyArray<t>类型，它与Array<t>相似，只是把所有可变方法去掉了，因此可以确保数组创建后再也不能被修改：</t></t></p></blockquote><pre><code>let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray&lt;number&gt; = a;
+ro[0] = 12; // error!         类型“readonly number[]”中的索引签名仅允许读取。ts(2542)
+ro.push(5); // error!         类型“readonly number[]”上不存在属性“push”。ts(2339)
+ro.length = 100; // error!    Cannot assign to &#39;length&#39; because it is a read-only property.ts(2540)
+a = ro; // error!             Type &#39;readonly number[]&#39; is missing the following properties from type &#39;number[]&#39;: pop, push, reverse, shift, and 6 more.ts(2740)
+
+    ||
+
+  //使用类型断言重写
+a = ro as number[];
+</code></pre><blockquote><p>最简单判断该用readonly还是const的方法是看要把它做为变量使用还是做为一个属性。 做为变量使用的话用const，若做为属性则使用readonly。</p></blockquote><h2 id="额外的属性检测"><a href="#额外的属性检测" class="headerlink" title="额外的属性检测"></a>额外的属性检测</h2><p><strong>当我们在传参的过程中，对于某个属性，写错的时候，如下</strong></p><pre><code>interface lableV &#123;
+    lable?: string;
+    mine?: number;
+    maxs: number;
+  &#125;
+  function lable(lable: lableV)&#123;
+    console.log(lable)
+  &#125;
+  
+  let lables = &#123;
+    lable: &#39;storing&#39;,
+    mine: 1,
+    max: 20,
+    min: 10,
+    array: [1,2,3,5]
+  &#125;
+  
+  lable(lables)
+
+  //类型“&#123; lable: string; mine: number; max: number; min: number; array: number[]; &#125;”的参数不能赋给类型“lableV”的参数。
+  //Property &#39;maxs&#39; is missing in type &#39;&#123; lable: string; mine: number; max: number; min: number; array: number[]; &#125;&#39; but required in type &#39;lableV&#39;.ts(2345)
+  //type.ts(50, 5): &#39;maxs&#39; is declared here
+</code></pre><blockquote><p>在js中没什么问题，如果传递的参数在函数中没有使用到，则可以正确执行，但是在ts中会认为这段代码存在bug，最佳的解决方法如下</p></blockquote><pre><code>interface SquareConfig &#123;
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+&#125;
+</code></pre><h2 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h2><p><strong>接口也可以用来描述函数类型</strong></p><pre><code>interface SearchFunc &#123;
+    (source: string, subString: string): boolean;
+&#125;
+
+
+let mySearch: SearchFunc;
+mySearch = function(source: string, subString: string) &#123;
+  let result = source.search(subString);
+  return result &gt; -1;
+&#125;
+
+ //不能将类型“(source: string, subString: string) =&gt; string”分配给类型“SearchFunc”。
+   //不能将类型“string”分配给类型“boolean”。ts(2322)
+</code></pre><blockquote><p>SearchFunc 该接口规定了函数的参数类型，以及该函数的返回值，如果与接口中定义的不匹配，则会出错</p></blockquote><h2 id="可索引类型"><a href="#可索引类型" class="headerlink" title="可索引类型"></a>可索引类型</h2><p><strong>接口可以描述那些能够通过索引得到的类型，可索引类型具有一个索引签名，它描述了对象索引的类型，还有相应的索引值类型，索引签名支持两种类型：number 和 string，但是由于 number 实际上会被转化为 string 类型（根据对象 key 的性质），所以需要遵守：number 索引的返回值类型是 string 索引的返回值类型的子类型。</strong></p><pre><code>interface IPerson &#123;
+    [index: string]: string;
+&#125;
+let me: IPerson = &#123;love: &#39;TS&#39;&#125;
+me.name = &#39;funlee&#39;;
+me.age = 18; // error 不能将类型“18”分配给类型“string”。ts(2322)
+</code></pre><blockquote><p>如果 interface 里还声明了一个和索引签名索引返回值类型不匹配的属性，会报错</p></blockquote><pre><code>interface ITest &#123;
+    [index: string]: string;
+    name: string;
+    age: 18; // 报错，因为返回值类型是number，不符合string类型  [类型“18”的属性“age”不能赋给字符串索引类型“string”。ts(2411)]
+ &#125;
+</code></pre><blockquote><p>还可以声明一个 readonly 的索引签名</p></blockquote><pre><code>  interface IPerson &#123;
+    readonly [index: string]: string;
+  &#125;
+  let p: IPerson = &#123;name: &#39;funlee&#39;&#125;;
+  p.love = &#39;TS&#39;; // error   类型“IPerson”中的索引签名仅允许读取。ts(2542)
+</code></pre><h2 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h2><p><strong>typeScript也可以使用class来实现一个接口，只不过他描述得是类的公共部分，因此不会检查类是否具有某些私有成员</strong></p><pre><code>interface ISome &#123;
+  prop: string // 描述一个属性
+  method(paramA: string, paramB: number) // 描述一个方法
+&#125;
+class A implements ISome &#123;
+  prop: &#39;propValue&#39;
+  method(a: string, b: number) &#123;
+    // ...
+  &#125;
+  constructor(paramA: number)&#123;
+    // ...
+  &#125;
+&#125;
+</code></pre><h2 id="继承接口"><a href="#继承接口" class="headerlink" title="继承接口"></a>继承接口</h2><p><strong>和类一样，接口也可以互相继承</strong></p><pre><code>interface Shape &#123;
+  color: string;
+&#125;
+interface Square extends Shape &#123;
+  sideLength: number;
+&#125;
+const square = &lt;Square&gt;&#123;&#125;;
+square.color = &#39;blue&#39;;
+square.sideLength = 10;
+</code></pre><p><strong>同时，一个接口也可以继承多个接口，创建出多个接口的合成接口，如：</strong></p><pre><code>interface Shape &#123;
+  color: string;
+&#125;
+interface PenStroke &#123;
+  penWidth: number;
+&#125;
+interface Square extends Shape, PenStroke &#123;
+  sideLength
+&#125;
+const square = &lt;Square&gt;&#123;&#125;;
+square.color = &#39;blue&#39;;
+square.sideLength = 10;
+square.penWidth = 5.0;
+</code></pre></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：ts的学习历程 -- 02</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-05-16 17:36:21</li><li>本文链接：http://fishfairy.cn/2019/05/16/ts-02/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/05/22/react-native-windows/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">使用react-native基础环境搭建</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/05/10/ts-01/"><span class="title flex-center"><span class="post-nav-title-item">ts的学习历程 -- 01</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ts%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-%E2%80%93-02"><span class="nav-number">1.</span> <span class="nav-text">ts的学习历程 – 02</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ts%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">ts接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">可选属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">只读属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E5%B1%9E%E6%80%A7%E6%A3%80%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">额外的属性检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">函数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">可索引类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.</span> <span class="nav-text">类类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E6%8E%A5%E5%8F%A3"><span class="nav-number">9.</span> <span class="nav-text">继承接口</span></a></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

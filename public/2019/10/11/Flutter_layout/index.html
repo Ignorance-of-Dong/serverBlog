@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>😈Flutter 布局😈 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">😈Flutter 布局😈</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-10-11 11:42:35 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/Dart/">Dart</a>&nbsp;</li><li>| <a href="/tags/flutter/">flutter</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>6 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="😈Flutter-布局😈"><a href="#😈Flutter-布局😈" class="headerlink" title="😈Flutter 布局😈"></a>😈Flutter 布局😈</h1><h2 id="👿水平布局Row的使用"><a href="#👿水平布局Row的使用" class="headerlink" title="👿水平布局Row的使用"></a>👿水平布局Row的使用</h2><blockquote><p>Flutter的row控件就是水平控件，它可以让Row的里面的子元素进行水平排列</p></blockquote><h3 id="不灵活水平布局"><a href="#不灵活水平布局" class="headerlink" title="不灵活水平布局"></a>不灵活水平布局</h3><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+        
+            home:Scaffold(
+                appBar:new AppBar(title:new Text(&#39;水平方向布局&#39;)),
+                body:new Row(
+                    children: &lt;Widget&gt;[
+                        new RaisedButton(
+                            onPressed: ()&#123;
+                            
+                            &#125;,
+                            color:Colors.redAccent,
+                            child:new Text(&#39;红色按钮&#39;)
+                        ),
+                        new RaisedButton(
+                            onPressed: ()&#123;
+                        
+                            &#125;,
+                            color:Colors.orangeAccent,
+                            child: new Text(&#39;黄色按钮&#39;),
+                        ),  
+                        new RaisedButton(
+                            onPressed: ()&#123;
+                            
+                            &#125;,
+                            color:Colors.pinkAccent,
+                            child:new Text(&#39;粉色按钮&#39;)
+                        )
+                    ],
+                )
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>运行我们可以发现，按钮在一行没有平均分布，右侧还有空隙，如果想要他平均分布，我们就要使用灵活水平布局</p></blockquote><h3 id="灵活水平布局"><a href="#灵活水平布局" class="headerlink" title="灵活水平布局"></a>灵活水平布局</h3><blockquote><p>需要解决上面的问题，我们可以通过Expanded来进行解决，将按钮包在Expanded中</p></blockquote><pre><code>body: Row(
+    children: &lt;Widget&gt;[
+        Expanded(
+            child:RaisedButton(
+                onPressed: ()&#123;
+
+                &#125;,
+                color: Colors.red,
+                child: Text(&#39;红褐色按钮&#39;)
+            ),
+        ),
+        Expanded(
+            child: RaisedButton(
+                onPressed: ()&#123;
+
+                &#125;,
+                color: Colors.yellow,
+                child: Text(&#39;黄褐色按钮&#39;)
+            ),
+        )
+    ],
+),
+</code></pre><h2 id="👹垂直布局Column组件"><a href="#👹垂直布局Column组件" class="headerlink" title="👹垂直布局Column组件"></a>👹垂直布局Column组件</h2><blockquote><p>Column组件是垂直布局控件，可以将子组件垂直排列</p></blockquote><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                appBar:new AppBar(
+                    title:new Text(&#39;垂直方向布局&#39;),
+                ),
+                body: Column(
+                    children: &lt;Widget&gt;[
+                        Text(&#39;data&#39;),
+                        Text(&#39;wwwwwwwwwwwwwwwwwwwwwwwwww&#39;),
+                        Text(&#39;data&#39;)
+                    ],
+                ),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><p><strong>这样你会发现中间一段字母很长，并且整个布局是居中对齐的，如果我们希望他是靠左对齐的，需要加一个对齐属性</strong></p><ul><li>CrossAxisAlignment.star: 居左对齐</li><li>CrossAxisAlignment.end: 居右对齐</li><li>CrossAxisAlignment.center: 居中对齐</li></ul><h3 id="主轴和副轴的辨识【mainAxisAlignment】"><a href="#主轴和副轴的辨识【mainAxisAlignment】" class="headerlink" title="主轴和副轴的辨识【mainAxisAlignment】"></a>主轴和副轴的辨识【mainAxisAlignment】</h3><ul><li>main轴：如果你用cloumn组件，那垂直就是主轴，如果用的是Row组件，那么水平就是主轴</li><li>cross轴：Cross轴称为副轴，是和主轴垂直的方向，例：Row组件，垂直就是副轴，Column的副轴就是水平方向</li></ul><blockquote><p>现在将上面布局改为垂直居中</p></blockquote><pre><code>body: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: &lt;Widget&gt;[
+        Text(&#39;data&#39;),
+        Text(&#39;wwwwwwwwwwwwwwwwwwwwwwwwww&#39;),
+        Text(&#39;data&#39;)
+    ],
+),
+</code></pre><h3 id="Expanded属性的使用"><a href="#Expanded属性的使用" class="headerlink" title="Expanded属性的使用"></a>Expanded属性的使用</h3><blockquote><p>如果我们想要让中间部分变大，上下根据文字大小在底部显示，</p></blockquote><pre><code>body: Column(
+    // crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: &lt;Widget&gt;[
+        Center(child: Text(&#39;data&#39;),),
+        Expanded(
+            child: Container(
+                color: Colors.red,
+            )
+        ),
+        Center(child: Text(&#39;data&#39;),)
+    ],
+),
+</code></pre><h2 id="👺Stack层叠布局"><a href="#👺Stack层叠布局" class="headerlink" title="👺Stack层叠布局"></a>👺Stack层叠布局</h2><blockquote><p>层叠布局就是就是放入一张图片，然后在图片上面加入文字，或者放入容器</p></blockquote><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        var stack = new Stack(
+            alignment: const FractionalOffset(0.5, 0.8),
+            children: &lt;Widget&gt;[
+                new CircleAvatar(
+                    backgroundImage: new NetworkImage(&#39;http://jspang.com/static//myimg/blogtouxiang.jpg&#39;),
+                    radius: 100.0,
+                ),
+                new Container(
+                    decoration: new BoxDecoration(
+                        color: Colors.lightBlue,
+                    ),
+                    padding: EdgeInsets.all(5.0),
+                    child: new Text(&quot;sssssssssssss&quot;),
+                )
+            ],
+        );
+
+
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                appBar:new AppBar(
+                    title:new Text(&#39;垂直方向布局&#39;),
+                ),
+                body:Center(child:stack),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>运行以上代码，就可以得到我们想要的布局效果</p></blockquote><h3 id="alignment属性"><a href="#alignment属性" class="headerlink" title="alignment属性"></a>alignment属性</h3><blockquote><p>层叠布局alignment属性是控制层叠的位置的, 建议两个元素进行层叠时使用，他有两个值X轴距离和Y轴的距离，值是0到1，都是从上层容器的左上角开始算起的</p></blockquote><h3 id="CircleAvatar组件的使用"><a href="#CircleAvatar组件的使用" class="headerlink" title="CircleAvatar组件的使用"></a>CircleAvatar组件的使用</h3><blockquote><p>CircleAvatar这个组件是经常是用来制作头像的，组件里面有一个radius的值可以设置图片的弧度</p></blockquote><pre><code>new CircleAvatar(
+    backgroundImage: new NetworkImage(&#39;http://jspang.com/static//myimg/blogtouxiang.jpg&#39;), // 放入一张背景图片
+    radius: 100.0,
+),
+</code></pre><h2 id="👽Stack的Positioned属性"><a href="#👽Stack的Positioned属性" class="headerlink" title="👽Stack的Positioned属性"></a>👽Stack的Positioned属性</h2><blockquote><p>上述只是两个容器之间的嵌套，如果超过了两个容器之间的层叠嵌套，我们就要使用Positioned组件</p></blockquote><ul><li>bottom：距离层叠组件下面的距离</li><li>left：距离层叠组件左面的距离</li><li>top: 距离层叠组件上面的距离</li><li>right: 距离层叠组件右边的距离</li><li>width：层叠定位组件的宽度</li><li>height： 层叠定位组件的高度</li></ul><hr><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        var stack = Stack(
+        alignment: const FractionalOffset(0.5, 0.8),
+        children: &lt;Widget&gt;[
+            CircleAvatar(
+                backgroundImage: new NetworkImage(&#39;http://img5.mtime.cn/mt/2018/10/22/104316.77318635_180X260X4.jpg&#39;),
+                radius: 100.0,
+            ),
+            Positioned(
+                top:10.0,
+                left:10.0,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue
+                    ),
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(&#39;ssssssss&#39;)
+                ),
+            ),
+            Positioned(
+                bottom:10.0,
+                right: 10.0,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.red
+                    ),
+                    padding: EdgeInsets.fromLTRB(10.0, 20.0, 30.0, 40.0),
+                    child: Text(&#39;data&#39;),
+                ),
+            )
+            
+        ],
+    );
+
+
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                appBar:new AppBar(
+                    title:new Text(&#39;层叠布局&#39;),
+                ),
+                body:Center(child:stack),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><p><strong>运行即可实现我们想要的效果</strong></p><h2 id="💣卡片组件布局"><a href="#💣卡片组件布局" class="headerlink" title="💣卡片组件布局"></a>💣卡片组件布局</h2><blockquote><p>卡片布局是撑满整个外部容器的，如果你想设置卡片的宽高，需要在外部容器进行制定</p></blockquote><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        var card = Card(
+            child: Column(
+                children: &lt;Widget&gt;[
+                    ListTile(
+                        title: Text(&#39;data&#39;,style: TextStyle(fontWeight: FontWeight.w800),),
+                        subtitle: Text(&#39;data&#39;),
+                        leading: Icon(Icons.access_alarms, color: Colors.blue),
+                    ),
+                    Divider(), // 分割线
+                    ListTile(
+                        title: Text(&#39;data&#39;,style: TextStyle(fontWeight: FontWeight.w800),),
+                        subtitle: Text(&#39;data&#39;),
+                        leading: Icon(Icons.access_alarms, color: Colors.blue),
+                    ),
+                    Divider(),
+                    ListTile(
+                        title: Text(&#39;data&#39;,style: TextStyle(fontWeight: FontWeight.w800),),
+                        subtitle: Text(&#39;data&#39;),
+                        leading: Icon(Icons.access_alarms, color: Colors.blue),
+                    ),
+                    Divider(),
+                ],
+            ),
+        );
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                appBar:new AppBar(
+                    title:new Text(&#39;卡片布局&#39;),
+                ),
+                body:Center(child: card),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：😈Flutter 布局😈</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-10-11 11:42:35</li><li>本文链接：http://fishfairy.cn/2019/10/11/Flutter_layout/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/10/12/Flutter_navigation/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">🌑Flutter 页面导航及打包🌑</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/10/10/Flutter_view/"><span class="title flex-center"><span class="post-nav-title-item">🥰Flutter 常用组件🥰</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%98%88Flutter-%E5%B8%83%E5%B1%80%F0%9F%98%88"><span class="nav-number">1.</span> <span class="nav-text">😈Flutter 布局😈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%BF%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80Row%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">👿水平布局Row的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%81%B5%E6%B4%BB%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">不灵活水平布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%81%B5%E6%B4%BB%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">灵活水平布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%B9%E5%9E%82%E7%9B%B4%E5%B8%83%E5%B1%80Column%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">👹垂直布局Column组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%BD%B4%E5%92%8C%E5%89%AF%E8%BD%B4%E7%9A%84%E8%BE%A8%E8%AF%86%E3%80%90mainAxisAlignment%E3%80%91"><span class="nav-number">1.2.1.</span> <span class="nav-text">主轴和副轴的辨识【mainAxisAlignment】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expanded%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">Expanded属性的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%BAStack%E5%B1%82%E5%8F%A0%E5%B8%83%E5%B1%80"><span class="nav-number">1.3.</span> <span class="nav-text">👺Stack层叠布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#alignment%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">alignment属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CircleAvatar%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">CircleAvatar组件的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%BDStack%E7%9A%84Positioned%E5%B1%9E%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">👽Stack的Positioned属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A3%E5%8D%A1%E7%89%87%E7%BB%84%E4%BB%B6%E5%B8%83%E5%B1%80"><span class="nav-number">1.5.</span> <span class="nav-text">💣卡片组件布局</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

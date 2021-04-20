@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>react-redux | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">react-redux</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-04-05 20:03:01 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/js/">js</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>2.7k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>11 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h2><h3 id="为什么需要redux"><a href="#为什么需要redux" class="headerlink" title="为什么需要redux"></a>为什么需要redux</h3><p><strong>学过react的都知道，react用state和props控制组件的渲染情况，而对于JavaScript单页面日趋复杂的今天，JavaScript需要管理越来越多的state，而这些state包括着各种乱七八糟途径来的数据。甚至有的应用的state会关系到另一个组件的状态。所以为了方便对这些state的管理以及对state变化的可控性。这个时候Redux这个东西就出来了，它可以让state的变化变得可预测。</strong></p><h3 id="Redux的基本概念"><a href="#Redux的基本概念" class="headerlink" title="Redux的基本概念"></a>Redux的基本概念</h3><p><strong>什么是redux？这里非权威的解释：就是一个应用的state管理库，甚至可以说是前端数据库。更包括的是管理数据。</strong></p><h4 id="state"><a href="#state" class="headerlink" title="state"></a>state</h4><p><strong>state是整个应用的数据，本质上是一个普通对象。</strong></p><h4 id="action"><a href="#action" class="headerlink" title="action"></a>action</h4><p><strong>数据state已经有了，那么我们是如何实现管理这些state中的数据的呢？那就是action，什么是action？按字面意思解释就是动作，也可以理解成，一个可能！改变state的动作包装。就这么简单。。。。</strong></p><p><strong>比如有一个counter数量加减应用，我们就有两个action，一个decrement，一个increment。 所以这里的action creator写成如下：</strong></p><pre><code>export function decrement() &#123;
+    return&#123;
+        type:DECREMENT_COUNTER
+    &#125;
+&#125;
+
+export function increment()&#123;
+    return&#123;
+        type:INCREMENT_COUNTER
+    &#125;
+&#125;
+</code></pre><p><strong>那么，当action创建完成了之后呢，我们怎么触发这些action呢，这时我们是要利用dispatch，比如我们执行count增减减少动作。</strong></p><pre><code>export function incrementIfOdd()&#123;
+    return(dispatch,getState)=&gt;&#123;
+        const &#123;counter&#125; = getState();
+        if(counter%2==0) &#123;
+            return;
+        &#125;
+        dispatch(increment());
+    &#125;
+&#125;
+
+export function incrementAsync() &#123;
+    return dispatch =&gt; &#123;
+        setTimeout(() =&gt; &#123;
+            dispatch(increment());
+        &#125;, 1000);
+    &#125;;
+&#125;
+</code></pre><p><strong>为了减少样板代码，我们使用单独的模块或文件来定义 action type 常量</strong></p><pre><code>export const INCREMENT_COUNTER = &#39;INCREMENT_COUNTER&#39;;
+export const DECREMENT_COUNTER = &#39;DECREMENT_COUNTER&#39;;
+</code></pre><p><strong>这么做不是必须的，在大型应用中把它们显式地定义成常量还是利大于弊的。</strong></p><h4 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h4><p><strong>既然这个可能改变state的动作已经包装好了，那么我们怎么去判断并且对state做相应的改变呢？对，这就是reducer干的事情了。</strong></p><p><strong>reducer是state最终格式的确定。它是一个纯函数，也就是说，只要传入参数相同，返回计算得到的下一个 state 就一定相同。没有特殊情况、没有副作用，没有 API 请求、没有变量修改，单纯执行计算。</strong></p><p><strong>reducer对传入的action进行判断，然后返回一个通过判断后的state，这就是reducer的全部职责。如我们的counter应用：</strong></p><pre><code>import &#123;INCREMENT_COUNTER,DECREMENT_COUNTER&#125; from &#39;../actions&#39;;
+
+export default function counter(state = 0, action) &#123;
+    switch (action.type)&#123;
+        case INCREMENT_COUNTER:
+            return state+1;
+        case DECREMENT_COUNTER:
+            return state-1;
+        default:
+            return state;
+    &#125;
+&#125;
+</code></pre><p><strong>对于一个比较大一点的应用来说，我们是需要将reducer拆分的，最后通过redux提供的combineReducers方法组合到一起。 如此项目上的：</strong></p><pre><code>const rootReducer = combineReducers(&#123;
+    counter
+&#125;);
+export default rootReducer;
+</code></pre><p><strong>每个reducer只负责管理全局state中它负责的一部分。每个reducer的state参数都不同，分别对应它管理的那部分state数据。combineReducers()所做的只是生成一个函数，这个函数来调用你的一系列reducer，每个reducer根据它们的key来筛选出state中的一部分数据并处理， 然后这个生成的函数再将所有reducer的结果合并成一个大的对象。</strong></p><h4 id="store"><a href="#store" class="headerlink" title="store"></a>store</h4><p><strong>store是对之前说到一个联系和管理。具有如下职责</strong></p><blockquote><ul><li>维持应用的state；</li><li>提供getState()方法获取 state</li><li>提供dispatch(action)方法更新 state；</li><li>通过subscribe(listener)注册监听器;</li><li>通过subscribe(listener)返回的函数注销监听器。</li></ul></blockquote><p><strong>强调一下 Redux 应用只有一个单一的store。当需要拆分数据处理逻辑时，你应该使用reducer组合,而不是创建多个store。store的创建通过redux的createStore方法创建，这个方法还需要传入reducer，很容易理解：毕竟我需要dispatch一个action来改变state嘛。 应用一般会有一个初始化的state，所以可选为第二个参数，这个参数通常是有服务端提供的，传说中的Universal渲染。 第三个参数一般是需要使用的中间件，通过applyMiddleware传入。</strong></p><h3 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h3><p><strong>一个比较流行的redux的action中间件，它可以让actionCreator暂时不返回action对象，而是返回一个函数，函数传递两个参数(dispatch, getState)，在函数体内进行业务逻辑的封装，比如异步操作，我们至少需要触发两个action，这时候我们可以通过redux-thunk将这两个action封装在一起，如下：</strong></p><blockquote><p>store.js</p></blockquote><pre><code>import &#123; createStore, applyMiddleware &#125; from &quot;redux&quot;;
+import RankReducer from &quot;./reducers/reducer&quot;
+import thunk from &quot;redux-thunk&quot;;
+const store = createStore(RankReducer, applyMiddleware(thunk));
+export default store
+</code></pre><blockquote><p>reducer.jsx</p></blockquote><pre><code>const defaultState = &#123;
+    rankList: []
+&#125;
+const RankReducer = (state = defaultState, action) =&gt; &#123;
+    const &#123; type, layload &#125; = action;
+    switch (type) &#123;
+        case &quot;UPDATE&quot;:
+            return &#123; ...state, rankList: layload &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+export default RankReducer;
+</code></pre><blockquote><p>rank.js</p></blockquote><pre><code>import axios from &quot;axios&quot;
+
+export function updata(layload)&#123;
+    return function(dispatch)&#123;
+        return axios.get(&quot;/getrankList&quot;).then(result=&gt;&#123;
+            return dispatch(&#123;
+                type:&quot;UPDATA&quot;,
+                layload:result.data.data
+            &#125;)
+        &#125;)
+    &#125;
+&#125;
+</code></pre><blockquote><p>index.jsx</p></blockquote><pre><code>import &#123;updata&#125; from &quot;../../store/action/rank&quot;
+const mapdispatchToprops=(dispatch)=&gt;&#123;
+    return &#123;
+        updata()&#123;
+            dispatch(updata())
+        &#125;,
+        add(layload)&#123;
+            dispatch(&#123;
+                type:&quot;ADD&quot;,
+                layload:layload
+            &#125;)
+        &#125;
+    &#125;
+&#125;
+</code></pre><h3 id="react-redux-1"><a href="#react-redux-1" class="headerlink" title="react-redux"></a>react-redux</h3><p><strong>redux和react的桥梁工具。</strong></p><blockquote><p>index.js</p></blockquote><pre><code>import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import &quot;./common/css/index.css&quot;
+import App from &#39;../src/containers/app&#39;;
+import &#123;Provider&#125; from &quot;react-redux&quot;
+import &#123;store&#125; from &quot;./store/store&quot;
+
+ReactDOM.render(
+        &lt;Provider store=&#123;store&#125;&gt;
+          
+                &lt;App /&gt;
+            
+        &lt;/Provider&gt;
+     ,document.getElementById(&#39;root&#39;)
+);
+</code></pre><blockquote><p>home.js</p></blockquote><pre><code>import React from &quot;react&quot;
+import &#123;connect&#125; from &quot;react-redux&quot;
+class Home extends React.Component&#123;
+
+
+&#125;
+
+const mapstateToprops=(state)=&gt;&#123;
+    return state
+&#125;
+const mapdispatchToprops=(dispatch)=&gt;&#123;
+    return &#123;
+        updata()&#123;
+            dispatch(updata())
+        &#125;,
+        add(layload)&#123;
+            dispatch(&#123;
+                type:&quot;ADD&quot;,
+                layload:layload
+            &#125;)
+        &#125;
+    &#125;
+&#125;
+export default connect(mapstateToprops,mapdispatchToprops)(Home) 
+</code></pre><h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><p><strong>上面介绍了redux-thunk是异步操作的方法，我们可以看出，他的函数内部比较复杂，如果需要每个异步操作都定义一个action的话，显然是不易维护的</strong></p><h3 id="redux-saga的API"><a href="#redux-saga的API" class="headerlink" title="redux-saga的API"></a>redux-saga的API</h3><p><strong>redux-saga是通过ES6中的generator实现的（babel的基础版本不包含generator语法，因此需要在使用saga的地方import ‘babel-polyfill’）。redux-saga本质是一个可以自执行的generator。</strong></p><h4 id="redux-saga中的Effect"><a href="#redux-saga中的Effect" class="headerlink" title="redux-saga中的Effect"></a>redux-saga中的Effect</h4><p><strong>redux-saga中定义了Effect，Effect是什么呢，本质就是一个特定的函数，返回的是纯文本对象。简单理解，通过Effect函数，会返回一个字符串，saga-middleware根据这个字符串来执行真正的异步操作，可以具体表现成如下形式：</strong></p><blockquote><p>异步操作——&gt;Effect函数——&gt;纯文本对象——&gt;saga-middleware——&gt;执行异步操作</p></blockquote><p><strong>因为Effect的存在，方便saga测试异步操作。</strong></p><h4 id="Effect具体函数"><a href="#Effect具体函数" class="headerlink" title="Effect具体函数"></a>Effect具体函数</h4><p><strong>Effect函数有很多个，在redux-saga/effects提供，主要包括call，fork，put，take，select等，它们都与middleware中的操作一一对应。</strong></p><ul><li>call 和 fork</li></ul><blockquote><p>call和fork表示异步调用，其中call表示的是阻塞调用，fork表示的是非阻塞调用。</p></blockquote><ul><li>put和select</li></ul><blockquote><p>put对应的是middleware中的dispatch方法，参数是一个plain object，一般在异步调用返回结果后，接着执行put。select相当于getState，用于获取store中的相应部分的state。</p></blockquote><ul><li>take、takeEvery、takeLatest</li></ul><blockquote><p>redux-saga中如果在非阻塞调用下（fork）,那么遵循的是worker/watcher模式，通过take可以监听某个action是否被发起，此外通过take结合fork，可以实现takeEvery和takeLatest的效果。</p></blockquote><blockquote><p>如果一个异步操作的action被发起多次，takeEvery会执行多次action，而takeLatest只会执行最近的一次。</p></blockquote><h3 id="redux-saga的优缺点"><a href="#redux-saga的优缺点" class="headerlink" title="redux-saga的优缺点"></a>redux-saga的优缺点</h3><blockquote><p>优点：</p></blockquote><p>（1）集中处理了所有的异步操作，异步接口部分一目了然</p><p>（2）action是普通对象，这跟redux同步的action一模一样</p><p>（3）通过Effect，方便异步接口的测试</p><p>（4）通过worker 和watcher可以实现非阻塞异步调用，并且同时可以实现非阻塞调用下的事件监听</p><p>（5） 异步操作的流程是可以控制的，可以随时取消相应的异步操作。</p><blockquote><p>缺点：</p></blockquote><p>太复杂，学习成本较高</p><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><blockquote><p>sagas.js</p></blockquote><pre><code>import &#123; takeEvery, takeLatest &#125; from &#39;redux-saga&#39;;
+import &#123; call, put &#125; from &#39;redux-saga/effects&#39;;
+import axios from &#39;axios&#39;;
+import &#123; BEGIN_GET_POSTS, GET_POSTS, GET_POSTS_ERROR &#125; from &#39;../reducers&#39;;
+
+// worker saga
+function* showPostsAsync(action) &#123;
+    try &#123;
+        const response = yield call(axios.get, &#39;https://jsonplaceholder.typicode.com/posts&#39;);
+        yield put(GET_POSTS(response.data));
+    &#125; catch(e) &#123;
+        yield put(GET_ERROR(e));
+    &#125;
+&#125;
+</code></pre><blockquote><p>reducers.js</p></blockquote><pre><code>import &#123; combineReducers &#125; from &#39;redux&#39;
+
+// actions
+export const RECEIVE_USERS = &#39;RECEIVE_USERS&#39;;
+export const FETCH_USERS_ERROR = &#39;FETCH_USERS_ERROR&#39;;
+export const RECEIVE_POSTS = &#39;RECEIVE_POPTS&#39;;
+export const FETCH_POSTS_ERROR = &#39;FETCH_USERS_ERROR&#39;;
+export const BEGIN_GET_POSTS = &#39;BEGIN_GET_POSTS&#39;;
+
+// action creators
+export function GET_USERS(users) &#123;
+    return &#123; type: RECEIVE_USERS, users &#125;
+&#125;
+
+export function GET_ERROR(error) &#123;
+    return &#123; type: FETCH_USERS_ERROR, error &#125;
+&#125;
+
+export function GET_POSTS(posts) &#123;
+    return &#123; type: RECEIVE_POSTS, posts &#125;
+&#125;
+
+export function Begin_GET_POSTS() &#123;
+    return &#123; type: BEGIN_GET_POSTS &#125;
+&#125;
+
+export function GET_POSTS_ERROR(error) &#123;
+    return &#123; type: FETCH_POSTS_ERROR, error &#125;
+&#125;
+
+// reducer
+const initialState = &#123; 
+    fetched: false, 
+    users: [&#123;
+        key: &#39;1&#39;,
+        name: &#39;张三&#39;,
+        email: &#39;zhangsan@126.com&#39;
+    &#125;],
+    posts: [&#123;
+        key: &#39;1&#39;,
+        id: &#39;1&#39;,
+        title: &#39;test&#39;
+    &#125;],
+    error: null
+&#125;;
+
+const appReducer = (state = initialState, action) =&gt; &#123;
+    switch(action.type) &#123;
+        case FETCH_USERS_ERROR: &#123;
+            return &#123;...state, error: action.error&#125; 
+            break;
+        &#125;
+        case RECEIVE_USERS: &#123;
+            return &#123;...state, fetched: true, users: action.users&#125; 
+            break;
+        &#125;
+        case FETCH_POSTS_ERROR: &#123;
+            return &#123;...state, error: action.error&#125; 
+            break;
+        &#125;
+        case RECEIVE_POSTS: &#123;
+            return &#123;...state, fetched: true, posts: action.posts&#125; 
+            break;
+        &#125;
+    &#125;
+    return state;
+&#125;
+
+export default appReducer
+</code></pre><blockquote><p>app.js</p></blockquote><pre><code>&#39;use strict&#39;;
+
+import &#39;../asset/css/style.scss&#39;;
+import &#39;antd/dist/antd.min.css&#39;;
+import React from &#39;react&#39;;
+import &#123; render &#125; from &#39;react-dom&#39;;
+import &#123; Provider &#125; from &#39;react-redux&#39;;
+import &#123; createStore, applyMiddleware, combineReducers &#125; from &#39;redux&#39;;
+import logger from &#39;redux-logger&#39;;
+import thunk from &#39;redux-thunk&#39;;
+import createSagaMiddleware from &#39;redux-saga&#39;;
+import axios from &#39;axios&#39;;
+
+import appReducer from &#39;./reducers&#39;;
+import AppRouter from &#39;./router&#39;;
+import rootSaga from &#39;./sagas&#39;;
+
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [thunk, sagaMiddleware, logger];
+
+const store = createStore(appReducer, applyMiddleware(...middlewares));
+sagaMiddleware.run(rootSaga);
+
+render(
+    &lt;Provider store=&#123;store&#125;&gt;
+        &lt;AppRouter /&gt;
+    &lt;/Provider&gt;,
+    document.getElementById(&#39;app&#39;)
+);
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="本文介绍了react-redux基本使用方法："><a href="#本文介绍了react-redux基本使用方法：" class="headerlink" title="本文介绍了react-redux基本使用方法："></a>本文介绍了react-redux基本使用方法：</h3><p><strong>首先需要创建仓库，使用redux创建仓库，创建reducer，页面中使用dispatch执行action，将改变的值传递到renducer中，然而链接页面与仓库需要react-redux中的{provider,connect},在根目录进行链接，将组件使用provider包裹起来，将创建的仓库，传入到provider中，视图中使用connect链接仓库。</strong></p><h3 id="redux-thunk-1"><a href="#redux-thunk-1" class="headerlink" title="redux-thunk"></a>redux-thunk</h3><p><strong>使用applymiddle引入插件thunk，创建一个函数，他返回一个函数，这个函数可以接收dispatch，他可以在异步任务执行完以后在，dispatch</strong></p><h3 id="redux-saga-1"><a href="#redux-saga-1" class="headerlink" title="redux-saga"></a>redux-saga</h3><p><strong>redux-sage中的effect中有put，call，select…几个属性，call使用来提交一个异步操作，有两个参数，第一个要执行的异步函数，第二个是要传递的参数，put是用来执行reducer，使用时需要创建一个sage</strong></p></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：react-redux</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-04-05 20:03:01</li><li>本文链接：http://fishfairy.cn/2019/04/05/redux/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/04/05/ajax-task/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">ajax</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/04/03/react-task/"><span class="title flex-center"><span class="post-nav-title-item">react的概述</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#react-redux"><span class="nav-number">1.</span> <span class="nav-text">react-redux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81redux"><span class="nav-number">1.1.</span> <span class="nav-text">为什么需要redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">Redux的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#state"><span class="nav-number">1.2.1.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#action"><span class="nav-number">1.2.2.</span> <span class="nav-text">action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reducer"><span class="nav-number">1.2.3.</span> <span class="nav-text">reducer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#store"><span class="nav-number">1.2.4.</span> <span class="nav-text">store</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-thunk"><span class="nav-number">1.3.</span> <span class="nav-text">redux-thunk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react-redux-1"><span class="nav-number">1.4.</span> <span class="nav-text">react-redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-saga"><span class="nav-number">1.5.</span> <span class="nav-text">redux-saga</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-saga%E7%9A%84API"><span class="nav-number">1.6.</span> <span class="nav-text">redux-saga的API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redux-saga%E4%B8%AD%E7%9A%84Effect"><span class="nav-number">1.6.1.</span> <span class="nav-text">redux-saga中的Effect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect%E5%85%B7%E4%BD%93%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.2.</span> <span class="nav-text">Effect具体函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-saga%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.7.</span> <span class="nav-text">redux-saga的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.8.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E4%BB%8B%E7%BB%8D%E4%BA%86react-redux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">本文介绍了react-redux基本使用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-thunk-1"><span class="nav-number">2.2.</span> <span class="nav-text">redux-thunk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-saga-1"><span class="nav-number">2.3.</span> <span class="nav-text">redux-saga</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

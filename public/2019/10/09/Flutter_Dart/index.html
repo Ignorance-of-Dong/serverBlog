@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>🍉Dart学习【基础】🍉 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">🍉Dart学习【基础】🍉</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-10-09 11:42:35 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/Dart/">Dart</a>&nbsp;</li><li>| <a href="/tags/flutter/">flutter</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>2.2k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>9 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="🍉Dart学习【基础】🍉"><a href="#🍉Dart学习【基础】🍉" class="headerlink" title="🍉Dart学习【基础】🍉"></a>🍉Dart学习【基础】🍉</h1><h2 id="🍌Dart简介"><a href="#🍌Dart简介" class="headerlink" title="🍌Dart简介"></a>🍌Dart简介</h2><ul><li><p>在Dart中，一切都是对象，一切对象都是class实例，哪怕是数字类型，方法甚至是null都是对象，所有对象继承于Object</p></li><li><p>Dart是强语言类型，但是Dart可以自动推变变量类型，所以也可以支持动态类型</p></li><li><p>Dart具有强大的异步编程能力</p></li></ul><h2 id="🍍Dart用法"><a href="#🍍Dart用法" class="headerlink" title="🍍Dart用法"></a>🍍Dart用法</h2><blockquote><p>import 导入库</p></blockquote><pre><code>import &#39;package:flutter/material.dart&#39;;
+</code></pre><blockquote><p>注释【和js一样】</p></blockquote><pre><code>//单行注释
+/****/多行注释
+</code></pre><blockquote><p>=&gt; [Dart的箭头函数，即Lambda表达式]</p></blockquote><pre><code>void main() =&gt; runApp(MyApp());
+</code></pre><blockquote><p>extends 继承</p></blockquote><pre><code>class MyApp extends StatelessWidget &#123;
+
+    var content = &#39;Dart&#39;; // 声明并初始化变量
+    String _name = &quot;Flutter&quot;;
+
+    @override
+    Widget build(BuildContext context) &#123;
+
+        print(&#39;display $content&#39;); // 打印【对应js的console】
+
+        // return a Widget
+        return MaterialApp(
+        title: &quot;Flutter Demo&quot;,
+        theme: ThemeData(
+            primaryColor: Colors.blue,
+        ),
+        home: Scaffold(
+            appBar: AppBar(title: Text(&quot;Flutter Dart 语法&quot;)),
+            body: Text(content+_name)
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>var 变量申明并且不指定其类型的方法</p></blockquote><pre><code>var content = &#39;Dart 语法&#39;; // 声明并初始化变量
+</code></pre><blockquote><p>_ 以下划线 _ 开头的类或成员变量是私有的</p></blockquote><p><strong>Dart 没有 Public、Protected、Private 的关键字，在 Dart 里，类或成员变量默认都是 Public 的，以下划线 _ 开头的就是私有的，例如成员变量 _name 就是私有的。</strong></p><pre><code>String _name = &quot;Flutter&quot;;
+</code></pre><blockquote><p>String 在声明变量时也可以指定具体类型，String 是字符串，还有其他的数据类型：int、double等。</p></blockquote><pre><code>String _name = &quot;Flutter&quot;;
+</code></pre><blockquote><p>$variableName 或 ${expression}</p></blockquote><p><strong>字符串插值：将变量的值直接插入字符串中。</strong></p><pre><code>print(&#39;display $content&#39;);
+</code></pre><h2 id="🍑变量声明（一共有四种方式）"><a href="#🍑变量声明（一共有四种方式）" class="headerlink" title="🍑变量声明（一共有四种方式）"></a>🍑变量声明（一共有四种方式）</h2><ul><li><ol><li>var</li></ol></li></ul><hr><pre><code>var content = &#39;Dart 语法&#39;
+
+var switchOn = false
+
+var current = 0
+</code></pre><p><strong>使用var来申明变量，不需要指定变量的数据类型，因为Dart会自动推断其数据类型，所以可以使用var来定义任何变量</strong></p><blockquote><p>var不是直接储存值，而是存储的对象的引用，例如：var content = ‘Dart’,是名字为content的var的变量存储了值为Dart的String对象的引用，因此var可以定义定义任何变量</p></blockquote><ul><li><ol start="2"><li>明确数据类型</li></ol></li></ul><hr><pre><code>String name = &#39;Flutter&#39;
+int count = 0
+</code></pre><p><strong>就是在声明变量的时候，使用明确的数据类型</strong></p><ul><li>dynamic</li></ul><hr><pre><code>dynamic example = &#39;example&#39;
+</code></pre><p><strong>意思是数据类型是动态可变的，也可以定义任何变量，但是和var不同，var一旦赋值以后，就不能改变数据类型了</strong></p><ul><li>Object</li></ul><hr><pre><code>Object index = 100
+</code></pre><p><strong>Dart里面的所有东西都是对象，因为Dart的所有东西都是对象，都继承于Object，因此可以定义任意类型，而且赋值以后也可以更改</strong></p><pre><code>Object index = 100
+
+index = &#39;string&#39; √  因为&#39;string&#39;也是object
+</code></pre><p><strong>！！！注意： 请不要滥用dynamic，一般情况下都可以使用Object来代替</strong></p><h3 id="dynamic-使用场景"><a href="#dynamic-使用场景" class="headerlink" title="dynamic 使用场景"></a>dynamic 使用场景</h3><blockquote><p>在与native对接时，对传入的参数类型不确定时，进行使用</p></blockquote><h3 id="常量：final-和-const"><a href="#常量：final-和-const" class="headerlink" title="常量：final 和 const"></a>常量：final 和 const</h3><pre><code>final content = &#39;Dart
+
+static const bool switch = false
+</code></pre><p><strong>使用的时候需要注意一下几点</strong></p><ul><li>使用final和const时候可以把var省略</li><li>final和const变量只能赋值一次，并且他在声明的时候就已经赋值</li><li>const是隐式的const</li><li>在使用const的时候，如果是在全局声明的话，不需要加static属性，如果是在类里面声明，则需要加上</li></ul><blockquote><p>final与const的区别</p></blockquote><p><strong>const是编译时常量，在编译的时候就已经初始化了，而final变量是当类创建的时候才初始化</strong></p><h2 id="🍓Dart支持的数据类型"><a href="#🍓Dart支持的数据类型" class="headerlink" title="🍓Dart支持的数据类型"></a>🍓Dart支持的数据类型</h2><ul><li>int</li></ul><blockquote><p>整数，范围带-2^63到2^63-1</p></blockquote><pre><code>int x = 1; // 没有小数点就是int
+</code></pre><ul><li>double</li></ul><blockquote><p>浮点数，64位，双精度- 浮点数</p></blockquote><pre><code>double y = 1.1; // 有小数的就是浮点数
+</code></pre><ul><li>num</li></ul><blockquote><p>num是数字类型，既可以表示整数，也可以表示浮点数，具体看赋值</p></blockquote><pre><code>num x = 1;
+
+num y = 2;
+</code></pre><ul><li>String</li></ul><blockquote><p>字符串【Dart字符串采用UTF-8编码，可以采用单引号或双引号】</p></blockquote><pre><code>var s1 = &#39;string&#39;
+
+String s1 = &#39;string&#39;
+</code></pre><ul><li>bool</li></ul><blockquote><p>布尔值</p></blockquote><pre><code>var isShow = true
+
+bool isShow = true
+</code></pre><ul><li>List</li></ul><blockquote><p>List[E] E表示List里面的数据类型</p></blockquote><pre><code>List&lt;int&gt; = [1, 2, 3]
+</code></pre><ul><li>Set</li></ul><blockquote><p>Set&lt;\E&gt; E表示Set的数据类型，使用大括号进行赋值</p></blockquote><pre><code>Set&lt;String&gt; halong = &#123;&#39;hellow&#39;, &#39;world&#39;, &#39;koal&#39;&#125;
+</code></pre><ul><li>Map</li></ul><blockquote><p>Map&lt;\k, v&gt;k是Key的数据类型，V是Value的数据类型</p></blockquote><pre><code>Map&lt;String, String&gt; gits = &#123;
+    &#39;first&#39;: &#39;partridge&#39;,
+    &#39;second&#39;: &#39;turtledoves&#39;,
+&#125;
+</code></pre><ul><li>Runes</li></ul><blockquote><p>表示采用UTF-32字符串，用于显示Unicode，因为Dart字符串是UTF-16，因此在Dart中表示32位的Unicode需要Runes这个特殊的语法</p></blockquote><pre><code>Runes input = new Runes(&#39;\u&#123;1f600&#125;&#39;);
+print(new String.fromCharCodes(input));
+打印出来的是笑脸emoji：😆
+</code></pre><h2 id="🍄函数"><a href="#🍄函数" class="headerlink" title="🍄函数"></a>🍄函数</h2><blockquote><p>在Dart中函数也是对象,函数的类型是Function</p></blockquote><h3 id="函数的写作格式"><a href="#函数的写作格式" class="headerlink" title="函数的写作格式"></a>函数的写作格式</h3><pre><code>bool say(String msg , String from, int clock)&#123;
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock?.toString());
+    return true;
+&#125;
+
+返回类型 函数名(函数参数)&#123;
+
+&#125;   
+</code></pre><h3 id="函数的类型"><a href="#函数的类型" class="headerlink" title="函数的类型"></a>函数的类型</h3><pre><code>print(say is Function) // 判断say是否为函数
+</code></pre><h3 id="函数的参数：-必选参数-可选参数"><a href="#函数的参数：-必选参数-可选参数" class="headerlink" title="函数的参数： 必选参数 ===== 可选参数"></a>函数的参数： 必选参数 ===== 可选参数</h3><blockquote><p>首先必选参数必须在前面，和普通函数一样，后面跟可选参数，可选参数需要用{}或者[]包起来，用不同的括号，可选参数的意义也不一样</p></blockquote><p><strong>必选参数和普通函数一样，这里不多阐述，主要说明可选参数</strong></p><blockquote><p><strong>可选参数</strong></p></blockquote><ul><li><strong>可选命名参数：</strong>：使用{}包起来的参数是可选命名参数</li><li><strong>可选位置参数：</strong>：使用[]包起来的参数是可选位置参数</li></ul><blockquote><p>可选命名参数：{}</p></blockquote><p><strong>用{}包起来的参数，前面说的数据类型，使用{}来赋值的数据类型是Map，所以可选参数的的类型也是Map，因此调用函数时，可选参数的赋值必须是key: value这种格式的，如下：</strong></p><pre><code>bool say(String msg , &#123;String from, int clock&#125;)&#123;
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+&#125;
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//✅ 因为 from 和 clock 是可选参数，所以可以不填
+
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;);//对 用命名参数格式 paramName: value 为 from 赋值
+say(&#39;Hello Flutter&#39;, clock: 11);//✅
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;, clock: 11);//✅
+</code></pre><p><strong>同时也可以给命名参数加@required，意思是这个也是必选参数，如下：</strong></p><pre><code>bool say(String msg , &#123;@required String from, int clock&#125;)&#123;
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+&#125;
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//❌  错误调用方式，因为 from 是必选参数，不填的话会报错
+
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;);//✅ 正确调用方式
+say(&#39;Hello Flutter&#39;, from: &#39;XiaoMing&#39;, clock: 11);//✅ 这个调用方式也是正确的
+</code></pre><blockquote><p>可选位置参数：[]</p></blockquote><p><strong>用[ ]包起来的参数是可选位置参数，前面说的数据类型的时候，使用[ ]来赋值的数据类型是List，所以可选参数的命名参数也是List，所以赋值和参数是一一对应的，如下：</strong></p><pre><code>bool say(String msg , [String from , int clock])&#123;
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+&#125;
+
+// 调用
+
+say(&#39;Hello Flutter&#39;);//✅ 因为 from 和 clock 是可选参数，所以可以不填
+
+say(&#39;Hello Flutter&#39;, &#39;XiaoMing&#39;,1);//✅ 为可选位置参数赋值，只能一个参数一个参数对应的赋值，所以要全部赋值
+    
+say(&#39;Hello Flutter&#39;, &#39;XiaoMing&#39;)//✅
+say(&#39;Hello Flutter&#39;, 1)//❌ 因为  1 赋值给了 from,但是 from 是String，所以会报错
+</code></pre><blockquote><p>可选参数的默认值： =</p></blockquote><p><strong>因为参数是可选的，那么参数的值很可能没有赋值，也就是null，我们如果需要用到该参数，可以赋值给他一个默认值</strong></p><pre><code>bool say(String msg , &#123;String from = &#39;empty&#39;, int clock = 0&#125;)&#123;
+    print(msg+&quot; from &quot; + from + &quot; at &quot; + clock.toString());
+    return true;
+&#125;
+</code></pre><h2 id="🍒-gt-箭头语法"><a href="#🍒-gt-箭头语法" class="headerlink" title="🍒=&gt; 箭头语法"></a>🍒=&gt; 箭头语法</h2><blockquote><p>=&gt; 语句后面的只能加一行代码，而且这一行代码只能一个表达式，而且不能跟语句，表达式可以使函数或值</p></blockquote><pre><code>void main() =&gt; runApp(MyApp());
+</code></pre><p>等价于：</p><pre><code>void main()&#123;
+    return runApp(MyApp());//runApp() 返回的是 void
+&#125;
+</code></pre><h2 id="🍭操作符"><a href="#🍭操作符" class="headerlink" title="🍭操作符"></a>🍭操作符</h2><blockquote><p>类型判断操作符</p></blockquote><ul><li>as</li></ul><p><strong>类型转换</strong></p><pre><code>(emp as Person).firstName = &#39;Bob&#39;;
+</code></pre><ul><li>is</li></ul><p><strong>判断是否为某个类型，如果是的话，就返回true</strong></p><pre><code>if (emp is Person) &#123;    // 如果 emp 是 Person 类型
+    emp.firstName =&#39;Bob&#39;;
+&#125;
+</code></pre><ul><li>is!</li></ul><p><strong>判断是否不是某个类型，如果不是的话就返回true</strong></p><pre><code>if (emp is! Person) &#123;
+    // 如果 emp 不是 Person 类型
+&#125;
+</code></pre><h2 id="🍬条件运算符"><a href="#🍬条件运算符" class="headerlink" title="🍬条件运算符"></a>🍬条件运算符</h2><pre><code>condition ? expr1 : expr2
+</code></pre><blockquote><p>如果condition为true的时候，返回expr1，否则返回expr2</p></blockquote><pre><code>var visibility = isPublic ? &#39;public&#39; : &#39;private&#39;;
+</code></pre><hr><pre><code>expr1 ?? expr2
+</code></pre><blockquote><p>如果 expr1 为 null，就返回 expr2 的值，否则返回 expr1 的值。</p></blockquote><p><strong>如果需要根据一个 boolean 表达式是否为 null 来作为条件，可以使用 ??，例如：</strong></p><pre><code>String playerName(String name) =&gt; name ?? &#39;Guest&#39;;
+</code></pre></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：🍉Dart学习【基础】🍉</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-10-09 11:42:35</li><li>本文链接：http://fishfairy.cn/2019/10/09/Flutter_Dart/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/10/10/Flutter_view/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">🥰Flutter 常用组件🥰</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/10/08/flutter-windows/"><span class="title flex-center"><span class="post-nav-title-item">😎flutter环境搭建（window）🤔</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8D%89Dart%E5%AD%A6%E4%B9%A0%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91%F0%9F%8D%89"><span class="nav-number">1.</span> <span class="nav-text">🍉Dart学习【基础】🍉</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%8CDart%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">🍌Dart简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%8DDart%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">🍍Dart用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%91%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%EF%BC%88%E4%B8%80%E5%85%B1%E6%9C%89%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">🍑变量声明（一共有四种方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.1.</span> <span class="nav-text">dynamic 使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%EF%BC%9Afinal-%E5%92%8C-const"><span class="nav-number">1.3.2.</span> <span class="nav-text">常量：final 和 const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%93Dart%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">🍓Dart支持的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">🍄函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%86%99%E4%BD%9C%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">函数的写作格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.2.</span> <span class="nav-text">函数的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%9A-%E5%BF%85%E9%80%89%E5%8F%82%E6%95%B0-%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0"><span class="nav-number">1.5.3.</span> <span class="nav-text">函数的参数： 必选参数 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 可选参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%92-gt-%E7%AE%AD%E5%A4%B4%E8%AF%AD%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">🍒&#x3D;&gt; 箭头语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%AD%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.7.</span> <span class="nav-text">🍭操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%AC%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.</span> <span class="nav-text">🍬条件运算符</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

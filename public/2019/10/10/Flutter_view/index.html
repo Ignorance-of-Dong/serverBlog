@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>🥰Flutter 常用组件🥰 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">🥰Flutter 常用组件🥰</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-10-10 11:42:35 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/Dart/">Dart</a>&nbsp;</li><li>| <a href="/tags/flutter/">flutter</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>2.3k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>10 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="Flutter-常用组件"><a href="#Flutter-常用组件" class="headerlink" title="Flutter 常用组件"></a>Flutter 常用组件</h1><blockquote><p><strong>🥰Flutter 常用组件🥰</strong></p></blockquote><h2 id="🌟Text-Widget文本组件的使用"><a href="#🌟Text-Widget文本组件的使用" class="headerlink" title="🌟Text Widget文本组件的使用"></a>🌟Text Widget文本组件的使用</h2><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:Center(
+                    child:Text(&#39;hello Flutter， i like&#39;)
+                ),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><h3 id="TextAlign属性"><a href="#TextAlign属性" class="headerlink" title="TextAlign属性"></a>TextAlign属性</h3><blockquote><p>TextAlign属性就是文本的对齐方式</p></blockquote><ul><li>center ———- 文本以居中的形式对齐</li><li>left————– 文本以左对齐的方式对齐</li><li>right————- 文本以右对齐的方式对齐</li><li>start————- 文本以开始的位置对齐，类似left</li><li>end ————– 文本以结尾处对齐，类似于right</li></ul><hr><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+)
+</code></pre><h3 id="maxLines属性"><a href="#maxLines属性" class="headerlink" title="maxLines属性"></a>maxLines属性</h3><blockquote><p>设置最多显示行数</p></blockquote><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1 // 最多显示一行
+)
+</code></pre><h3 id="overflow属性"><a href="#overflow属性" class="headerlink" title="overflow属性"></a>overflow属性</h3><blockquote><p>overflow属性是设置文本溢出的</p></blockquote><ul><li>clip：直接切断，相当于css中hidden</li><li>ellipsis：在后面显示省略号</li><li>fade：溢出部分采用渐变消失的状态(是上线渐变消失))</li></ul><hr><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1, // 最多显示一行
+    overflow: TextOverflow.ellipsis // 超出部分以省略号的形式出现
+)
+</code></pre><h3 id="style属性"><a href="#style属性" class="headerlink" title="style属性"></a>style属性</h3><blockquote><p>style的属性比较多，这里只演示部分【下面制作一个字体大小为25.0，颜色为蓝色，有下划线的,下划线颜色为黄色】</p></blockquote><pre><code>child:Text(
+    &#39;hello Flutter， i like&#39;,
+    textAlign: TextAlign.left,
+    maxLines: 1, // 最多显示一行
+    overflow: TextOverflow.ellipsis, // 超出部分以省略号的形式出现
+    style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.blue,
+        // color:Color.fromARGB(255, 255, 150, 150), // 颜色也可以用这种方式表示
+        decoration: TextDecoration.underline,
+        decorationStyle: TextDecorationStyle.solid,
+        decorationColor: Colors.yellow
+    ), 
+)
+</code></pre><p><strong>更多属性资料<a class="link" target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/painting/TextStyle-class.html"> Flutter中文网 - 文本 Widget<i class="fas fa-external-link-alt"></i></a></strong></p><h2 id="⚡Container容器组件的使用"><a href="#⚡Container容器组件的使用" class="headerlink" title="⚡Container容器组件的使用"></a>⚡Container容器组件的使用</h2><blockquote><p>Container（容器组件）是经常使用的组件，相当于HTML的div标签</p></blockquote><pre><code>class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:Center(
+                    child:Container(
+                        child:new Text(&#39;hello Flutter， i like&#39;),
+                    ),
+                ),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><h3 id="Alignment属性"><a href="#Alignment属性" class="headerlink" title="Alignment属性"></a>Alignment属性</h3><blockquote><p>这个属性是争对Container内child的对齐方式，也就是容器子内容的对齐方式</p></blockquote><ul><li>bottomCenter ————– 下部居中对齐</li><li>bottomLeft —————- 下部左对齐</li><li>bottomRight ————— 下部右对齐</li><li>center ——————– 纵横双向居中对齐</li><li>centerLeft —————- 纵向居中横向居左对齐。</li><li>centerRight ————— 纵向居中横向居右对齐。</li><li>topLeft ——————- 顶部左侧对齐。</li><li>topCenter —————– 顶部居中对齐。</li><li>topRight —————— 顶部居左对齐。</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+        ),
+    ),
+),
+</code></pre><h3 id="设置宽、高和颜色属性"><a href="#设置宽、高和颜色属性" class="headerlink" title="设置宽、高和颜色属性"></a>设置宽、高和颜色属性</h3><blockquote><p>设置宽高相对容易，只要在属性名称后面加入浮点数字就可以</p></blockquote><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            color: Colors.lightBlue,
+        ),
+    ),
+),
+</code></pre><h3 id="padding属性"><a href="#padding属性" class="headerlink" title="padding属性"></a>padding属性</h3><blockquote><p>padding指的的是Container和child内容器的距离</p></blockquote><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+        ),
+    ),
+),
+</code></pre><p><strong>上面主要说明了padding的一个统一的值，如果我们想分别设置呢</strong></p><pre><code>padding: const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 0.0)
+</code></pre><p><strong>这样我们就可以分别设置各个方向的padding值</strong></p><h3 id="margin属性"><a href="#margin属性" class="headerlink" title="margin属性"></a>margin属性</h3><blockquote><p>用法同上</p></blockquote><pre><code>margin: const EdgeInsets.all(10.0), // 代表上下左右的margin距离都是10
+            ||或
+margin: const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 0.0)
+</code></pre><h3 id="decoration属性"><a href="#decoration属性" class="headerlink" title="decoration属性"></a>decoration属性</h3><blockquote><p>decoration是container的修饰器，主要功能设置背景和边框</p></blockquote><p><strong>如果你想要给一个背景加一个渐变，这时候需要这个BoxDecoation</strong></p><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child:new Text(&#39;hello Flutter， i like&#39;),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            // color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+            decoration: new BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [Colors.blue, Colors.red, Colors.white] // 设置渐变色
+                ),
+                border: Border.all(width: 2.0, color: Colors.red) // 设置边框线的样式
+            ),
+        ),
+    ),
+),
+</code></pre><blockquote><p><strong>注意color和decoration不能共存,会有冲突</strong></p></blockquote><h2 id="🔥Image图片的使用"><a href="#🔥Image图片的使用" class="headerlink" title="🔥Image图片的使用"></a>🔥Image图片的使用</h2><ul><li>Image.asset: 加载资源图片,就是加载项目资源的目录中的图片,加入图片会增加打包的体积,以相对路径引入</li><li>Image.network: 网络资源图片,意思就是引入网络图片路径</li><li>Image.file: 加载本地图片,就是加载本地文件中的图片,不会增加打包体积,以绝对路径引入</li><li>Image.memory: 加载Uint8List资源图片</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+            child: Image.network(
+                &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+                width: 300.0,
+                height: 300.0,
+            ),
+            alignment: Alignment.center,
+            width:500.0,
+            height:400.0,
+            // color: Colors.lightBlue,
+            padding: const EdgeInsets.all(10.0), // 代表上下左右的padding距离都是10
+            decoration: new BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [Colors.blue, Colors.red, Colors.white] // 设置渐变色
+                ),
+                border: Border.all(width: 2.0, color: Colors.red) // 设置边框线的样式
+            ),
+        ),
+    ),
+),
+</code></pre><h3 id="fit属性"><a href="#fit属性" class="headerlink" title="fit属性"></a>fit属性</h3><blockquote><p>fit属性可以控制图片的拉伸和挤压,这些都是根据图片的父级容器来的</p></blockquote><ul><li>BoxFit.fill: 全图显示,图片会被拉伸,并且充满父容器</li><li>BoxFit.contain: 全图显示,显示原比例,可能会有空隙</li><li>BoxFit.cover: 显示可能拉伸,可能裁剪,充满(图片要充满整个容器,还不变形)</li><li>BoxFit.fitWidth: 宽度充满,(横向充满)</li><li>BoxFit.fitHeight: 高度充满 (属相充满)</li><li>BoxFit.scaleDown: 效果和contain差不多,但是此属性不能超过图片大小,可小不可大</li></ul><hr><pre><code>child: Image.network(
+    &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+    width: 300.0,
+    height: 300.0,
+    fit: BoxFit.cover, // 不变形,充满整个容器
+),
+</code></pre><h3 id="图片混合模式"><a href="#图片混合模式" class="headerlink" title="图片混合模式"></a>图片混合模式</h3><blockquote><p>图片混合模式(colorBlendMode) 和 color 属性一起使用,可以让图片改变颜色</p></blockquote><p><strong>！！！！！！colorBlendMode和color需要同时使用,单独使用一个达不到预期效果</strong></p><pre><code>child: Image.network(
+    &#39;http://my.ignorantscholar.cn/images/headers.png&#39;,
+    width: 300.0,
+    height: 300.0,
+    color: Colors.yellow,
+    colorBlendMode: BlendMode.modulate,
+    fit: BoxFit.cover,
+),
+</code></pre><h3 id="使用项目资源图片"><a href="#使用项目资源图片" class="headerlink" title="使用项目资源图片"></a>使用项目资源图片</h3><pre><code>pubspec.yaml文件
+</code></pre><blockquote><p>如果想配置项目资源文件，就需要使用pubspec.yaml文件，需要把资源文件在这里声明</p></blockquote><p><strong>比如在项目根目录下建立了一个文件images用来存放图片，文件夹下面有一个图片，pic.png，那我们在pubspec.yaml文件中进行声明</strong></p><pre><code>assets:
+    - images/pic.png
+</code></pre><hr><pre><code>child: Image.asset(&#39;images/pic.png&#39;),
+</code></pre><h2 id="💧ListView列表组件"><a href="#💧ListView列表组件" class="headerlink" title="💧ListView列表组件"></a>💧ListView列表组件</h2><h3 id="ListView的声明"><a href="#ListView的声明" class="headerlink" title="ListView的声明"></a>ListView的声明</h3><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;Text widget&#39;,
+            home:Scaffold(
+                body:ListView(
+                    child: &lt;Widget&gt;[
+                        ListTile(
+                            leading: Icon(Icons.assess_time),
+                            title: new Text(&#39;assess_time&#39;)
+                        ),
+                        ListTile(
+                            leading: Icon(Icons.assess_time),
+                            title: new Text(&#39;assess_time&#39;)
+                        )   
+                    ]
+                ),
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>我们使用了ListView，然后在他的内部children中，使用了widget数组，因为是一个列表，所以他接受一个数组，然后使用了ListTile组件【列表瓦片】，具体效果可以在项目中查看</p></blockquote><h3 id="图片列表的使用"><a href="#图片列表的使用" class="headerlink" title="图片列表的使用"></a>图片列表的使用</h3><blockquote><p>我们使用网络的方式，插入两张图片</p></blockquote><pre><code>body: new ListView(
+    children:&lt;Widget&gt;[
+        new Image.network(&#39;http://jspang.com/static/upload/20181111/G-wj-ZQuocWlYOHM6MT2Hbh5.jpg&#39;),
+        new Image.network(&#39;http://jspang.com/static/upload/20181109/1bHNoNGpZjyriCNcvqdKo3s6.jpg&#39;),
+    ]
+),
+</code></pre><h3 id="横向列表的使用"><a href="#横向列表的使用" class="headerlink" title="横向列表的使用"></a>横向列表的使用</h3><blockquote><p>使用横向列表需要加一个属性scrollDirection</p></blockquote><ul><li>Axis.horizontal: 横向滚动</li><li>Axis.vertical: 纵向滚动 【默认纵向滚动】</li></ul><hr><pre><code>home:Scaffold(
+    body:Center(
+        child:Container(
+        height:200.0,
+        child:new ListView(
+            scrollDirection: Axis.horizontal,
+            children: &lt;Widget&gt;[
+                new Container(
+                    width:180.0,
+                    color: Colors.lightBlue,
+                ), 
+                new Container(
+                    width:180.0,
+                    color: Colors.amber,
+                ), 
+                new Container(
+                    width:180.0,
+                    color: Colors.deepOrange,
+                ),
+                new Container(
+                    width:180.0,
+                    color: Colors.deepPurpleAccent,
+                ),
+            ],
+        )
+    ),
+),
+</code></pre><p><strong>从上面代码我们可以看出，代码嵌套比较深，进行优化，提取</strong></p><pre><code>class MyList extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context) &#123;
+        return ListView(
+            scrollDirection: Axis.horizontal,
+            children: &lt;Widget&gt;[
+                Container(
+                    width: 180.0,
+                    color: Colors.red,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.yellow,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.red,
+                ),
+                Container(
+                    width: 180.0,
+                    color: Colors.yellow,
+                )
+            ]
+        );
+    &#125;
+&#125;
+
+
+home:Scaffold(
+    body:Center(
+        child:Container(
+        height:200.0,
+        child: MyList()
+    ),
+),
+</code></pre><blockquote><p>这样看就简洁许多</p></blockquote><h3 id="动态列表的使用"><a href="#动态列表的使用" class="headerlink" title="动态列表的使用"></a>动态列表的使用</h3><blockquote><p>上面的列表是写死的，我们在实际开发中，大多数是不会死的</p></blockquote><pre><code>class MyList extends StatelessWidget&#123;
+    final List&lt;String&gt; items = new List&lt;String&gt;.generate(1000, (i)=&gt; &quot;Item $i&quot;); // 使用list中的属性generate方法产生List里面的元素
+    @override
+    Widget build(BuildContext context) &#123;
+        return ListView.builder( // 调用动态列表生成
+            itemCount:items.length,
+                itemBuilder:(context,index)&#123;
+                    return new ListTile(
+                        title:new Text(&#39;$&#123;items[index]&#125;&#39;),
+                    );
+                &#125;
+            );
+    &#125;
+&#125;
+</code></pre><h2 id="🌊GridView网格列表布局组件"><a href="#🌊GridView网格列表布局组件" class="headerlink" title="🌊GridView网格列表布局组件"></a>🌊GridView网格列表布局组件</h2><pre><code>import &#39;package:flutter/material.dart&#39;;
+void main () =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget&#123;
+    @override
+    Widget build(BuildContext context )&#123;
+        return MaterialApp(
+            title:&#39;ListView widget&#39;,
+            home:Scaffold(
+                body:GridView.count(
+                    padding:const EdgeInsets.all(20.0),
+                    crossAxisSpacing: 10.0,
+                    crossAxisCount: 3,
+                    children: &lt;Widget&gt;[
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        ),
+                        Container(
+                            color: Colors.red,
+                        )
+                    ],
+                )
+            ),
+        );
+    &#125;
+&#125;
+</code></pre><ul><li>crossAxisSpacing: 网格之间 的空隙</li><li>crossAxisSpacing：网格列数，相当于一行放置的网格数量</li></ul><blockquote><p>现在做一个图片的网格布局</p></blockquote><pre><code>body: GridView.count(
+    padding: const EdgeInsets.all(10.0),
+    crossAxisSpacing: 2.0,
+    crossAxisCount: 3,
+    mainAxisSpacing: 2,
+    childAspectRatio: 0.7,
+    children: &lt;Widget&gt;[
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/10/22/104316.77318635_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/10/10/112514.30587089_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/13/093605.61422332_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/07/092515.55805319_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/21/090246.16772408_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/17/162028.94879602_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/19/165350.52237320_135X190X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/16/115256.24365160_180X260X4.jpg&#39;,fit: BoxFit.cover),
+        new Image.network(&#39;http://img5.mtime.cn/mt/2018/11/20/141608.71613590_135X190X4.jpg&#39;,fit: BoxFit.cover),
+    ],
+),
+</code></pre><ul><li>childAspectRatio： 宽高比， 这个值的意思是宽是高的多少倍</li></ul></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：🥰Flutter 常用组件🥰</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-10-10 11:42:35</li><li>本文链接：http://fishfairy.cn/2019/10/10/Flutter_view/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/10/11/Flutter_layout/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">😈Flutter 布局😈</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/10/09/Flutter_Dart/"><span class="title flex-center"><span class="post-nav-title-item">🍉Dart学习【基础】🍉</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">Flutter 常用组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%9FText-Widget%E6%96%87%E6%9C%AC%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">🌟Text Widget文本组件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TextAlign%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">TextAlign属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxLines%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">maxLines属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overflow%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.3.</span> <span class="nav-text">overflow属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.4.</span> <span class="nav-text">style属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%A1Container%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">⚡Container容器组件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Alignment%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">Alignment属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AE%BD%E3%80%81%E9%AB%98%E5%92%8C%E9%A2%9C%E8%89%B2%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">设置宽、高和颜色属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padding%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.3.</span> <span class="nav-text">padding属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#margin%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.4.</span> <span class="nav-text">margin属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decoration%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.5.</span> <span class="nav-text">decoration属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%A5Image%E5%9B%BE%E7%89%87%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">🔥Image图片的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">fit属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">图片混合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%BA%90%E5%9B%BE%E7%89%87"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用项目资源图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A7ListView%E5%88%97%E8%A1%A8%E7%BB%84%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">💧ListView列表组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ListView%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">1.4.1.</span> <span class="nav-text">ListView的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">图片列表的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">横向列表的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.4.</span> <span class="nav-text">动态列表的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%8AGridView%E7%BD%91%E6%A0%BC%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80%E7%BB%84%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">🌊GridView网格列表布局组件</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

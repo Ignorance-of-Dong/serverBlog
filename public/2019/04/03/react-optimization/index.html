@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>react组件优化及组件通讯 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">react组件优化及组件通讯</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-04-03 16:46:51 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/js/">js</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>5 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="react组件优化"><a href="#react组件优化" class="headerlink" title="react组件优化"></a>react组件优化</h2><h3 id="key值"><a href="#key值" class="headerlink" title="key值"></a>key值</h3><p><strong>在使用v-for的情况下，给每个变量的元素都加上key值，加key值得好处已经在上一文中提到过，主要为了提高渲染效率</strong></p><h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><p><strong>该生命周期可以决定数据改变的时候是否进行render，返回值为boolean，返回true即为渲染，返回false及不渲染，默认不写为true</strong></p><h3 id="纯函数组件"><a href="#纯函数组件" class="headerlink" title="纯函数组件"></a>纯函数组件</h3><p><strong>将单独的项封装成一个组件，已达到服用效果</strong></p><h2 id="组件通讯"><a href="#组件通讯" class="headerlink" title="组件通讯"></a>组件通讯</h2><h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><blockquote><p>使用props传值</p></blockquote><p><strong>父组件</strong></p><pre><code>import React,&#123; Component &#125; from &quot;react&quot;;
+import Sub from &quot;./SubComponent.js&quot;;
+import &quot;./App.css&quot;;
+
+export default class App extends Component&#123;
+
+    render()&#123;
+        return(
+            &lt;div&gt;
+                &lt;Sub title = &quot;今年过节不收礼&quot; /&gt;
+            &lt;/div&gt;
+        )
+    &#125;
+&#125;
+</code></pre><p><strong>子组件</strong></p><pre><code>import React from &quot;react&quot;;
+
+const Sub = (props) =&gt; &#123;
+    return(
+        &lt;h1&gt;
+            &#123; props.title &#125;
+        &lt;/h1&gt;
+    )
+&#125;
+
+export default Sub;
+</code></pre><h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><p><strong>父组件</strong></p><pre><code>import React,&#123; Component &#125; from &quot;react&quot;;
+import Sub from &quot;./SubComponent.js&quot;;
+import &quot;./App.css&quot;;
+
+export default class App extends Component&#123;
+    callback(msg)&#123;
+        console.log(msg);
+    &#125;
+    render()&#123;
+        return(
+            &lt;div&gt;
+                &lt;Sub callback = &#123; this.callback.bind(this) &#125; /&gt;
+            &lt;/div&gt;
+        )
+    &#125;
+&#125;
+</code></pre><p><strong>子组件</strong></p><pre><code>import React from &quot;react&quot;;
+
+const Sub = (props) =&gt; &#123;
+    const cb = (msg) =&gt; &#123;
+        return () =&gt; &#123;
+            props.callback(msg)
+        &#125;
+    &#125;
+    return(
+        &lt;div&gt;
+            &lt;button onClick = &#123; cb(&quot;我们通信把&quot;) &#125;&gt;点击我&lt;/button&gt;
+        &lt;/div&gt;
+    )
+&#125;
+
+export default Sub;
+</code></pre><h3 id="跨组件传值"><a href="#跨组件传值" class="headerlink" title="跨组件传值"></a>跨组件传值</h3><blockquote><p>16.3版本提供了新的context api,并且用了生产者消费者模式，</p></blockquote><pre><code>const &#123;Provider, Consumer&#125; = React.createContext(&#123;
+    color: &#39;white&#39;
+&#125;);
+ 
+ 
+class Item extends Component &#123;
+    static contextTypes = &#123;
+        color: React.PropTypes.string,
+    &#125;;
+ 
+    render() &#123;
+        const &#123;value&#125; = this.props;
+        return (
+            &lt;Consumer&gt;
+                &#123;context =&gt; (
+                    &lt;li style=&#123;&#123;background: context.color&#125;&#125;&gt;
+                        &lt;span&gt;&#123;value&#125;&lt;/span&gt;
+                    &lt;/li&gt;
+                )&#125;
+            &lt;/Consumer&gt;
+        );
+    &#125;
+&#125;
+ 
+ 
+class List extends Component &#123;
+ 
+    render() &#123;
+        const &#123;list&#125; = [&#123;id: &#39;1&#39;, text: 1&#125;, &#123;id: &#39;1&#39;, text: 2&#125;, &#123;id: &#39;1&#39;, text: 3&#125;]
+        return (
+            &lt;Provider value=&#123;&#123;color: 'green'&#125;&#125;&gt;
+                &lt;div&gt;
+                    &lt;ul&gt;
+                        &#123;list.map((entry, index) =&gt; (
+                            &lt;Item key=&#123;entry.id&#125; value=&#123;entry.text&#125;/&gt;
+                        ))&#125;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/Provider&gt;
+        );
+    &#125;
+&#125;
+</code></pre><p><strong>上面的代码通过React.createContext创建出一个上下文：Context对象，然后这个Context对象又包含两个属性，一个叫Provider，另一个叫Consumer，这两个属性都是纯种的React组件。</strong></p><p><strong>在父组件中运用Provider，在子组件中运用Consumer即可，Provider中通过value属性可以向Consumer传递参数，而Consumer的子组件则是一个函数，在这个子组件中定义一个函数，Consumer会向它传递一个context，这个context来自于Provider，达到通信的目的</strong></p><h3 id="非嵌套组件间通信"><a href="#非嵌套组件间通信" class="headerlink" title="非嵌套组件间通信"></a>非嵌套组件间通信</h3><p><strong>这里我们采用自定义事件的方式来实现非嵌套组件间的通信。</strong></p><pre><code>npm install events --save
+</code></pre><blockquote><p>新建一个 ev.js，引入 events 包，并向外提供一个事件对象，供通信时使用：</p></blockquote><pre><code>import &#123; EventEmitter &#125; from &quot;events&quot;;
+export default new EventEmitter();
+</code></pre><blockquote><p>App.js：</p></blockquote><pre><code>import React, &#123; Component &#125; from &#39;react&#39;;
+
+import Foo from &quot;./Foo&quot;;
+import Boo from &quot;./Boo&quot;;
+
+import &quot;./App.css&quot;;
+
+export default class App extends Component&#123;
+    render()&#123;
+        return(
+            &lt;div&gt;
+                &lt;Foo /&gt;
+                &lt;Boo /&gt;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>Foo.js：</p></blockquote><pre><code>import React,&#123; Component &#125; from &quot;react&quot;;
+import emitter from &quot;./ev&quot;
+
+export default class Foo extends Component&#123;
+    constructor(props) &#123;
+        super(props);
+        this.state = &#123;
+            msg:null,
+        &#125;;
+    &#125;
+    componentDidMount()&#123;
+        // 声明一个自定义事件
+        // 在组件装载完成以后
+        this.eventEmitter = emitter.addListener(&quot;callMe&quot;,(msg)=&gt;&#123;
+            this.setState(&#123;
+                msg
+            &#125;)
+        &#125;);
+    &#125;
+    // 组件销毁前移除事件监听
+    componentWillUnmount()&#123;
+        emitter.removeListener(this.eventEmitter);
+    &#125;
+    render()&#123;
+        return(
+            &lt;div&gt;
+                &#123; this.state.msg &#125;
+                我是非嵌套 1 号
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>Boo.js：</p></blockquote><pre><code>import React,&#123; Component &#125; from &quot;react&quot;;
+import emitter from &quot;./ev&quot;
+
+export default class Boo extends Component&#123;
+    render()&#123;
+        const cb = (msg) =&gt; &#123;
+            return () =&gt; &#123;
+                // 触发自定义事件
+                emitter.emit(&quot;callMe&quot;,&quot;Hello&quot;)
+            &#125;
+        &#125;
+        return(
+            &lt;div&gt;
+                我是非嵌套 2 号
+                &lt;button onClick = &#123; cb(&quot;blue&quot;) &#125;&gt;点击我&lt;/button&gt;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;
+</code></pre><p><strong>自定义事件是典型的发布/订阅模式，通过向事件对象上添加监听器和触发事件来实现组件间通信。</strong></p><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul><li>父传子：通过props</li><li>子传父：通过回调</li><li>跨组件传值： 引入react.createContext()中的{provider, consumer}，使用生产者和消费者模式，在父组件中使用provider 传入值，子组件通consumer 接收一个对象的函数回调[<consumer>{context =&gt; (&lt;\li&gt;{context}&lt;/li&gt;)}]</consumer></li><li>同级组件通讯：使用events插件，通过发布订阅者模式执行</li></ul></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：react组件优化及组件通讯</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-04-03 16:46:51</li><li>本文链接：http://fishfairy.cn/2019/04/03/react-optimization/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/04/03/react-router/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">对react-router的封装及api</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/04/03/virtualDom1%20/"><span class="title flex-center"><span class="post-nav-title-item">浅谈React的最大亮点——虚拟DOM</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#react%E7%BB%84%E4%BB%B6%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">react组件优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#key%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">key值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shouldComponentUpdate"><span class="nav-number">1.2.</span> <span class="nav-text">shouldComponentUpdate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">纯函数组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E9%80%9A%E8%AE%AF"><span class="nav-number">2.</span> <span class="nav-text">组件通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6%E4%BC%A0%E5%AD%90"><span class="nav-number">2.1.</span> <span class="nav-text">父传子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E4%BC%A0%E7%88%B6"><span class="nav-number">2.2.</span> <span class="nav-text">子传父</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">跨组件传值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%B5%8C%E5%A5%97%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">2.4.</span> <span class="nav-text">非嵌套组件间通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">总结：</span></a></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

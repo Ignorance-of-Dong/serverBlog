@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>对react-router的封装及api | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">对react-router的封装及api</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-04-03 19:10:00 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/js/">js</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.5k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>7 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="对react-router的封装"><a href="#对react-router的封装" class="headerlink" title="对react-router的封装"></a>对react-router的封装</h2><p><strong>直接上代码吧</strong></p><blockquote><p>config.js // 该文件是对路由的配置</p></blockquote><pre><code>//组件的引入
+import Home from &#39;../contentais/home/index&#39;
+import Login from &quot;../contentais/login/index&quot;
+import Business from &#39;./../contentais/home/business/index&#39;;
+import Finance from &#39;./../contentais/home/finance/index&#39;;
+import Tissue from &#39;./../contentais/home/tissue/index&#39;;
+import Statistics from &#39;./../contentais/home/statistics/index&#39;;
+import Order from &#39;./../contentais/home/order/index&#39;;
+import UserHome from &#39;./../contentais/home/userHome/index&#39;;
+import Loans from &#39;./../contentais/home/order/loans/index&#39;;
+import Transfer from &#39;./../contentais/home/order/transfer/index&#39;;
+import Insurance from &#39;./../contentais/home/order/insurance/index&#39;;
+
+const RouteConfig = [
+    &#123;
+        //title 
+        title: &quot;首页&quot;,
+        //路由地址
+        path: &quot;/Home&quot;,
+        //关键字重定向
+        defaultRedirect: true,
+        //组件
+        component: Home,
+        //二级路由
+        children: [
+            &#123;
+                key: &quot;1&quot;,
+                defaultRedirect: true,
+
+                title: &quot;首页&quot;,
+                path: &quot;/Home/one&quot;,
+                component: UserHome,
+            &#125;,
+            &#123;
+                key: &quot;sub1&quot;,
+                title: &quot;订单管理&quot;,
+                path: &quot;/Home/order&quot;,
+                component: Order,
+                //三级路由
+                children: [
+                    &#123;
+                        defaultRedirect: true,
+
+                        key: &quot;2&quot;,
+                        title: &quot;贷款订单&quot;,
+                        path: &quot;/Home/order/loans&quot;,
+                        component: Loans,
+                    &#125;,
+                    &#123;
+                        key: &quot;3&quot;,
+                        title: &quot;转单订单&quot;,
+                        path: &quot;/Home/order/transfer&quot;,
+                        component: Transfer,
+                    &#125;,
+                    &#123;
+                        key: &quot;4&quot;,
+                        title: &quot;保险订单&quot;,
+                        path: &quot;/Home/order/insurance&quot;,
+                        component: Insurance,
+                    &#125;,
+                    //三级路由的重定向   默认显示的页面
+                    &#123;
+                        path: &quot;/Home/order&quot;,
+                        redirect: &quot;/Home/order/loans&quot;
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                key: &quot;5&quot;,
+                title: &quot;财务管理&quot;,
+                path: &quot;/Home/finance&quot;,
+                component: Finance,
+            &#125;
+            ,
+            &#123;
+                key: &quot;6&quot;,
+                title: &quot;组织架构&quot;,
+                path: &quot;/Home/tissue&quot;,
+                component: Tissue,
+            &#125;,
+            &#123;
+                key: &quot;7&quot;,
+                title: &quot;数据统计&quot;,
+                path: &quot;/Home/statistics&quot;,
+                component: Statistics,
+            &#125;,
+            &#123;
+                key: &quot;8&quot;,
+                title: &quot;商务管理&quot;,
+                path: &quot;/Home/business&quot;,
+                component: Business,
+            &#125;,
+            //二级路由的重定向   默认显示的页面
+            &#123;
+                path: &quot;/Home&quot;,
+                redirect: &quot;/Home/one&quot;
+            &#125;
+        ]
+    &#125;,
+    &#123;
+        title: &quot;登陆&quot;,
+        path: &quot;/Login&quot;,
+        component: Login,
+    &#125;, &#123;
+        //一级路由的重定向
+        path: &quot;/&quot;,
+        redirect: &quot;/Home&quot;
+    &#125;
+]
+export default RouteConfig;
+</code></pre><blockquote><p>routerView.js // 路由递归逻辑实现</p></blockquote><pre><code>import &#123; Route, Switch, Redirect &#125; from &quot;react-router-dom&quot;
+import React, &#123; Component &#125; from &#39;react&#39;;
+class RouteView extends Component &#123;
+    render() &#123;
+
+        // props接收配置文件
+        // routers 下一级路由的参数
+        // defaultConfig默认传参
+
+        const &#123; routers, defaultConfig &#125; = this.props
+
+        // 这里判断【下一级路由的参数】是否有值 ? 【使用下一级路由的参数】 ： 【默认路由参数】
+
+        let routerDate = routers ? routers : defaultConfig;
+
+        //数据二次处理
+
+        //筛除没有重定向的
+        let routerDatepath = routerDate.filter((item) =&gt; &#123;
+            return !item.redirect
+        &#125;)
+
+        //筛选重定向
+        let defualtRouter = routerDate.filter((item) =&gt; &#123;
+            return item.redirect
+        &#125;)
+
+        //重定向
+        let defualtRedirect = defualtRouter.map((item, i) =&gt; &#123;
+            return &lt;Redirect key=&#123;i&#125; path=&#123;item.path&#125; to=&#123;item.redirect&#125;&gt;&lt;/Redirect&gt;
+        &#125;)
+
+        return (&lt;Switch&gt;
+            &#123;
+                routerDatepath &amp;&amp; routerDatepath.map((item, index) =&gt; &#123;
+                    const Comp = item.component
+                    // 一个大坑 要用render 不然用component会导致页面的回流
+                    return &lt;Route path=&#123;item.path&#125; render=&#123;
+                        //api 路由相关参数参数及其它
+                        (api) =&gt; &#123;
+                            //动态的title
+                            document.title = item.title || &quot;路由配置&quot;
+                            //把下一级路由参数存入props中
+                            return &lt;Comp routers=&#123;item.children&#125; &#123;...api&#125;&gt;&lt;/Comp&gt;
+                        &#125;
+                    &#125; key=&#123;&quot;key&quot; + item.key&#125;&gt;&lt;/Route&gt;
+                    //重定向
+                &#125;).concat(defualtRedirect)
+            &#125;
+        &lt;/Switch&gt;)
+    &#125;
+&#125;
+export default RouteView;
+</code></pre><blockquote><p>app.js // 路由调用的使用方式</p></blockquote><pre><code>import React, &#123; Component &#125; from &#39;react&#39;;
+import &#123; BrowserRouter as Router &#125; from &quot;react-router-dom&quot;
+import RouteConfig from &#39;./config.js&#39;; // 引入路由的配置信息
+import RouteView from &#39;./routeView,js&#39;; // 引入路由的逻辑实现
+class App extends Component &#123;
+    render() &#123;
+        return &lt;div className=&quot;wrapper&quot;&gt;
+            &lt;Router&gt;
+                //传入默认路由配置文件
+                &lt;RouteView defaultConfig=&#123;RouteConfig&#125;&gt;&lt;/RouteView&gt;
+            &lt;/Router&gt;
+        &lt;/div&gt;
+    &#125;
+&#125;
+export default App;
+</code></pre><blockquote><p>二级路由的调用</p></blockquote><pre><code>import React, &#123; Component &#125; from &#39;react&#39;;
+import RouteView from &#39;./../../router/RouteView&#39;;
+import SiderMenu from &#39;./../../components/SiderMenu/index&#39;;
+import &quot;./index.css&quot;
+class Home extends Component &#123;
+    render() &#123;
+        //接收路由配置
+        const &#123; routers &#125; = this.props
+        return &lt;div className=&quot;home-wrapper&quot;&gt;
+            &lt;div className=&quot;left&quot;&gt;
+                &lt;div className=&quot;user&quot;&gt;
+                    &lt;div className=&quot;user-img&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;p className=&quot;mt12&quot;&gt;你瞅啥&lt;/p&gt;
+                    &lt;b className=&quot;mt12 radius&quot;&gt;&lt;/b&gt;
+                &lt;/div&gt;
+                //侧边栏的组件
+                &lt;SiderMenu style=&#123;&#123; background:"#2F3B4C"&#125;&#125; &#123;...this.props&#125;&gt;&lt;/SiderMenu&gt;
+            &lt;div className=&quot;ri
+            &lt;/div&gt;ght&quot;&gt;
+                //传入RouteView当中进行处理
+                &lt;RouteView routers=&#123;routers&#125;&gt;&lt;/RouteView&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &#125;
+
+&#125;
+export default Home;
+</code></pre><h2 id="‘react-router-dom的api"><a href="#‘react-router-dom的api" class="headerlink" title="‘react-router-dom的api"></a>‘react-router-dom的api</h2><p><strong>react-router-dom提供了BrowserRouter, Route, Link等api,我们可以通过dom的事件控制路由。例如点击一个按钮进行跳转，大多数情况下我们是这种情况，所以在开发过程中，我们更多是使用React-router-dom。安装很简单npm i react-router-dom –save,安装了淘宝镜像的就用cnpm吧。</strong></p><h3 id="常用的路由api"><a href="#常用的路由api" class="headerlink" title="常用的路由api"></a>常用的路由api</h3><hr><ul><li>HashRouter和BrowserRouter</li></ul><p><strong>它们两个是路由的基本，就像盖房子必须有地基一样，我们需要将它们包裹在最外层，我们只要选择其一就可以了。现在讲它们的不同：</strong></p><blockquote><p>HashRouter</p></blockquote><p><strong>如果你使用过react-router2或3或者vue-router，你经常会发现一个现象就是url中会有个#，例如localhost:3000/#，HashRouter就会出现这种情况，它是通过hash值来对路由进行控制。如果你使用HashRouter，你的路由就会默认有这个#。</strong></p><blockquote><p>BrowserRouter</p></blockquote><p><strong>很多情况下我们则不是这种情况，我们不需要这个#，因为它看起来很怪，这时我们就需要用到BrowserRouter。</strong></p><hr><ul><li>Route</li></ul><p><strong>Route是路由的一个原材料，它是控制路径对应显示的组件。我们经常用的是exact、path以及component属性。</strong></p><pre><code>&lt;Route path=&#39;/&#39; component=&#39;&#39; exact&gt;&lt;/Route&gt;
+</code></pre><blockquote><p>exact控制匹配到/路径时不会再继续向下匹配，</p><p>path标识路由的路径</p><p>component表示路径对应显示的组件</p></blockquote><hr><ul><li>Link和NavLink的选择</li></ul><p><strong>两者都是可以控制路由跳转的，不同点是NavLink的api更多，更加满足你的需求。</strong></p><blockquote><p>Link</p></blockquote><p><strong>主要api是to，to可以接受string或者一个object，来控制url。使用方法如下</strong></p><link to="/api"><blockquote><p>NavLink</p></blockquote><p><strong>它可以为当前选中的路由设置类名、样式以及回调函数等。使用如下</strong></p><pre><code>&lt;Navlink to=&#39;&#39; activeClassName=&#39;actived&#39;&gt;
+</code></pre><p><strong>activeClassName是选中状态的类名，我们可以为其添加样式</strong></p><hr><ul><li>Switch</li></ul><p><strong>Switch常常会用来包裹Route，它里面不能放其他元素，用来只显示一个路由。</strong></p><hr></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：对react-router的封装及api</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-04-03 19:10:00</li><li>本文链接：http://fishfairy.cn/2019/04/03/react-router/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/04/03/react-task/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">react的概述</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/04/03/react-optimization/"><span class="title flex-center"><span class="post-nav-title-item">react组件优化及组件通讯</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9react-router%E7%9A%84%E5%B0%81%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">对react-router的封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%98react-router-dom%E7%9A%84api"><span class="nav-number">2.</span> <span class="nav-text">‘react-router-dom的api</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E8%B7%AF%E7%94%B1api"><span class="nav-number">2.1.</span> <span class="nav-text">常用的路由api</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

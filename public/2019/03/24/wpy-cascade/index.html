@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>微信小程序实现瀑布流 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">微信小程序实现瀑布流</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-03-24 16:36:42 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/wx/">wx</a>&nbsp;</li><li>| <a href="/tags/%E7%80%91%E5%B8%83%E6%B5%81/">瀑布流</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>883 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>5 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="微信小程序实现瀑布流"><a href="#微信小程序实现瀑布流" class="headerlink" title="微信小程序实现瀑布流"></a>微信小程序实现瀑布流</h1><h3 id="简单，便捷"><a href="#简单，便捷" class="headerlink" title="简单，便捷"></a>简单，便捷</h3><blockquote><ul><li>无需知道图片宽高（当然要实现懒加载是必须的）</li><li>一个判断</li><li>一句css</li></ul></blockquote><hr><blockquote><ol><li>先用css3中的column-count属性把页面元素分为俩列及多列。</li></ol></blockquote><hr><h3 id="直接上代码"><a href="#直接上代码" class="headerlink" title="直接上代码"></a>直接上代码</h3><blockquote><p><strong>wxml</strong></p></blockquote><pre><code>&lt;view class=&quot;free-WaterfallFlow&quot;&gt;
+  &lt;block&gt;
+    &lt;view class=&quot;flex-wrap&quot; wx:for=&quot;&#123;&#123;images&#125;&#125;&quot; wx:key=&#39;&#123;&#123;item.src&#125;&#125;&#39; 
+    wx:if=&quot;&#123;&#123;item.id%2!=''&#125;&#125;&quot;&gt;
+      &lt;image mode=&quot;widthFix&quot; src=&quot;&#123;&#123;item.src&#125;&#125;&quot;&gt;&lt;/image&gt;
+      &lt;view&gt;&#123;&#123;item.name&#125;&#125;&lt;/view&gt;
+      &lt;view&gt;&#123;&#123;item.data&#125;&#125;&lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/block&gt;
+  &lt;block&gt;
+    &lt;view class=&quot;flex-wrap&quot; wx:for=&quot;&#123;&#123;images&#125;&#125;&quot; wx:key=&#39;&#123;&#123;item.src&#125;&#125;&#39;
+    wx:if=&quot;&#123;&#123;item.id%2==''&#125;&#125;&quot;&gt;
+      &lt;image mode=&quot;widthFix&quot; src=&quot;&#123;&#123;item.src&#125;&#125;&quot;&gt;&lt;/image&gt;
+      &lt;view&gt;&#123;&#123;item.name&#125;&#125;&lt;/view&gt;
+      &lt;view&gt;&#123;&#123;item.data&#125;&#125;&lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/block&gt;
+&lt;/view&gt;
+</code></pre><hr><blockquote><p><strong>wxss</strong></p></blockquote><pre><code>.free-WaterfallFlow&#123;
+  width:94%;
+  column-count:2;/*column-count 属性规定元素应该被分隔的列数：*/
+&#125;
+.free-WaterfallFlow .flex-wrap&#123;
+  display: inline-block;
+  width:98%;
+  margin-bottom:2%;
+  border:1px solid #ccc;
+  padding:2%;
+  padding-top:5%;
+  margin-right:2%;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  text-align: center;
+&#125;
+.flex-wrap image&#123;
+  width:95%;
+  margin:0 auto;
+&#125;
+.flex-wrap view:nth-child(2)&#123;
+  font-size:15px;
+  padding:2% 0;
+  color:#717171;
+&#125;
+.flex-wrap view:nth-child(3)&#123;
+  font-size:13px;
+  padding:2% 0;
+  color:#aaa;
+  text-align: right;
+&#125;
+</code></pre><hr><blockquote><p><strong>js</strong></p></blockquote><pre><code>Page(&#123;
+  data: &#123;
+    images:[
+      &#123; 
+        id:&#39;1&#39;,
+        src:&#39;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1531825645104&amp;di=0cfede1dd354581e22385b1862375a6a&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F13%2F71%2F35%2F24k58PICSiB_1024.jpg&#39;,
+        name:&#39;照片01&#39;,
+        data:&#39;2017/11/1&#39;
+      &#125;, &#123;
+        id: &#39;2&#39;,
+        src: &#39;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1531825645032&amp;di=826b8cfa4f7c5a8765d5c2156913dcbb&amp;imgtype=0&amp;src=http%3A%2F%2Fimg382.ph.126.net%2Fp4dMCiiHoUGxf2N0VLspkg%3D%3D%2F37436171903673954.jpg&#39;,
+        name: &#39;照片02&#39;,
+        data: &#39;2017/11/2&#39;
+      &#125;, &#123;
+        id: &#39;3&#39;,
+        src: &#39;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1531825645104&amp;di=2c9e1223e705806967640495e4bac26b&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0147a458783b1ba801219c77f9ec2e.jpg%402o.jpg&#39;,
+        name: &#39;照片03&#39;,
+        data: &#39;2017/11/3&#39;
+      &#125;, &#123;
+        id: &#39;4&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/bj/slt/yezpvg0x23b.jpg&#39;,
+        name: &#39;照片04&#39;,
+        data: &#39;2017/11/4&#39;
+      &#125;, &#123;
+        id: &#39;5&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/95ed87388b.jpg&#39;,
+        name: &#39;照片05&#39;,
+        data: &#39;2017/11/5&#39;
+      &#125;, &#123;
+        id: &#39;6&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/99495c4cf4.jpg&#39;,
+        name: &#39;照片06&#39;,
+        data: &#39;2017/11/6&#39;
+      &#125;, &#123;
+        id: &#39;7&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/f867c97e25.jpg&#39;,
+        name: &#39;照片07&#39;,
+        data: &#39;2017/11/7&#39;
+      &#125;, &#123;
+        id: &#39;8&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/2cc7ab0bc5.jpg&#39;,
+        name: &#39;照片08&#39;,
+        data: &#39;2017/11/8&#39;
+      &#125;, &#123;
+        id: &#39;9&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/2f4435caaf.jpg&#39;,
+        name: &#39;照片09&#39;,
+        data: &#39;2017/11/9&#39;
+      &#125;, &#123;
+        id: &#39;10&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/ce76898540.jpg&#39;,
+        name: &#39;照片10&#39;,
+        data: &#39;2017/11/10&#39;
+      &#125;, &#123;
+        id: &#39;11&#39;,
+        src: &#39;http://t1.hxzdhn.com/uploads/tu/201807/9999/a2ccc41e47.jpg&#39;,
+        name: &#39;照片11&#39;,
+        data: &#39;2017/11/11&#39;
+      &#125;, &#123;
+        id: &#39;12&#39;,
+        src: &#39;http://t2.hddhhn.com/uploads/tu/201707/521/83.jpg&#39;,
+        name: &#39;照片12&#39;,
+        data: &#39;2017/11/12&#39;
+      &#125;, &#123;
+        id: &#39;13&#39;,
+        src: &#39;http://t2.hddhhn.com/uploads/tu/20150700/2hndrjt0jxe.jpg&#39;,
+        name: &#39;照片13&#39;,
+        data: &#39;2017/11/13&#39;
+      &#125;, &#123;
+        id: &#39;14&#39;,
+        src: &#39;http://t2.hddhhn.com/uploads/tu/20150700/2hndrjt0jxe.jpg&#39;,
+        name: &#39;照片14&#39;,
+        data: &#39;2017/11/14&#39;
+      &#125;
+    ]
+  &#125;
+&#125;)
+</code></pre></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：微信小程序实现瀑布流</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-03-24 16:36:42</li><li>本文链接：http://fishfairy.cn/2019/03/24/wpy-cascade/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/03/27/Linux/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">Linux系统基础命令</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/03/14/fetch/"><span class="title flex-center"><span class="post-nav-title-item">fetch封装</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E7%80%91%E5%B8%83%E6%B5%81"><span class="nav-number">1.</span> <span class="nav-text">微信小程序实现瀑布流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%EF%BC%8C%E4%BE%BF%E6%8D%B7"><span class="nav-number">1.0.1.</span> <span class="nav-text">简单，便捷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E4%B8%8A%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.2.</span> <span class="nav-text">直接上代码</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

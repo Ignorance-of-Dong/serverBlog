@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>React.Component 与 React.PureComponent（React之性能优化） | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">React.Component 与 React.PureComponent（React之性能优化）</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-04-03 10:05:06 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/js/">js</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h2 id="React-Component-与-React-PureComponent（React之性能优化）"><a href="#React-Component-与-React-PureComponent（React之性能优化）" class="headerlink" title="React.Component 与 React.PureComponent（React之性能优化）"></a>React.Component 与 React.PureComponent（React之性能优化）</h2><p><strong>提起React.PureComponent，首先要从一个生命周期函数【shouldComponentUpdate】说起，都知道这个函数是用来控制组件是否应该被渲染</strong></p><pre><code>shouldComponentUpdate
+</code></pre><p><strong>这个生命周期返回的是一个布尔值，如果返回为false的，其实就是不执行render函数，不执行就不会重新渲染，返回为true的时候，就会执行，如果不写这个生命周期，默认返回true</strong></p><p><strong>写入shouldComponentUpdate，可以提高性能，你可以在该函数根据业务需求来判断是否重新渲染</strong></p><pre><code>class CounterButton extends React.Component &#123;
+    constructor(props) &#123;
+        super(props);
+        this.state = &#123;count: 1&#125;;
+    &#125;
+    shouldComponentUpdate(nextProps, nextState) &#123;
+        if (this.props.color !== nextProps.color) &#123;
+            return true;
+        &#125;
+        if (this.state.count !== nextState.count) &#123;
+            return true;
+        &#125;
+        return false;
+    &#125;
+    render() &#123;
+        return (
+            &lt;button
+                color=&#123;this.props.color&#125;
+                onClick=&#123;() =&gt; this.setState(state =&gt; (&#123;count: state.count + 1&#125;))&#125;
+            &gt;
+                Count: &#123;this.state.count&#125;
+            &lt;/button&gt;
+        );
+    &#125;
+&#125;
+</code></pre><h2 id="React-Component-与-React-PureComponent"><a href="#React-Component-与-React-PureComponent" class="headerlink" title="React.Component 与 React.PureComponent"></a>React.Component 与 React.PureComponent</h2><p><strong>通常情况下，我们会使用ES6的class关键字来创建React组件：</strong></p><pre><code>class MyComponent extends React.Component &#123;
+    // some codes here ...
+&#125;
+</code></pre><p><strong>但是，你也可以创建一个继承React.PureComponent的React组件，就像这样</strong></p><pre><code>class MyComponent extends React.PureComponent &#123;
+    // some codes here
+&#125;
+</code></pre><h3 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h3><ul><li>继承PureComponent时，不能再重写shouldComponentUpdate，否则会引发警告</li></ul><hr><pre><code>Warning: ListOfWords has a method called shouldComponentUpdate(). shouldComponentUpdate should not be used when extending React.PureComponent. Please extend React.Component if shouldComponentUpdate is used.
+</code></pre><blockquote><p>警告：ListOfWords有一个名为ShouldComponentUpdate（）的方法。扩展react.pureComponent时不应使用ShouldComponentUpdate。如果使用shouldComponentUpdate，请扩展react.component。</p></blockquote><ul><li>继承PureComponent时，进行的是浅比较，也就是说，如果是引用类型的数据，只会比较是不是同一个地址，而不会比较具体这个地址存的数据是否完全一致</li></ul><h3 id="PureComponent"><a href="#PureComponent" class="headerlink" title="PureComponent"></a>PureComponent</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理:"></a>原理:</h4><p><strong>当组件更新时，如果组件的 props 和 state 都没发生改变， render 方法就不会触发，省去 Virtual DOM 的生成和比对过程，达到提升性能的目的。具体就是 React 自动帮我们做了一层浅比较：</strong></p><pre><code>if (this._compositeType === CompositeTypes.PureClass) &#123;
+    shouldUpdate = !shallowEqual(prevProps, nextProps) || !shallowEqual(inst.state, nextState);
+&#125;
+</code></pre><p><strong>而 shallowEqual 又做了什么呢？会比较 Object.keys(state | props) 的长度是否一致，每一个 key 是否两者都有，并且是否是一个引用，也就是只比较了第一层的值，确实很浅，所以深层的嵌套数据是对比不出来的。</strong></p><h4 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h4><p><strong>大部分情况下，你可以使用React.PureComponent而不必写你自己的shouldComponentUpdate，它只做一个浅比较。但是由于浅比较会忽略属性或状态突变的情况，此时你不能使用它。</strong></p><pre><code>class ListOfWords extends React.PureComponent &#123;
+  render() &#123;
+    return &lt;div&gt;&#123;this.props.words.join(&#39;,&#39;)&#125;&lt;/div&gt;;
+  &#125;
+&#125;
+
+class WordAdder extends React.Component &#123;
+  constructor(props) &#123;
+    super(props);
+    this.state = &#123;
+      words: [&#39;marklar&#39;]
+    &#125;;
+    this.handleClick = this.handleClick.bind(this);
+  &#125;
+
+  handleClick() &#123;
+    // This section is bad style and causes a bug
+    const words = this.state.words;
+    words.push(&#39;marklar&#39;);
+    this.setState(&#123;words: words&#125;);
+  &#125;
+
+  render() &#123;
+    return (
+      &lt;div&gt;
+        &lt;button onClick=&#123;this.handleClick&#125; /&gt;
+        &lt;ListOfWords words=&#123;this.state.words&#125; /&gt;
+      &lt;/div&gt;
+    );
+  &#125;
+&#125;
+</code></pre><p><strong>在ListOfWords中，this.props.words是WordAdder中传入的其state的一个引用。虽然在WordAdder的handelClick方法中被改变了，但是对于ListOfWords来说，其引用是不变的，从而导致并没有被更新。</strong></p><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p><strong>在上面的问题中可以发现，当一个数据是不变数据时，可以使用一个引用。但是对于一个易变数据来说，不能使用引用的方式给到PureComponent。简单来说，就是我们在PureComponent外层来修改其使用的数据时，应该给其赋值一个新的对象或者引用，从而才能确保其能够进行重新渲染。例如上面例子中的handleClick可以通过以下几种来进行修改从而确认正确的渲染：</strong></p><pre><code>handleClick() &#123;
+  this.setState(prevState =&gt; (&#123;
+    words: prevState.words.concat([&#39;marklar&#39;])
+  &#125;));
+&#125;
+
+或者
+
+handleClick() &#123;
+  this.setState(prevState =&gt; (&#123;
+    words: [...prevState.words, &#39;marklar&#39;],
+  &#125;));
+&#125;;
+
+或者针对对象结构：
+
+function updateColorMap(oldObj) &#123;
+  return Object.assign(&#123;&#125;, oldObj, &#123;key: new value&#125;);
+&#125;
+</code></pre><h4 id="immutable-js"><a href="#immutable-js" class="headerlink" title="immutable.js"></a>immutable.js</h4><p><strong>是解决这个问题的另一种方法。它通过结构共享提供不可突变的，持久的集合：</strong></p><p>详情参考<a class="link" target="_blank" rel="noopener" href="https://github.com/immutable-js/immutable-js">immutable.js<i class="fas fa-external-link-alt"></i></a></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote><p><strong>PureComponent 真正起作用的，只是在一些纯展示组件上，复杂组件使用的话shallowEqual 那一关基本就过不了。另外在使用的过程中为了确保能够正确的渲染，记得 props 和 state 不能使用同一个引用哦。</strong></p></blockquote></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：React.Component 与 React.PureComponent（React之性能优化）</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-04-03 10:05:06</li><li>本文链接：http://fishfairy.cn/2019/04/03/PureComponent/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/04/03/setState/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">react中的setState的使用和深入理解</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/04/02/minxins/"><span class="title flex-center"><span class="post-nav-title-item">vue混入【mixins】</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Component-%E4%B8%8E-React-PureComponent%EF%BC%88React%E4%B9%8B%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">React.Component 与 React.PureComponent（React之性能优化）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Component-%E4%B8%8E-React-PureComponent"><span class="nav-number">2.</span> <span class="nav-text">React.Component 与 React.PureComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PureComponent"><span class="nav-number">2.2.</span> <span class="nav-text">PureComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">原理:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.2.</span> <span class="nav-text">问题:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#immutable-js"><span class="nav-number">2.3.1.</span> <span class="nav-text">immutable.js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

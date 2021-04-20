@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>node + koa2基础 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">node + koa2基础</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2019-09-26 10:41:49 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/node/">node</a>&nbsp;</li><li>| <a href="/tags/koa/">koa</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>804 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="node-koa2基础"><a href="#node-koa2基础" class="headerlink" title="node + koa2基础"></a>node + koa2基础</h1><blockquote><p><strong>使用koa2，必须保持你的node版本在7.6以上，最好实在10以上，如低于7.6版本请更新您的node版本</strong></p></blockquote><h2 id="搭建http服务"><a href="#搭建http服务" class="headerlink" title="搭建http服务+"></a>搭建http服务+</h2><blockquote><p>使用koa2搭建服务，只需要三步</p></blockquote><pre><code>/index.js
+
+const Koa = require(&#39;koa&#39;)
+const app = new Koa()
+
+app.listen(3000)
+</code></pre><p><strong>使用node命令运行即可</strong></p><pre><code>node index.js
+</code></pre><blockquote><p>打开浏览器输入<a href="http://loaclhost:3000访问，页面中会显示Not">http://loaclhost:3000访问，页面中会显示Not</a> Found，这是因为我们没有去指定koa该返回什么内容，这一点与express不同，koa内部会自动判断，是否有返回内容</p></blockquote><h2 id="Context对象"><a href="#Context对象" class="headerlink" title="Context对象"></a>Context对象</h2><p><strong>koa内部提供了一个Context对象，表示一次对话的上下文【包括http的请求对象和响应对象】，通过操控这个对象我们可以控制返回给用户的内容</strong></p><pre><code>/index.js
+
+const Koa = require(&#39;koa&#39;)
+const app = new Koa()
+
+app.use(async (ctx, next) =&gt; &#123;  
+    ctx.response.body = &#39;hello&#39;
+    await next()
+&#125;)
+app.listen(3000)
+</code></pre><h2 id="路由【koa-router】的使用"><a href="#路由【koa-router】的使用" class="headerlink" title="路由【koa-router】的使用"></a>路由【koa-router】的使用</h2><pre><code>const router = require(&#39;koa-router&#39;)()
+const Koa = require(&#39;koa&#39;)
+const app = new Koa()
+
+router.get(&#39;/list&#39;, ctx =&gt; &#123;
+    ctx.response.body = &#39;hellow, list&#39;
+&#125;)
+
+router.get(&#39;/home&#39;, ctx =&gt; &#123;
+    ctx.response.body = &#39;hellow, home&#39;
+&#125;)
+
+app.use(router.routes()).use(router.allowedMethods()) // 启动路由
+</code></pre><h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h3 id="应用级别中间件"><a href="#应用级别中间件" class="headerlink" title="应用级别中间件"></a>应用级别中间件</h3><blockquote><p>任何路由都会经过应用级别中间件,当执行玩成后next()去匹配相应的路由</p></blockquote><pre><code>app.use(async (ctx, next) =&gt; &#123;
+    await next()
+&#125;)
+</code></pre><h3 id="错误处理中间件"><a href="#错误处理中间件" class="headerlink" title="错误处理中间件"></a>错误处理中间件</h3><pre><code>app.use(async (ctx, next) =&gt; &#123;
+    await next()
+    if (ctx.status == 404) &#123;
+        ctx.body = &#39;404&#39;
+    &#125;
+&#125;)
+</code></pre><h3 id="路由中间件"><a href="#路由中间件" class="headerlink" title="路由中间件"></a>路由中间件</h3><blockquote><p>在匹配路由的过程中匹配到的路由会依次执行中间件,知道最后一个没有next参数</p></blockquote><pre><code>router.get(&#39;/&#39;, async (ctx, next) =&gt; &#123;
+    ctx.response.body = &#39;hellow&#39;
+    ctx.response.status = 200
+    await next()
+&#125;)
+
+router.get(&#39;/home&#39;, ctx =&gt; &#123;
+    ctx.body = &#39;hellow, world&#39;
+&#125;)
+</code></pre><h2 id="中间件的合成"><a href="#中间件的合成" class="headerlink" title="中间件的合成"></a>中间件的合成</h2><blockquote><p>koa-compose 模块可以将多个中间件合成为一个</p></blockquote><pre><code>const Koa = require(&#39;koa&#39;)
+const app = new Koa()
+const compose = require(&#39;koa-compose&#39;)
+
+const logger = (ctx,next) =&gt; &#123;
+    console.log(new Date())
+    next()
+&#125;
+
+const main = (ctx,next) =&gt; &#123;
+    ctx.response.body =  &#39;hello world&#39;
+&#125;
+
+const middleWares = compose([logger,main])
+app.use(middleWares)
+app.listen(3000)
+</code></pre><h2 id="xtemplate模板渲染【koa-xtpl】"><a href="#xtemplate模板渲染【koa-xtpl】" class="headerlink" title="xtemplate模板渲染【koa-xtpl】"></a>xtemplate模板渲染【koa-xtpl】</h2><pre><code>app.use(xtpl(&#123;
+    root: path.join(__dirname, &#39;template&#39;), // 获取到模板所在的文件夹
+    extname: &#39;xtpl&#39;, // 模板后缀
+    commands: &#123;&#125;
+&#125;))
+</code></pre><blockquote><p>新建template/login/index.xtpl（模板必须以xtpl后缀结尾）</p></blockquote><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;后台管理系统&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container-fluid&quot;&gt;
+        hellow, world
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><blockquote><p>打开index.js</p></blockquote><pre><code>router.get(&#39;/&#39;, async (ctx, next) =&gt; &#123;
+    await ctx.render(&#39;login/index&#39;, &#123; title: new Date() &#125;)
+    await next()
+&#125;)
+</code></pre><p><strong>运行就可以看到页面中出现 hellow, world</strong></p><h2 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h2><blockquote><p>如果网站提供了静态资源（图片，字体，样式，脚本），为他们一个个写路由就很麻烦，也没必要 koa-static 模块封装了这部分的请求</p></blockquote><pre><code>const Koa = require(&#39;koa&#39;)
+const app = new Koa()
+const serve = require(&#39;koa-static&#39;)
+const path = require(&#39;path&#39;)
+
+const main = serve(path.join(__dirname))
+
+app.use(main)
+
+
+app.listen(3000)
+</code></pre><p><strong>设置之后可以直接在URL地址中输入静态资源文件名进行访问</strong></p></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：node + koa2基础</li><li>本文作者：小鱼仙倌</li><li>创建时间：2019-09-26 10:41:49</li><li>本文链接：http://fishfairy.cn/2019/09/26/koa/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2019/10/08/flutter-windows/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">😎flutter环境搭建（window）🤔</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2019/08/10/node_zip/"><span class="title flex-center"><span class="post-nav-title-item">node简单的压缩/解压缩</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#node-koa2%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">node + koa2基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">搭建http服务+</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Context%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">Context对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E3%80%90koa-router%E3%80%91%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">路由【koa-router】的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.4.1.</span> <span class="nav-text">应用级别中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.4.2.</span> <span class="nav-text">错误处理中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">路由中间件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%90%88%E6%88%90"><span class="nav-number">1.5.</span> <span class="nav-text">中间件的合成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xtemplate%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93%E3%80%90koa-xtpl%E3%80%91"><span class="nav-number">1.6.</span> <span class="nav-text">xtemplate模板渲染【koa-xtpl】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="nav-number">1.7.</span> <span class="nav-text">静态资源</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>
