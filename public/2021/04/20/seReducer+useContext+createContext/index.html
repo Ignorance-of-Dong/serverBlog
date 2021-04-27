@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>🌍Hooks进阶-02🌍 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">🌍Hooks进阶-02🌍</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2021-04-20 17:52:11 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/hooks/">hooks</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>5 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="🌈useReducer-useContext-createContext的使用、模拟redux合并reducer🌈"><a href="#🌈useReducer-useContext-createContext的使用、模拟redux合并reducer🌈" class="headerlink" title="🌈useReducer+useContext+createContext的使用、模拟redux合并reducer🌈"></a>🌈useReducer+useContext+createContext的使用、模拟redux合并reducer🌈</h1><blockquote><p><strong>转载： <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43902189/article/details/99690873">https://blog.csdn.net/weixin_43902189/article/details/99690873<i class="fas fa-external-link-alt"></i></a></strong></p></blockquote><h2 id="✨createContext✨"><a href="#✨createContext✨" class="headerlink" title="✨createContext✨"></a>✨createContext✨</h2><blockquote><p>一个创建上下文函数，执行产生一个上下文对象，包含两个属性【 Provider组件和Consumer组件 】</p></blockquote><h3 id="🎍Provider🎍"><a href="#🎍Provider🎍" class="headerlink" title="🎍Provider🎍"></a>🎍Provider🎍</h3><blockquote><p>用来包裹整合组件，传递一个value属性，把context上下文注到整个组件当中</p></blockquote><h3 id="❄Consumer❄"><a href="#❄Consumer❄" class="headerlink" title="❄Consumer❄"></a>❄Consumer❄</h3><blockquote><p>在里面使用函数调用Provider的value传递的值成形参，并取出使用</p></blockquote><hr><p><a class="link" target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/hooks-reference.html">useReducer和useContext官方直通车<i class="fas fa-external-link-alt"></i></a></p><hr><h2 id="⚡useReducer-useContext-createContext的简单使用-创建一个Test-tsx文件⚡"><a href="#⚡useReducer-useContext-createContext的简单使用-创建一个Test-tsx文件⚡" class="headerlink" title="⚡useReducer+useContext+createContext的简单使用,创建一个Test.tsx文件⚡"></a>⚡useReducer+useContext+createContext的简单使用,创建一个Test.tsx文件⚡</h2><pre><code>import React, &#123; useReducer, useContext, createContext, Context &#125; from &#39;react&#39;;
+//初始化stroe的类型、初始化值、reducer
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;
+const initialReucer = &#123;
+    count: 100
+&#125;
+function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, dispatch &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+function Test(): JSX.Element &#123;
+    const &#123; state, dispatch &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &#123;/*使用dispatch分发action，触发reducer返回新的state*/&#125;
+            &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: ADD_COUNTER &#125;)&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+// 注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre><blockquote><p>效果：==</p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks5.png"></p><blockquote><p><strong>我们会发现，这样的使用和redux的同步action的情况是一致的，这时候我们可以模拟异步action发送请求获得数据</strong></p></blockquote><p><strong>抽离reducer，, providerHoc, reducer, initialReucer，ADD_COUNTER到store.tsx文件</strong></p><pre><code>//stroe.tsx
+import React, &#123; useReducer, createContext, Context &#125; from &#39;react&#39;;
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;//action-type的类型
+
+export const addActions =()=&gt; (&#123; type: ADD_COUNTER &#125;);//创建一个同步action
+
+export const initialReucer = &#123;//初始化的state
+    count: 100
+&#125;                    //    state的类型,action的类型
+export function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+export const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+export const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, dispatch &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>test.tsx文件</p></blockquote><pre><code>import React, &#123; useContext &#125; from &#39;react&#39;;
+import &#123; ProviderContext, addActions, providerHoc, reducer, initialReucer &#125; from &#39;./store&#39;;
+function Test(): JSX.Element &#123;
+    const &#123; state, dispatch &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; dispatch(addActions())&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+// 注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre><blockquote><p>这时我们只是将组件抽离出来，执行结果还是和以前一样======我们要对代码进行改造~ ~ ~ ~ ~ ~</p></blockquote><blockquote><p>store.ts</p></blockquote><pre><code>import React, &#123; useReducer, createContext, Context, Dispatch &#125; from &#39;react&#39;;
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;
+
+const addActions = () =&gt; (&#123; type: ADD_COUNTER &#125;);//创建一个同步action
+// 创建一个异步action的函数，返回一个action对象
+const asyncAction = (dispatch: Dispatch&lt;any&gt;) =&gt; &#123;
+    return &#123;
+        asyncAddaction() &#123;//这是一个异步的添加action,定时器模拟异步
+            console.log(&#39;执行addActions之前,发送请求 : &#39; + Date.now());//打印一下时间
+            setTimeout(() =&gt; &#123;
+                console.log(&#39;执行addActions ,请求后: &#39; + Date.now());
+                dispatch(addActions());//执行同步action
+            &#125;, 1000);
+        &#125;
+    &#125;
+&#125;
+export const initialReucer = &#123;
+    count: 100
+&#125;
+export function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+export const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+export const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        const asyncActions: any = asyncAction(dispatch);//对dispatch进行注入包裹,然后返回
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, asyncActions &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+</code></pre><blockquote><p>test.tsx如下</p></blockquote><pre><code>import React, &#123; useContext &#125; from &#39;react&#39;;
+import &#123; ProviderContext, providerHoc, reducer, initialReucer &#125; from &#39;./store&#39;;
+function Test(): JSX.Element &#123;
+    const &#123; state, asyncActions &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    const &#123; asyncAddaction &#125; = asyncActions;//取出asyncAddaction
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; asyncAddaction()&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+//注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre><blockquote><p>执行结果：=&gt;</p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks6.png"></p><hr><hr><hr><blockquote><p>目前这种useReducer+useContext+createContext的组合使用看起来有些凌乱。</p></blockquote><blockquote><p>推荐使用mobx全局状态管理</p></blockquote><blockquote><p>🌍<a class="link" target="_blank" rel="noopener" href="http://my.ignorantscholar.cn/2019/12/06/mobx/#more">Mobx全局状态管理参考<i class="fas fa-external-link-alt"></i></a>🌍</p></blockquote><hr><hr><hr></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：🌍Hooks进阶-02🌍</li><li>本文作者：小鱼仙倌</li><li>创建时间：2021-04-20 17:52:11</li><li>本文链接：http://fishfairy.cn/2021/04/20/seReducer+useContext+createContext/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2021/04/20/useState+useEffect/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">😁Hooks进阶-01😁</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2020/08/06/mobx/"><span class="title flex-center"><span class="post-nav-title-item">👑Mobx.👑</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8C%88useReducer-useContext-createContext%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81%E6%A8%A1%E6%8B%9Fredux%E5%90%88%E5%B9%B6reducer%F0%9F%8C%88"><span class="nav-number">1.</span> <span class="nav-text">🌈useReducer+useContext+createContext的使用、模拟redux合并reducer🌈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%A8createContext%E2%9C%A8"><span class="nav-number">1.1.</span> <span class="nav-text">✨createContext✨</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8E%8DProvider%F0%9F%8E%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">🎍Provider🎍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%84Consumer%E2%9D%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">❄Consumer❄</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%A1useReducer-useContext-createContext%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AATest-tsx%E6%96%87%E4%BB%B6%E2%9A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">⚡useReducer+useContext+createContext的简单使用,创建一个Test.tsx文件⚡</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

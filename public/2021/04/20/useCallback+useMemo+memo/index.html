@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="keywords" content="Hexo Theme Keep"><meta name="description" content="Hexo Theme Keep"><meta name="author" content="小鱼仙倌"><title>🤑Hooks进阶-03🤑 | 小鱼仙倌</title><link rel="stylesheet" href="/css/style.css"><link rel="shortcut icon" href="/images/favicon-32x32-next.png"><link rel="stylesheet" href="/css/font-awesome.min.css"><script id="hexo-configurations">let KEEP=window.KEEP||{};KEEP.hexo_config={hostname:"example.com",root:"/",language:"zh-CN",path:"search.xml"},KEEP.theme_config={toc:{enable:!0,number:!0,expand_all:!0,init_open:!0},style:{primary_color:"#0066CC",avatar:"/images/headers.png",favicon:"/images/favicon-32x32-next.png",article_img_align:"left",left_side_width:"260px",content_max_width:"920px",hover:{shadow:!0,scale:!0},first_screen:{enable:!0,background_img:"/images/bg.svg",description:"天官赐福 百无禁忌"},scroll:{progress_bar:{enable:!0},percent:{enable:!0}}},local_search:{enable:!0,preload:!0},code_copy:{enable:!0,style:"mac"},pjax:{enable:!1},lazyload:{enable:!0},version:"3.4.2"},KEEP.language_ago={second:"%s 秒前",minute:"%s 分钟前",hour:"%s 小时前",day:"%s 天前",week:"%s 周前",month:"%s 月前",year:"%s 年前"}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span></div><main class="page-container"><div class="page-main-content"><div class="page-main-content-top"><header class="header-wrapper"><div class="header-content"><div class="left"><a class="logo-title" href="/">小鱼仙倌</a></div><div class="right"><div class="pc"><ul class="menu-list"><li class="menu-item"><a href="/">首页</a></li><li class="menu-item"><a href="/archives">归档</a></li><li class="menu-item"><a href="/tags">标签</a></li><li class="menu-item search search-popup-trigger"><i class="fas fa-search"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div><div class="icon-item menu-bar"><div class="menu-bar-middle"></div></div></div></div></div><div class="header-drawer"><ul class="drawer-menu-list"><li class="drawer-menu-item flex-center"><a href="/">首页</a></li><li class="drawer-menu-item flex-center"><a href="/archives">归档</a></li><li class="drawer-menu-item flex-center"><a href="/tags">标签</a></li></ul></div><div class="window-mask"></div></header></div><div class="page-main-content-middle"><div class="main-content"><div class="fade-in-down-animation"><div class="article-content-container"><div class="article-title"><span class="title-hover-animation">🤑Hooks进阶-03🤑</span></div><div class="article-header"><div class="avatar"><img src="/images/headers.png"></div><div class="info"><div class="author"><span class="name">小鱼仙倌</span> <span class="author-label">Lv5</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fas fa-edit"></i>&nbsp;2021-04-20 17:52:11 </span><span class="article-tags article-meta-item"><i class="fas fa-tags"></i>&nbsp;<ul><li><a href="/tags/hooks/">hooks</a>&nbsp;</li><li>| <a href="/tags/react/">react</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fas fa-file-word"></i>&nbsp;<span>2.1k 字</span> </span><span class="article-min2read article-meta-item"><i class="fas fa-clock"></i>&nbsp;<span>9 分钟</span> </span><span class="article-pv article-meta-item"><i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body"><h1 id="😲useCallback-useMemo-memo性能优化场景使用😲"><a href="#😲useCallback-useMemo-memo性能优化场景使用😲" class="headerlink" title="😲useCallback+useMemo+memo性能优化场景使用😲"></a>😲useCallback+useMemo+memo性能优化场景使用😲</h1><blockquote><p><strong>转载： <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43902189/article/details/99689963">https://blog.csdn.net/weixin_43902189/article/details/99689963<i class="fas fa-external-link-alt"></i></a></strong></p></blockquote><p><strong>当父组件引入子组件的情况下，往往会照成一些不必要的性能浪费，下面我们通过例子了解一下啊</strong></p><blockquote><p>创建一个test.tsx文件</p></blockquote><pre><code>import React, &#123; useState &#125; from &#39;react&#39;;
+function Test() &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &lt;TestChild/&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+//创建一个子组件
+function TestChild(): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return(
+        &lt;h3&gt;我是子组件&lt;/h3&gt;
+    );
+&#125;
+</code></pre><blockquote><p><strong>这时我们开启服务运行一下这个小案例,会发现，我们的子组件并没有对应的需要更新的操作但是还是触发了，这时候我们需要使用React的memo来优化一下代码</strong></p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks0.png"></p><h2 id="🤓使用memo优化react性能🤓"><a href="#🤓使用memo优化react性能🤓" class="headerlink" title="🤓使用memo优化react性能🤓"></a>🤓使用memo优化react性能🤓</h2><pre><code>import React, &#123; useState,memo &#125; from &#39;react&#39;;
+//在TestChild子组件使用之前，使用memo包裹一下
+const MemoTestChild = memo(TestChild);//对子组件进行处理
+function Test() &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt; */&#125;
+            &lt;MemoTestChild/&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+//创建一个子组件
+function TestChild(): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return(
+        &lt;h3&gt;我是子组件&lt;/h3&gt;
+    );
+&#125;
+</code></pre><blockquote><p>我们在看一下，会不会产生上述的问题</p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks1.png"></p><p><strong>从上面可以看出，除了初始化的执行之外，这时候父组件发生状态的改变，子组件不会发生对应的重新执行，优化了代码的性能，个人建议多使用这些性能优化的函数,以提高性能</strong></p><blockquote><p><strong>通俗的说： 场景 : 在子组件不需要父组件的值和函数的情况下，来使用</strong></p></blockquote><hr><p><strong>我们再看一个父组件传值传函数的例子(相同的例子改造)</strong></p><pre><code>import React, &#123; useState, memo &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;   
+            &lt;MemoTestChild name=&#123;name&#125; onClick=&#123;(newName: string) =&gt; setName(newName)&#125; /&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: string;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name,onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3&gt;我是子组件,这是父组件传递过来的数据:&#123;name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null,&#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre><blockquote><p>这是传递给子组件一个新的状态，然后我们看看点击父组件后的情况</p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks2.png"></p><p><strong>我们从图中可以看出，子组件有执行了多次，这时我们就要使用useCallback / useMemo来解决这个问题</strong></p><h2 id="🤧useCallback🤧"><a href="#🤧useCallback🤧" class="headerlink" title="🤧useCallback🤧"></a>🤧useCallback🤧</h2><blockquote><p>useCallback有两个参数，【 参数是一个回调，参数二是一个依赖数组 】，使用：把内联的回调函数以及依赖项数组作为u参数传递到useCallback，他将返回函数的memeized版本，该回调仅在某个依赖项改变时才会更新，当你把回调函数传递给经过优化的，避免非必要渲染的子组件时，他将非常有用</p></blockquote><p>**这时我们在对上述代码进行优化【 加入useCallback 】</p><pre><code>import React, &#123; useState, memo, useCallback &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild name=&#123;name&#125; onClick=&#123;useCallback((newName: string) =&gt; setName(newName),[])&#125; /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: string;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3&gt;我是子组件,这是父组件传递过来的数据:&#123;name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre><blockquote><p>这时候我们看见子组件不会在父组件与子组件无关状态改变的时候执行，不会一直产生重新产生新函数,useCallback第二个参数，是依赖项，可以确定在什么状态改变的情况下产生一个新的回调函数</p></blockquote><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks3.png"></p><blockquote><p><strong>通俗的说： 场景： 在使用值和函数的情况下，需要考虑有没有函数传递给子组件</strong></p></blockquote><p><strong>我们上面提到的useMemo，好奇他在什么场景下使用</strong></p><blockquote><p>我们继续改造一下这个案例，把name改成一个对象</p></blockquote><pre><code>import React, &#123; useState, memo, useCallback &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild
+                name=&#123;&#123; name, color: name.indexOf('name') !== -1 ? 'red' : 'green' &#125;&#125;
+                onClick=&#123;useCallback((newName: string) =&gt; setName(newName), [])&#125;
+            /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: &#123; name: string; color: string &#125;;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3 style=&#123;&#123; color: name.color &#125;&#125;&gt;我是子组件,这是父组件传递过来的数据:&#123;name.name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre><p><strong>这时候我们会发现，子组件还是一样的执行了，在父组件更新其它状态的情况下，子组件的name对象属性会一直发生重新渲染改变，从而导致一直执行,这也是不必要的性能浪费</strong></p><p><img lazyload src="/images/loading.svg" data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks4.png"></p><blockquote><p>这个时候我们就要使用useMemo来优化传递的子属性了</p></blockquote><pre><code>import React, &#123; useState, memo, useCallback, useMemo &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild
+                // 使用useMemo，返回一个和原本一样的对象，第二个参数是依赖性，当name发生改变的时候，才产生一个新的对象
+                name=&#123;useMemo(() =&gt; (&#123; name, color: name.indexOf(&#39;name&#39;) !== -1 ? &#39;red&#39; : &#39;green&#39; &#125;),[name])&#125;
+                onClick=&#123;useCallback((newName: string) =&gt; setName(newName), [])&#125;
+            /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: &#123; name: string; color: string &#125;;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3 style=&#123;&#123; color: name.color &#125;&#125;&gt;我是子组件,这是父组件传递过来的数据:&#123;name.name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre><blockquote><p><strong>通俗的说： 场景：子组件调用父组件传递的函数，来改变父组件传递给子组件的属性</strong></p></blockquote><p>**！因此我们因该在不同的场景下来使用这些hooks，而不是盲目的去使用</p></div><div class="post-copyright-info"><div class="article-copyright-info-container"><ul><li>本文标题：🤑Hooks进阶-03🤑</li><li>本文作者：小鱼仙倌</li><li>创建时间：2021-04-20 17:52:11</li><li>本文链接：http://fishfairy.cn/2021/04/20/useCallback+useMemo+memo/</li><li>版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></div><div class="article-nav"><div class="article-prev"><a class="prev" rel="prev" href="/2021/04/26/vue3%E6%96%B0%E7%89%B9%E6%80%A7/"><span class="left arrow-icon flex-center"><i class="fas fa-chevron-left"></i> </span><span class="title flex-center"><span class="post-nav-title-item">vue3 新特性</span> <span class="post-nav-item">上一篇</span></span></a></div><div class="article-next"><a class="next" rel="next" href="/2021/04/20/useRef,useImperativeHandle%E5%92%8CforwardRef/"><span class="title flex-center"><span class="post-nav-title-item">💪🏼Hooks进阶-04💪🏼</span> <span class="post-nav-item">下一篇</span> </span><span class="right arrow-icon flex-center"><i class="fas fa-chevron-right"></i></span></a></div></div></div></div></div></div><div class="page-main-content-bottom"><footer class="footer"><div class="info-container"><div class="copyright-info info-item">&copy; <span>2018</span>&nbsp;-&nbsp; 2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小鱼仙倌</a></div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="website-count info-item"><span id="busuanzi_container_site_uv">访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp; </span><span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span></div><div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">晋ICP备18012867号-2</a></div></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="tools-list"><li class="tools-item page-aside-toggle"><i class="fas fa-outdent"></i></li></ul></div></div><div class="right-bottom-side-tools"><div class="side-tools-container"><ul class="side-tools-list"><li class="tools-item tool-font-adjust-plus flex-center"><i class="fas fa-search-plus"></i></li><li class="tools-item tool-font-adjust-minus flex-center"><i class="fas fa-search-minus"></i></li><li class="tools-item tool-expand-width flex-center"><i class="fas fa-arrows-alt-h"></i></li><li class="tools-item tool-dark-light-toggle flex-center"><i class="fas fa-moon"></i></li><li class="tools-item tool-scroll-to-bottom flex-center"><i class="fas fa-arrow-down"></i></li></ul><ul class="exposed-tools-list"><li class="tools-item tool-toggle-show flex-center"><i class="fas fa-cog fa-spin"></i></li><li class="tools-item tool-scroll-to-top flex-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><aside class="page-aside"><div class="post-toc-wrap"><div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%98%B2useCallback-useMemo-memo%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%9C%BA%E6%99%AF%E4%BD%BF%E7%94%A8%F0%9F%98%B2"><span class="nav-number">1.</span> <span class="nav-text">😲useCallback+useMemo+memo性能优化场景使用😲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%A4%93%E4%BD%BF%E7%94%A8memo%E4%BC%98%E5%8C%96react%E6%80%A7%E8%83%BD%F0%9F%A4%93"><span class="nav-number">1.1.</span> <span class="nav-text">🤓使用memo优化react性能🤓</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%A4%A7useCallback%F0%9F%A4%A7"><span class="nav-number">1.2.</span> <span class="nav-text">🤧useCallback🤧</span></a></li></ol></li></ol></div></div></aside><div class="image-viewer-container"><img src=""></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fas fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fas fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/header-shrink.js"></script><script src="/js/back2top.js"></script><script src="/js/dark-light-toggle.js"></script><script src="/js/local-search.js"></script><script src="/js/code-copy.js"></script><script src="/js/lazyload.js"></script><div class="post-scripts"><script src="/js/left-side-toggle.js"></script><script src="/js/libs/anime.min.js"></script><script src="/js/toc.js"></script></div></body></html>

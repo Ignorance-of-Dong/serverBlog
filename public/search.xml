@@ -1,49 +1,876 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>代码整洁之道：程序员的职业素养</title>
-    <url>/2019/01/25/index/</url>
-    <content><![CDATA[<hr>
-<h1 id="代码整洁之道：程序员的职业素养"><a href="#代码整洁之道：程序员的职业素养" class="headerlink" title="代码整洁之道：程序员的职业素养"></a>代码整洁之道：程序员的职业素养</h1><hr>
-<blockquote>
-<p>我们并非是因为喜欢和其他人在一起工作才选择做程序员的。我们都认为人际关系难以应付而且毫无规律。编程用的机器则整洁，行为也可预见。如果可以一个人待在房间里数个小时沉浸在一些真正有趣的问题上，那将会是最开心的时光。</p>
+    <title>vue3 新特性</title>
+    <url>/2021/04/26/vue3%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="vue3-新特性"><a href="#vue3-新特性" class="headerlink" title="vue3 新特性"></a>vue3 新特性</h1><h2 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a><code>v-model</code></h2><h3 id="不同版本使用方式"><a href="#不同版本使用方式" class="headerlink" title="不同版本使用方式"></a>不同版本使用方式</h3><blockquote>
+<p>vue2.0</p>
 </blockquote>
+<p>在 2.0 中 v-model 指令必须使用为 value 的 prop，如果想使用别的 prop，就不得不使用 b-bind.sync</p>
+<blockquote>
+<p>vue2.2</p>
+</blockquote>
+<p>在 2.2 中组件中出现了 model 的选项，允许组件自定义用于<code>v-model</code>的 prop 和事件中，【组件中只能允许一个 <code>v-model</code>出现】</p>
+<blockquote>
+<p>vue3.0</p>
+</blockquote>
+<p>在 3.0 中可以在同一组件中使用多个<code>v-model</code>进行双向绑定，可以自定义<code>v-model</code>修饰符</p>
+<h3 id="2-x-语法"><a href="#2-x-语法" class="headerlink" title="2.x 语法"></a>2.x 语法</h3><blockquote>
+<p>在 2.x 中<code>v-modle</code>是 value 和 input 事件的语法糖</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">v-model</span>=<span class="string">&quot;pageTitle&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">||等同于</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">:value</span>=<span class="string">&quot;pageTitle&quot;</span> @<span class="attr">input</span>=<span class="string">&quot;pageTitle = $event&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果要将属性或者事件名称修改为自定义名称，则需要在组件中添加<code>modle</code>选项</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">v-model</span>=<span class="string">&quot;pageTitle&quot;</span> /&gt;</span>; // ChildComponent.vue</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;hello&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;handleChange&quot;</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    model: &#123;</span><br><span class="line"><span class="javascript">      prop: <span class="string">&quot;msg&quot;</span>, <span class="comment">// 自定义变量名</span></span></span><br><span class="line"><span class="javascript">      event: <span class="string">&quot;change&quot;</span> <span class="comment">// 自定义事件名</span></span></span><br><span class="line">    &#125;,</span><br><span class="line">    props: &#123;</span><br><span class="line"><span class="javascript">      value: <span class="built_in">String</span>,</span></span><br><span class="line">      msg: &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="string">&quot;Default title&quot;</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">handleChange</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;change&quot;</span>, <span class="string">&quot;12&quot;</span>);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用<code>v-bind.sync</code> —- 大体代码同上</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">:title.sync</span>=<span class="string">&quot;pageTitle&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">// 使用 update:myPropName 抛出事件 this.$emit(&#x27;update:title&#x27;, newValue)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-语法"><a href="#3-x-语法" class="headerlink" title="3.x 语法"></a>3.x 语法</h3><p>在 3.x 中，自定义组件上的 v—modle 相当于传递了<code>modelVaule</code>prop 并收了<code>update:modelValue</code>事件</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">v-model:title</span>=<span class="string">&quot;pageTitle&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 是以下的简写: --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">:title</span>=<span class="string">&quot;pageTitle&quot;</span> @<span class="attr">update:title</span>=<span class="string">&quot;pageTitle = $event&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <hr>
-<blockquote>
-<p><strong>以下全部内容均为本人2019年读书过程中所喜欢或者有感触的片段的摘录，来自于不同的书目，每本书标注了书名，书籍排序仅仅是阅读顺序（倒时间顺序），版权归原作者所有，这里仅作摘录整理。</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> @<span class="attr">input</span>=<span class="string">&quot;first&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;title&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">&quot;ChildComponent&quot;</span>,</span></span><br><span class="line">    props: &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="function">() =&gt;</span> <span class="string">&quot;????&quot;</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">first</span>(<span class="params">e</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;update:title&quot;</span>, e.target.value);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以支持多个<code>v-model</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">v-model:title</span>=<span class="string">&quot;title&quot;</span> <span class="attr">v-model:name</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> @<span class="attr">input</span>=<span class="string">&quot;first :value=&quot;</span><span class="attr">title</span>&quot;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> @<span class="attr">input</span>=<span class="string">&quot;last&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">&quot;ChildComponent&quot;</span>,</span></span><br><span class="line">    props: &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="function">() =&gt;</span> <span class="string">&quot;????&quot;</span></span></span><br><span class="line">      &#125;,</span><br><span class="line">      name: &#123;</span><br><span class="line"><span class="javascript">        defaule: <span class="function">() =&gt;</span> <span class="string">&quot;???&quot;</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">first</span>(<span class="params">e</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;update:title&quot;</span>, e.target.value);</span></span><br><span class="line">      &#125;,</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">last</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;update:name&quot;</span>, e.target.value);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><h3 id="2-x-用法"><a href="#2-x-用法" class="headerlink" title="2.x 用法"></a>2.x 用法</h3><ul>
+<li>bind - 指令绑定到元素后发生【只发生一次】</li>
+<li>inserted - 元素插入父 DOM 后发生</li>
+<li>update - 当元素更新，但子元素尚未更新时，调用此函数</li>
+<li>componentUpdated - 所造组件以及其子元素更新后，就会调用此函数</li>
+<li>unbind - 指令被移除，调用此函数</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-highlight</span>=<span class="string">&quot;&#x27;yellow&#x27;&quot;</span>&gt;</span>高亮显示此文本亮黄色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 注册一个全局自定义指令</span></span></span><br><span class="line"><span class="javascript">  Vue.directive(<span class="string">&quot;highlight&quot;</span>, &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">bind</span>(<span class="params">el, binding, vnode</span>)</span> &#123;</span></span><br><span class="line">      el.style.background = binding.value;</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">inserted</span>(<span class="params"></span>)</span> &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">update</span>(<span class="params"></span>)</span> &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">componentupdated</span>(<span class="params"></span>)</span> &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">unbind</span>(<span class="params"></span>)</span> &#123;&#125;</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="javascript">  <span class="comment">// 注册一个局部的指令【组件内部】</span></span></span><br><span class="line">  directives: &#123;</span><br><span class="line">    highlight: &#123;</span><br><span class="line"><span class="javascript">      bind: <span class="function">() =&gt;</span> &#123;&#125;,</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x"><a href="#3-x" class="headerlink" title="3.x"></a>3.x</h3><ul>
+<li>beforeMount - 当指令第一次绑定到元素并且在挂载到父组件之前调用<code>【替换bind】</code></li>
+<li>mounted - 在挂载绑定元素的父组件时调用 <code>【替换 inserted】</code></li>
+<li>beforeUpdata - 在更新包含组件的子元素之前调用 <code>【新增】</code></li>
+<li>updated - 更新之后调用 <code>【替换update】</code></li>
+<li>beforeUnmount - 在卸载绑定之前调用 <code>【新增】</code></li>
+<li>unmounted - 与元素解除绑定且父组件卸载时调用 <code>【替换unbind】</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-highlight</span>=<span class="string">&quot;&#x27;yellow&#x27;&quot;</span>&gt;</span>高亮显示此文本亮黄色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> app = Vue.createApp(&#123;&#125;);</span></span><br><span class="line"><span class="javascript">  app.directive(<span class="string">&quot;highlight&quot;</span>, &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">beforeMount</span>(<span class="params">el, binding, vnode</span>)</span> &#123;</span></span><br><span class="line">      el.style.background = binding.value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><h3 id="2-x"><a href="#2-x" class="headerlink" title="2.x"></a>2.x</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Bank Account Balance<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; accountBalance | currencyUSD &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    props: &#123;</span><br><span class="line">      accountBalance: &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">Number</span>,</span></span><br><span class="line"><span class="javascript">        required: <span class="literal">true</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    filters: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">currencyUSD</span>(<span class="params">value</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="string">&quot;$&quot;</span> + value;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-1"><a href="#3-x-1" class="headerlink" title="3.x"></a>3.x</h3><blockquote>
+<p>3.x 中，过滤器已被移除，不在支持，官方建议使用计算属性替换</p>
 </blockquote>
-<h1 id="阿加莎·克里斯蒂的真实人生"><a href="#阿加莎·克里斯蒂的真实人生" class="headerlink" title="阿加莎·克里斯蒂的真实人生"></a>阿加莎·克里斯蒂的真实人生</h1><hr>
-<blockquote>
-<p>你无法创作命运，命运会不请自来，就是这么回事。<br>  人人都做梦，但他们的梦不一样。<br>  那些夜里在脏兮兮的脑袋瓜里做梦的人，<br>  白天一觉醒来发现不过是虚幻一场；<br>  要小心那些在白天做梦的人，<br>  因为他们会睁大眼睛做梦，<br>  用行动让梦想变成现实。<br>  天真是一种罪过，冷漠是一种爱。律师以为自己操纵着游戏，但不过是他想加害的人手中的玩偶。</p>
+<h2 id="是否支持多根节点"><a href="#是否支持多根节点" class="headerlink" title="是否支持多根节点"></a>是否支持多根节点</h2><h2 id="2-x-1"><a href="#2-x-1" class="headerlink" title="2.x"></a>2.x</h2><blockquote>
+<p>不支持多根节点</p>
 </blockquote>
-<hr>
-<h1 id="牧羊少年奇幻之旅"><a href="#牧羊少年奇幻之旅" class="headerlink" title="牧羊少年奇幻之旅"></a>牧羊少年奇幻之旅</h1><hr>
-<blockquote>
-<p>不管是牧羊人、海员，还是推销员，总会有一个地方令他们魂牵梦萦，那里会有一个人让他们忘记自由自在周游世界的快乐。<br>  当总是面对同样的面孔，像在神学院里那样，就会渐渐让那些人成为生活的一部分。而由于他们是你生活的一部分，当然就想改变你的生活。如果你不像他们所期望的那样，他们就会不高兴。因为，对于该怎样生活，所有人都有固定的观念。但是他们对于自己该怎样生活却一头雾水，就像那个给人解梦、却不会把梦变成现实的老妇人。<br>  男孩心想，人总会说一些刁钻古怪的事情。有的时候，最好与羊群为伴，羊群不声不响，只顾吃草和水晶。与书为伴也行，书总是在人们最想听故事的时候，告诉你一些意想不到的事情。但是，当人与人交谈的时候，有些人说的话会让我们无所适从，不知该怎样把谈话继续下去。<br>「天命就是你一直期望去做的事情。人一旦步入青年时期，就知道什么是自己的天命了。在人生的这个阶段，一切都那么明朗，没有做不到的事情。人们敢于梦想，期待完成他们一生中喜欢做的一切事情。但是，随着时光的流逝，一股神秘的力量开始企图证明，根本不可能实现天命。」<br>实际上，每天都一成不变，是因为人们已经失去了对美好事物的敏锐感觉。<br>我和别人没什么两样：总是以理想的眼光看待世界，以为事情会按理想的方式发展，而不会用现实的眼光看待世界，看不到事情真相。<br>「因为麦加是支撑我活下去的希望，使我能够忍受平庸的岁月，忍受橱柜里那些不会说话的水晶，忍受那间糟糕透顶的餐厅里的午饭和晚饭。我害怕实现我的梦想，实现之后，我就没有活下去的动力了。」<br>「你的梦想是羊群和金字塔。你与我不同，因为你希望实现你的梦想，而我只是想保有去麦加的梦想。我曾无数次地想象过，如何穿过沙漠，到达安放着圣石的广场，在触摸圣石之前，围着它绕行七圈。我曾想象过有些人站在我身旁，有些人站在我前面，还有我们的谈话和共同的祈祷。可是，我担心会大失所望，所以我宁愿只保留一个梦想。」<br>「你一度成为我的福音。而今天我明白了一个道理，任何不被接纳的福音，都会变成诅咒。我对生活没有更多的要求。而你正迫使我盯着从未见过的财富和前景。现在，我知道了这些财富和前景，也知道了我完全有可能拥有它们。可是我的感觉却比以前糟糕了。因为我知道我自己可以拥有这一切，却不愿拥有它们。」<br>别的事情不好说，但在这件事上，男孩坚信不疑，尽管他的父母以及先辈都说过，必须在恋爱、订婚、相互了解和有了钱之后才可以结婚。说这话的人大概从来不了解宇宙的语言，因为如果掌握了这种语言，很容易就能理解，世上总有人在等待着另外一个人，无论是在大沙漠还是在大城市。当这两个人最终相遇，四目相对的时候，过去的一切和将来的一切全都变得无足轻重了，只有眼前的这一刻最重要。<br>因为生活永远是，也仅仅是我们现在经历的这一刻。<br>这正是需要爱发挥力量的地方，因为当我们有爱的时候，总是希望自己变得更好。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span>...<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span>...<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>...<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-2"><a href="#3-x-2" class="headerlink" title="3.x"></a>3.x</h3><blockquote>
+<p>支持多根节点。必要明确定义属性的分布</p>
 </blockquote>
-<hr>
-<h1 id="且听风吟"><a href="#且听风吟" class="headerlink" title="且听风吟"></a>且听风吟</h1><hr>
-<blockquote>
-<p>说到底，写文章并非自我诊治的手段，充其量不过是自我疗养的一种小小的尝试。<br>问题是，直言不讳是件极为困难的事。甚至越是想直言不讳，直率的言语越是遁入黑暗的深处。<br>死去的祖母常说「心情抑郁的人只能做抑郁的梦，要是更加抑郁的，连梦都不做的。」<br>如果你志在追求艺术追求文学，那么去读一读希腊人写的东西好了。因为要诞生真正的艺术，奴隶制度是必不可少的。而古希腊人便是这样：奴隶们耕种、烧饭、划船，而市民们则在地中海的阳光下陶醉于吟诗作赋，埋头于数学解析。所谓艺术便是这么一种玩意儿。<br>至于半夜三点半在悄无声息的厨房寻找电冰箱里的食品的人，只能写出这等模样的文章。<br>而那就是我。<br>「我时常想：假如活着不给任何人添麻烦该有多好！你说能做到吗？」<br>「怎么说呢，大概因为厌烦了吧。可我也在尽我的努力——就连自己都难以置信。我也在考虑别人，像考虑自己的事一样，也因此挨过警察的揍。但到时候人们终究要各归其位，唯独我无处可归，就像玩『抢椅子』游戏没了椅子。」<br>「不过你认真想想看：条件大伙都一样，就像同坐一架出了故障的飞机。诚然，有的运气好些，有的运气差些，有的坚强些有的懦弱些，有的有钱有的没钱。但没有一个家伙怀有超乎常人的自信，大家一个样，拥有什么的家伙生怕一旦失去，一无所有的家伙担心永远一无所有，大家一个样。所以，早些察觉到这一点的人 应该力争使自己多少怀有自信，哪怕装模做样也好，对吧？什么自信之人，那样的人根本没有，有的不过是能够装出自信的人。」<br>「把谁都知道的事写成小说，那究竟有何意味可言？」<br>我有时说谎。<br>最后一次说谎是在去年。<br>说谎是非常令人讨厌的勾当。不妨说，说谎与沉默是现代人类中流行的两大罪过。我们实际上经常说谎，也往往沉默不语。<br>然而，倘若我们一年四季都喋喋不休，而且喋喋不休的无不真实，那么真实的价值必然荡然无存。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">header</span>&gt;</span>...<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">main</span> <span class="attr">v-bind</span>=<span class="string">&quot;$attrs&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">footer</span>&gt;</span>...<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="v-if-与-v-for-的优先级"><a href="#v-if-与-v-for-的优先级" class="headerlink" title="v-if 与 v-for 的优先级"></a><code>v-if</code> 与 <code>v-for</code> 的优先级</h2><h3 id="2-x-2"><a href="#2-x-2" class="headerlink" title="2.x"></a>2.x</h3><blockquote>
+<p>在一个元素上同时使用这两个指令，<code>v-for</code>优先级最高</p>
 </blockquote>
-<hr>
-<h1 id="超能力侦探事务所"><a href="#超能力侦探事务所" class="headerlink" title="超能力侦探事务所"></a>超能力侦探事务所</h1><hr>
-<blockquote>
-<p>和事件无关的人，只要时间够久，或有新的事件发生，就会很快忘记过往的事。<br>世界上永远没有「感同身受」这件事，因为没有亲身经历，无法体会到当事人的痛苦。</p>
+<h3 id="3-x-3"><a href="#3-x-3" class="headerlink" title="3.x"></a>3.x</h3><blockquote>
+<p>在一个元素上同时使用这两个指令，<code>v-if</code>优先级最高</p>
 </blockquote>
-<hr>
+<h2 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h2><h3 id="2-x-3"><a href="#2-x-3" class="headerlink" title="2.x"></a>2.x</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">watch:&#123;</span><br><span class="line">    person: &#123;</span><br><span class="line">      <span class="function"><span class="title">handler</span>(<span class="params">newVal,oldVal</span>)</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      &#125;,</span><br><span class="line">      deep: <span class="literal">true</span>,</span><br><span class="line">      immediate: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-4"><a href="#3-x-4" class="headerlink" title="3.x"></a>3.x</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;count++&quot;</span>&gt;</span>count is: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> &#123; watch, ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> count = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> isShow = ref(<span class="literal">true</span>);</span></span><br><span class="line">      watch(</span><br><span class="line">        [count, isShow],</span><br><span class="line">        ([newCount, newIsShow], [oldCount, oldIsShow]) =&gt; &#123;</span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(newCount, newIsShow);</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(oldCount, oldIsShow);</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line"><span class="javascript">          deep: <span class="literal">true</span></span></span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line">        count,</span><br><span class="line">        isShow</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参数说明 <code>watch(source, callback, [options])</code></p>
+</blockquote>
+<ul>
+<li>source - 指定监听的响应式变量 【支持<code>string, object, array, function</code>】</li>
+<li>callback - 执行的回调函数</li>
+<li>options - 支持 deep、immediate 和 flush 选项</li>
+</ul>
+<h4 id="3-x-新增watchEffect"><a href="#3-x-新增watchEffect" class="headerlink" title="3.x 新增watchEffect"></a>3.x 新增<code>watchEffect</code></h4><p><code>watchEffect</code>回传入一个函数，然后立即执行这个函数，并在更改依赖时重新运行他</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;count++&quot;</span>&gt;</span>count is: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> &#123; watchEffect, ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> count = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">      watchEffect(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(count.value);</span></span><br><span class="line">      &#125;);</span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line">        count</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>停止执行</strong></p>
+</blockquote>
+<ul>
+<li>2.x 中<code>$watch</code>会在调用的时候返回一个函数，执行这个函数可以停止 <code>watch</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> unwatch = <span class="built_in">this</span>.$watch(<span class="string">&quot;count&quot;</span>, <span class="function">() =&gt;</span> &#123;&#125;);</span><br><span class="line"><span class="comment">// 两秒后停止监听</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  unwatch();</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 3.x 中<code>watch</code>和<code>watchEffect</code>同样也会返回一个 unwatch 函数，用于取消执行</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> count = ref(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">const</span> unwatch = watchEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 仅仅输出0</span></span><br><span class="line">      <span class="built_in">console</span>.log(count.value);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      count.value = <span class="number">2</span>;</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">    <span class="comment">// 1秒后取消watch，所以上面的代码只会输出0</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      unwatch();</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h2><h3 id="2-x-4"><a href="#2-x-4" class="headerlink" title="2.x"></a>2.x</h3><p>在 2.x 中<code>&lt;template&gt;</code>标记中不能包含 key，只能将<code>key</code>放到子元素中</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">&quot;item in list&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-5"><a href="#3-x-5" class="headerlink" title="3.x"></a>3.x</h3><p>在 3.x 中，<code>key</code> 值应该放置到<code>&lt;template&gt;</code>标签上</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">&quot;item in list&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据建立-data"><a href="#数据建立-data" class="headerlink" title="数据建立 data"></a>数据建立 data</h2><h3 id="2-x-5"><a href="#2-x-5" class="headerlink" title="2.x"></a>2.x</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    strProp: <span class="built_in">String</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      value1: <span class="string">&quot;&quot;</span>,</span><br><span class="line">      value2: <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-x-6"><a href="#3-x-6" class="headerlink" title="3.x"></a>3.x</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; reactive &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    strProp: <span class="built_in">String</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">setup</span>(<span class="params">props, &#123; emit, attrs, slot &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> state = reactive(&#123;</span><br><span class="line">      value1: <span class="string">&quot;&quot;</span>,</span><br><span class="line">      value2: <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; state &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>setup(props, context)</p>
+</blockquote>
+<ul>
+<li>props - 组件传入到属性</li>
+<li>context - 包含三个属性【<code>&#123;emit, attrs. slot&#125;</code>】</li>
+</ul>
+<blockquote>
+<p><code>setup</code>中接受的 props 是响应式的，当传入新的 props 时，会被及时更新，由于是响应式的，所以不可以使用 ES6 解构，解决办法就是使用 toRefs。</p>
+</blockquote>
+<ul>
+<li><p><code>toRef</code> 就是把不是响应式的对象转化为响应式</p>
+</li>
+<li><p><code>toRefs</code> 用于将一个<code>reactive</code>对象转化为属性全部为<code>ref</code>对象的普通对象</p>
+</li>
+<li><p><code>Ref</code> 接受一个内部值并返回一个响应式且可变的<code>ref</code>对象, <code>ref</code>对象具有片指向内部值的单个 <code>property.value</code></p>
+</li>
+<li><p><code>reactive</code> 返回对象的响应式副本</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> obj = ref(&#123;<span class="attr">count</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">&quot;张三&quot;</span>&#125;);<span class="comment">//ref处理对象</span></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span>&#123;</span><br><span class="line">      obj.value.count = obj.value.count + <span class="number">1</span>;</span><br><span class="line">      obj.value.name = <span class="string">&quot;李四&quot;</span>;</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">  <span class="keyword">return</span>&#123;obj&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> year = ref(<span class="number">0</span>);<span class="comment">//ref处理基础类型</span></span><br><span class="line">  <span class="keyword">const</span> user = reactive(&#123; <span class="attr">nickname</span>: <span class="string">&quot;xiaofan&quot;</span>, <span class="attr">age</span>: <span class="number">26</span>, <span class="attr">gender</span>: <span class="string">&quot;女&quot;</span> &#125;);<span class="comment">//reactive处理对象</span></span><br><span class="line">  <span class="keyword">return</span> &#123;year,user&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用toRefs</span></span><br><span class="line"><span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> year = ref(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> user = reactive(&#123; <span class="attr">nickname</span>: <span class="string">&quot;xiaofan&quot;</span>, <span class="attr">age</span>: <span class="number">26</span>, <span class="attr">gender</span>: <span class="string">&quot;女&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">return</span> &#123;year,...toRefs(user)&#125;;<span class="comment">//使用toRefs处理reactive对象为 ref 对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h3 id="2-x-6"><a href="#2-x-6" class="headerlink" title="2.x"></a>2.x</h3><ul>
+<li><code>beforeCreate</code></li>
+<li><code>created</code></li>
+<li><code>beforeMount</code></li>
+<li><code>mounted</code></li>
+<li><code>beforeUpdate</code></li>
+<li><code>updated</code></li>
+<li><code>beforeUnmount</code></li>
+<li><code>unmounted</code></li>
+<li><code>errorCaptured</code></li>
+<li><code>renderTracked</code></li>
+<li><code>renderTriggered</code></li>
+</ul>
+<h2 id="3-x-7"><a href="#3-x-7" class="headerlink" title="3.x"></a>3.x</h2><p>在<code>setup()</code>内部调用生命周期钩子函数</p>
+<blockquote>
+<p>因为<code>setup</code>是围绕<code>beforeCreate</code>和 <code>Created</code>生命周期钩子运行的，所以不需要显示的定义他们</p>
+</blockquote>
+<ul>
+<li><code>onBeforeMount</code> - 【替换 <code>beforeMount</code>】</li>
+<li><code>onMounted</code> - 【替换 <code>mounted</code>】</li>
+<li><code>onBeforeUpdate</code> - 【替换 <code>beforeUpdate</code>】</li>
+<li><code>onUpdated</code> - 【替换 <code>updated</code>】</li>
+<li><code>onBeforeUnmount</code> - 【替换 <code>beforeUnmount</code>】</li>
+<li><code>onUnmounted</code> - 【替换 <code>unmounted</code>】</li>
+<li><code>onErrorCaptured</code> - 【替换 <code>errorCaptured</code>】</li>
+<li><code>onRenderTracked</code> - 【替换 <code>renderTracked</code>】</li>
+<li><code>onRenderTriggered</code> - 【替换 <code>renderTriggered</code>】</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  onMounted(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;mounted!&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  onUpdated(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;updated!&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  onUnmounted(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;unmounted!&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>vue3</tag>
+      </tags>
   </entry>
   <entry>
-    <title>知识点总汇</title>
-    <url>/2019/01/25/all/</url>
-    <content><![CDATA[<h2 id="react总汇图片查看"><a href="#react总汇图片查看" class="headerlink" title="react总汇图片查看"></a>react总汇图片查看</h2><h3 id="下载下来进行查看"><a href="#下载下来进行查看" class="headerlink" title="下载下来进行查看 ****************"></a>下载下来进行查看 ****************</h3><blockquote>
-<p><strong><a class="link"   href="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/react.png" >react知识点总汇图片查看<i class="fas fa-external-link-alt"></i></a></strong></p>
+    <title>🤑Hooks进阶-03🤑</title>
+    <url>/2021/04/20/useCallback+useMemo+memo/</url>
+    <content><![CDATA[<h1 id="😲useCallback-useMemo-memo性能优化场景使用😲"><a href="#😲useCallback-useMemo-memo性能优化场景使用😲" class="headerlink" title="😲useCallback+useMemo+memo性能优化场景使用😲"></a>😲useCallback+useMemo+memo性能优化场景使用😲</h1><blockquote>
+<p><strong>转载： <a class="link"   href="https://blog.csdn.net/weixin_43902189/article/details/99689963" >https://blog.csdn.net/weixin_43902189/article/details/99689963<i class="fas fa-external-link-alt"></i></a></strong></p>
 </blockquote>
-<h2 id="js基本知识总汇图片查看"><a href="#js基本知识总汇图片查看" class="headerlink" title="js基本知识总汇图片查看"></a>js基本知识总汇图片查看</h2><h3 id="下载下来进行查看-1"><a href="#下载下来进行查看-1" class="headerlink" title="下载下来进行查看 ****************"></a>下载下来进行查看 ****************</h3><blockquote>
-<p><strong><a class="link"   href="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/js.png" >js基本知识总汇图片查看<i class="fas fa-external-link-alt"></i></a></strong></p>
+<p><strong>当父组件引入子组件的情况下，往往会照成一些不必要的性能浪费，下面我们通过例子了解一下啊</strong></p>
+<blockquote>
+<p>创建一个test.tsx文件</p>
+</blockquote>
+<pre><code>import React, &#123; useState &#125; from &#39;react&#39;;
+function Test() &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &lt;TestChild/&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+//创建一个子组件
+function TestChild(): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return(
+        &lt;h3&gt;我是子组件&lt;/h3&gt;
+    );
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>这时我们开启服务运行一下这个小案例,会发现，我们的子组件并没有对应的需要更新的操作但是还是触发了，这时候我们需要使用React的memo来优化一下代码</strong></p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks0.png"
+                     
+                ></p>
+<h2 id="🤓使用memo优化react性能🤓"><a href="#🤓使用memo优化react性能🤓" class="headerlink" title="🤓使用memo优化react性能🤓"></a>🤓使用memo优化react性能🤓</h2><pre><code>import React, &#123; useState,memo &#125; from &#39;react&#39;;
+//在TestChild子组件使用之前，使用memo包裹一下
+const MemoTestChild = memo(TestChild);//对子组件进行处理
+function Test() &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt; */&#125;
+            &lt;MemoTestChild/&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+//创建一个子组件
+function TestChild(): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return(
+        &lt;h3&gt;我是子组件&lt;/h3&gt;
+    );
+&#125;
+</code></pre>
+<blockquote>
+<p>我们在看一下，会不会产生上述的问题</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks1.png"
+                     
+                ></p>
+<p><strong>从上面可以看出，除了初始化的执行之外，这时候父组件发生状态的改变，子组件不会发生对应的重新执行，优化了代码的性能，个人建议多使用这些性能优化的函数,以提高性能</strong></p>
+<blockquote>
+<p><strong>通俗的说： 场景 : 在子组件不需要父组件的值和函数的情况下，来使用</strong></p>
+</blockquote>
+<hr>
+<p><strong>我们再看一个父组件传值传函数的例子(相同的例子改造)</strong></p>
+<pre><code>import React, &#123; useState, memo &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;   
+            &lt;MemoTestChild name=&#123;name&#125; onClick=&#123;(newName: string) =&gt; setName(newName)&#125; /&gt;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: string;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name,onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3&gt;我是子组件,这是父组件传递过来的数据:&#123;name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null,&#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<blockquote>
+<p>这是传递给子组件一个新的状态，然后我们看看点击父组件后的情况</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks2.png"
+                     
+                ></p>
+<p><strong>我们从图中可以看出，子组件有执行了多次，这时我们就要使用useCallback / useMemo来解决这个问题</strong></p>
+<h2 id="🤧useCallback🤧"><a href="#🤧useCallback🤧" class="headerlink" title="🤧useCallback🤧"></a>🤧useCallback🤧</h2><blockquote>
+<p>useCallback有两个参数，【 参数是一个回调，参数二是一个依赖数组 】，使用：把内联的回调函数以及依赖项数组作为u参数传递到useCallback，他将返回函数的memeized版本，该回调仅在某个依赖项改变时才会更新，当你把回调函数传递给经过优化的，避免非必要渲染的子组件时，他将非常有用</p>
+</blockquote>
+<p>**这时我们在对上述代码进行优化【 加入useCallback 】</p>
+<pre><code>import React, &#123; useState, memo, useCallback &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild name=&#123;name&#125; onClick=&#123;useCallback((newName: string) =&gt; setName(newName),[])&#125; /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: string;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3&gt;我是子组件,这是父组件传递过来的数据:&#123;name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<blockquote>
+<p>这时候我们看见子组件不会在父组件与子组件无关状态改变的时候执行，不会一直产生重新产生新函数,useCallback第二个参数，是依赖项，可以确定在什么状态改变的情况下产生一个新的回调函数</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks3.png"
+                     
+                ></p>
+<blockquote>
+<p><strong>通俗的说： 场景： 在使用值和函数的情况下，需要考虑有没有函数传递给子组件</strong></p>
+</blockquote>
+<p><strong>我们上面提到的useMemo，好奇他在什么场景下使用</strong></p>
+<blockquote>
+<p>我们继续改造一下这个案例，把name改成一个对象</p>
+</blockquote>
+<pre><code>import React, &#123; useState, memo, useCallback &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild
+                name=&#123;&#123; name, color: name.indexOf('name') !== -1 ? 'red' : 'green' &#125;&#125;
+                onClick=&#123;useCallback((newName: string) =&gt; setName(newName), [])&#125;
+            /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: &#123; name: string; color: string &#125;;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3 style=&#123;&#123; color: name.color &#125;&#125;&gt;我是子组件,这是父组件传递过来的数据:&#123;name.name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<p><strong>这时候我们会发现，子组件还是一样的执行了，在父组件更新其它状态的情况下，子组件的name对象属性会一直发生重新渲染改变，从而导致一直执行,这也是不必要的性能浪费</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks4.png"
+                     
+                ></p>
+<blockquote>
+<p>这个时候我们就要使用useMemo来优化传递的子属性了</p>
+</blockquote>
+<pre><code>import React, &#123; useState, memo, useCallback, useMemo &#125; from &#39;react&#39;;
+//memo性能优化后的子组件
+const MemoTestChild = memo(TestChild);
+function Test(): JSX.Element &#123;
+    const [count, setCount] = useState&lt;number&gt;(100);
+    const [name, setName] = useState&lt;string&gt;(&#39;TestChild组件&#39;);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/* 引入子组件 */&#125;
+            &#123;/* &lt;TestChild/&gt;       把父组件的状态和设置状态的函数传递给子组件     */&#125;
+            &lt;MemoTestChild
+                // 使用useMemo，返回一个和原本一样的对象，第二个参数是依赖性，当name发生改变的时候，才产生一个新的对象
+                name=&#123;useMemo(() =&gt; (&#123; name, color: name.indexOf(&#39;name&#39;) !== -1 ? &#39;red&#39; : &#39;green&#39; &#125;),[name])&#125;
+                onClick=&#123;useCallback((newName: string) =&gt; setName(newName), [])&#125;
+            /&gt;
+            &#123;/* useCallback((newName: string) =&gt; setName(newName),[]) */&#125;
+            &#123;/* 这里使用了useCallback优化了传递给子组件的函数，只初始化一次这个函数，下次不产生新的函数 */&#125;
+        &lt;/&gt;
+    )
+&#125;
+export default Test;
+
+//子组件部分
+interface TestChildPropsType &#123;
+    name: &#123; name: string; color: string &#125;;
+    onClick: Function;
+&#125;
+function TestChild(&#123; name, onClick &#125;: TestChildPropsType): JSX.Element &#123;
+    console.log(&#39;TestChild运行了?&#39;);
+    return (
+        &lt;&gt;
+            &lt;h3 style=&#123;&#123; color: name.color &#125;&#125;&gt;我是子组件,这是父组件传递过来的数据:&#123;name.name&#125;&lt;/h3&gt;
+            &lt;button onClick=&#123;onClick.bind(null, &#39;新的子组件name&#39;)&#125;&gt;改变name&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>通俗的说： 场景：子组件调用父组件传递的函数，来改变父组件传递给子组件的属性</strong></p>
+</blockquote>
+<p>**！因此我们因该在不同的场景下来使用这些hooks，而不是盲目的去使用</p>
+]]></content>
+      <tags>
+        <tag>hooks</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>💪🏼Hooks进阶-04💪🏼</title>
+    <url>/2021/04/20/useRef,useImperativeHandle%E5%92%8CforwardRef/</url>
+    <content><![CDATA[<h1 id="💪🏼useRef-useImperativeHandle和forwardRef的结合使用💪🏼"><a href="#💪🏼useRef-useImperativeHandle和forwardRef的结合使用💪🏼" class="headerlink" title="💪🏼useRef,useImperativeHandle和forwardRef的结合使用💪🏼"></a>💪🏼useRef,useImperativeHandle和forwardRef的结合使用💪🏼</h1><blockquote>
+<p><strong>转载： <a class="link"   href="https://blog.csdn.net/weixin_43902189/article/details/99694359" >https://blog.csdn.net/weixin_43902189/article/details/99694359<i class="fas fa-external-link-alt"></i></a></strong></p>
+</blockquote>
+<h2 id="👆🏻useRef👆🏻"><a href="#👆🏻useRef👆🏻" class="headerlink" title="👆🏻useRef👆🏻"></a>👆🏻useRef👆🏻</h2><blockquote>
+<p>返回一个可变的ref对象，其.current属性被初始化为传入的参数【initialValue】，返回的ref对象在整个组件的生命周期内保持不变*</p>
+</blockquote>
+<h2 id="🤞forwardRef🤞"><a href="#🤞forwardRef🤞" class="headerlink" title="🤞forwardRef🤞"></a>🤞forwardRef🤞</h2><blockquote>
+<p>引用父组件的热风实例，成为i子组件的一个参数，可以引用父组件的ref绑定到子组件自身的节点上</p>
+</blockquote>
+<h2 id="🤘useImperativeHandle🤘"><a href="#🤘useImperativeHandle🤘" class="headerlink" title="🤘useImperativeHandle🤘"></a>🤘useImperativeHandle🤘</h2><blockquote>
+<p>第一个参数，接收一个通过forwardRef引用父组件的ref实例，第二个参数一个回调函数，返回一个对象，对象里面存储需要暴露给父组件的属性和方法</p>
+</blockquote>
+<p><strong>useImperativeHandle和forwardRef的组合代码</strong></p>
+<pre><code>//Test.tsx文件
+import React, &#123; FC, Fragment, useRef, MutableRefObject, forwardRef, ForwardRefExoticComponent, Ref, useImperativeHandle, ChangeEvent, SyntheticEvent, memo &#125; from &quot;react&quot;;
+const Test: FC = (): JSX.Element =&gt; &#123;
+    const testRef: MutableRefObject&lt;any&gt; = useRef(&#39;test&#39;);
+    const handleClick = (e:SyntheticEvent&lt;HTMLButtonElement&gt;):void =&gt;&#123;
+        console.log(&#39;自身button的内容：&#39;,e.currentTarget.innerText);
+        console.log(&#39;子组件input的对象:&#39;,testRef.current);
+        console.log(&#39;子组件input的value值：&#39;,testRef.current.value);
+        console.log(&#39;子组件input的类型：&#39;,testRef.current.type());
+    &#125;
+    return (
+        &lt;Fragment&gt;
+            &lt;TestChildForward ref=&#123;testRef&#125; /&gt;
+            &lt;button onClick=&#123;handleClick&#125;&gt;获取子组件的input的value和type&lt;/button&gt;
+        &lt;/Fragment&gt;
+    );
+&#125;
+export default Test;
+function TestChild(props:&#123;&#125;,ref: Ref&lt;any&gt;): JSX.Element &#123;
+    const testRef: MutableRefObject&lt;any&gt; = useRef();//创建一个自身的ref，绑定到标签节点上
+    //暴露出一个想要让父组件知道的对象,里面可以是属性也可以是函数
+    useImperativeHandle(ref,()=&gt;&#123;//第一个参数，要暴露给哪个(ref)？第二个参数要暴露出什么？
+        return &#123;
+            //(testRef.current as HTMLInputElement) 类型断言，自己肯定就是这样的类型
+            value:(testRef.current as HTMLInputElement).value,//暴露出input的value
+            type:()=&gt;(testRef.current as HTMLInputElement).type//暴露出input的type类型
+        &#125;
+    &#125;);
+    return (
+        &lt;&gt;
+            &lt;input type=&quot;text&quot; value=&#123;&#39;input的内容&#39;&#125; ref=&#123;testRef&#125; onChange=&#123;(e:ChangeEvent&lt;HTMLInputElement&gt;)=&gt;&#123;
+                console.log(e.currentTarget.value);
+                console.log(e.currentTarget.type);
+            &#125;&#125;/&gt;
+        &lt;/&gt;
+    );
+&#125;
+const TestChildForward:ForwardRefExoticComponent&lt;any&gt; = memo(forwardRef(TestChild));
+</code></pre>
+<blockquote>
+<p>执行·</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks7.png"
+                     
+                ></p>
+<blockquote>
+<p>从上面的结果可以看到，当我们不想向父组件暴露太多的东西的时候，可以使用useImperativeHandle来按需暴露给父组件一些东西</p>
+</blockquote>
+<h1 id="🖐useLayoutEffect和useDebugValue的简单使用🖐"><a href="#🖐useLayoutEffect和useDebugValue的简单使用🖐" class="headerlink" title="🖐useLayoutEffect和useDebugValue的简单使用🖐"></a>🖐useLayoutEffect和useDebugValue的简单使用🖐</h1><h2 id="👌useLayouusetEffect👌"><a href="#👌useLayouusetEffect👌" class="headerlink" title="👌useLayouusetEffect👌"></a>👌useLayouusetEffect👌</h2><blockquote>
+<p>该钩子与useEffect差不多相似，官方介绍，其签名函数与useEffect相同，但会在所有的Dom变更之后同步调用effect。可以使用他来读取dom布局并同步触发渲染，在浏览器执行绘制之前，useLayouusetEffect内部的更新计划将会同步刷新，尽可能的使用标准的useEffect以避免视觉阻塞</p>
+</blockquote>
+<p><strong>通俗来说：就是当你的所有dom变更后，同时执行所有的useEffect的时候来使用，可以用来读取dom，之后同步触发render ===========  emmmm…  ================ 反正很少用到。。。。。</strong></p>
+<h2 id="👍useDebugValue👍"><a href="#👍useDebugValue👍" class="headerlink" title="👍useDebugValue👍"></a>👍useDebugValue👍</h2><blockquote>
+<p>目的是能在react的浏览器调试工具上显示你自定义的hooks，或者给hooks标记一些东西，当使用一个参数的时候，就是把第一个参数标记在react的调试工具上</p>
+</blockquote>
+<pre><code>import React, &#123; useDebugValue, useState &#125; from &#39;react&#39;;
+
+const useTest = () =&gt; &#123;
+    const [str, setStr] = useState&lt;string&gt;(&#39;&#39;);
+    useDebugValue(&#39;debug&#39;);
+    return &#123;
+        str, setStr
+    &#125;
+&#125;
+export default (): JSX.Element =&gt; &#123;
+    const &#123; str, setStr &#125; = useTest();
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;str&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; &#123;
+                setStr(&#39;重新渲染&#39;);
+            &#125;&#125;&gt;这是？？？&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks8.png"
+                     
+                ></p>
+<p><strong>会在自定义的hooks标记到react的调试工具上面,主要用于调试工具调试使用</strong></p>
+<blockquote>
+<p>当传入第二个参数的情况下，第二个参数是一个回调函数，会把第一个参数当成自己的形参传入，进行一系列的操作，return回去，然后才会在react调试工具的hooks中打印出来，不然不会显示</p>
+</blockquote>
+<pre><code>import React, &#123; useDebugValue, useState &#125; from &#39;react&#39;;
+
+const useTest = () =&gt; &#123;
+    const [str, setStr] = useState&lt;string&gt;(&#39;&#39;);
+    useDebugValue(str, (value:string) =&gt; &#123;
+        console.log(value);
+        return &#39;这是改造后的&#39; + value;
+    &#125;);
+    return &#123;
+        str, setStr
+    &#125;
+&#125;
+export default (): JSX.Element =&gt; &#123;
+    const &#123; str, setStr &#125; = useTest();
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;str&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; &#123;
+                setStr(&#39;重新渲染&#39;);
+            &#125;&#125;&gt;这是？？？&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks9.png"
+                     
+                ></p>
+<p><strong>同时在控制台上打印了一个空字符</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks10.png"
+                     
+                ></p>
+<blockquote>
+<p>由于str的初始值是空的，所以打印就是空的了，这只是调试使用</p>
 </blockquote>
 ]]></content>
+      <tags>
+        <tag>hooks</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>😁Hooks进阶-01😁</title>
+    <url>/2021/04/20/useState+useEffect/</url>
+    <content><![CDATA[<h1 id="😁hooks的useState、useEffect的实际使用😁"><a href="#😁hooks的useState、useEffect的实际使用😁" class="headerlink" title="😁hooks的useState、useEffect的实际使用😁"></a>😁hooks的useState、useEffect的实际使用😁</h1><blockquote>
+<p><strong>转载：<a class="link"   href="https://blog.csdn.net/weixin_43902189/article/details/99689186" >https://blog.csdn.net/weixin_43902189/article/details/99689186<i class="fas fa-external-link-alt"></i></a></strong></p>
+</blockquote>
+<p><strong>！注意：hooks只能在函数怕【无状态组件】中使用</strong></p>
+<h2 id="🤣useState🤣"><a href="#🤣useState🤣" class="headerlink" title="🤣useState🤣"></a>🤣useState🤣</h2><blockquote>
+<p>官方文档表明出，这个钩子就是在函数中能使用像class中使用state一样的状态管理，使用方式也比较简单</p>
+</blockquote>
+<pre><code>import React, &#123; useState &#125; from &#39;react&#39;;
+export default (): JSX.Element =&gt; &#123;
+    // 在typescript中，useState是一个泛型函数，可以传入对应的类型
+    const [count, setCount] = useState&lt;number&gt;(100);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;()=&gt;setCount(count + 1)&#125;&gt;++&lt;/button&gt;
+            &#123;/*   还可以传入回调函数 */&#125;
+            &lt;button onClick=&#123;()=&gt;setCount((count:number)=&gt;(count - 1))&#125;&gt;--&lt;/button&gt;
+        &lt;/&gt;
+    )
+&#125;
+</code></pre>
+<p><strong>由于useState返回一个数组，第一个count参数就与有状态组件(类)中的state很相似，是无法改变的值，而第二个参数setCount就与有状态组件的setState差不多，较为简单</strong></p>
+<h2 id="😄useEffect😄"><a href="#😄useEffect😄" class="headerlink" title="😄useEffect😄"></a>😄useEffect😄</h2><blockquote>
+<p>useEffect 一个相当于，状态组件中componentDidMount + componentDidUpdate + componentWillUnmount三个钩子函数的结合体 ，如果不清楚的可以看 React有状态组件生命周期的官方中文介绍</p>
+</blockquote>
+<p><strong>通过useEffect+useState配合发送请求，获取数据</strong></p>
+<pre><code>import React, &#123; useEffect, useState &#125; from &#39;react&#39;;
+const useDate = (initialDate: String)=&gt; &#123;//初始化时间
+    // 创建一个字符串state,存储当前系统时间
+    const [date, setDate] = useState&lt;string&gt;();
+    useEffect(() =&gt; &#123;// 使用useEffect，当date数据改变时，触发useEffect
+        const times: NodeJS.Timeout = setInterval(() =&gt; setDate(Date.now().toLocaleString()), 1000);
+        return ()=&gt; &#123;
+            // 这里的return返回的应该函数和componentWillUnmount差不多一致，在组件销毁前执行,防止定时器没有销毁
+            clearInterval(times);// 退出的时候清除定时器
+        &#125;
+    &#125;, [date]);// 第二个参数中的数组，就是依赖项，会相当于有状态组件的componentWillReceiveProps,每次执行useEffect前会对date进行一次浅比较
+    return &#123; date &#125;;// 由于外部只需要使用date，可以只暴露出这个数据
+&#125;
+
+export default (): JSX.Element =&gt; &#123;
+    const &#123; date &#125; = useDate(Date.now().toLocaleString());//使用自定义钩子，获取返回的对象
+    return(
+        &lt;&gt;
+            &lt;h2&gt;当前时间&lt;/h2&gt;
+            &lt;p&gt;&#123;date&#125;&lt;/p&gt;
+        &lt;/&gt;
+    );
+&#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>hooks</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>🌍Hooks进阶-02🌍</title>
+    <url>/2021/04/20/seReducer+useContext+createContext/</url>
+    <content><![CDATA[<h1 id="🌈useReducer-useContext-createContext的使用、模拟redux合并reducer🌈"><a href="#🌈useReducer-useContext-createContext的使用、模拟redux合并reducer🌈" class="headerlink" title="🌈useReducer+useContext+createContext的使用、模拟redux合并reducer🌈"></a>🌈useReducer+useContext+createContext的使用、模拟redux合并reducer🌈</h1><blockquote>
+<p><strong>转载： <a class="link"   href="https://blog.csdn.net/weixin_43902189/article/details/99690873" >https://blog.csdn.net/weixin_43902189/article/details/99690873<i class="fas fa-external-link-alt"></i></a></strong></p>
+</blockquote>
+<h2 id="✨createContext✨"><a href="#✨createContext✨" class="headerlink" title="✨createContext✨"></a>✨createContext✨</h2><blockquote>
+<p>一个创建上下文函数，执行产生一个上下文对象，包含两个属性【 Provider组件和Consumer组件 】</p>
+</blockquote>
+<h3 id="🎍Provider🎍"><a href="#🎍Provider🎍" class="headerlink" title="🎍Provider🎍"></a>🎍Provider🎍</h3><blockquote>
+<p>用来包裹整合组件，传递一个value属性，把context上下文注到整个组件当中</p>
+</blockquote>
+<h3 id="❄Consumer❄"><a href="#❄Consumer❄" class="headerlink" title="❄Consumer❄"></a>❄Consumer❄</h3><blockquote>
+<p>在里面使用函数调用Provider的value传递的值成形参，并取出使用</p>
+</blockquote>
+<hr>
+<p><a class="link"   href="https://zh-hans.reactjs.org/docs/hooks-reference.html" >useReducer和useContext官方直通车<i class="fas fa-external-link-alt"></i></a></p>
+<hr>
+<h2 id="⚡useReducer-useContext-createContext的简单使用-创建一个Test-tsx文件⚡"><a href="#⚡useReducer-useContext-createContext的简单使用-创建一个Test-tsx文件⚡" class="headerlink" title="⚡useReducer+useContext+createContext的简单使用,创建一个Test.tsx文件⚡"></a>⚡useReducer+useContext+createContext的简单使用,创建一个Test.tsx文件⚡</h2><pre><code>import React, &#123; useReducer, useContext, createContext, Context &#125; from &#39;react&#39;;
+//初始化stroe的类型、初始化值、reducer
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;
+const initialReucer = &#123;
+    count: 100
+&#125;
+function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, dispatch &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+function Test(): JSX.Element &#123;
+    const &#123; state, dispatch &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &#123;/*使用dispatch分发action，触发reducer返回新的state*/&#125;
+            &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: ADD_COUNTER &#125;)&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+// 注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre>
+<blockquote>
+<p>效果：==</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks5.png"
+                     
+                ></p>
+<blockquote>
+<p><strong>我们会发现，这样的使用和redux的同步action的情况是一致的，这时候我们可以模拟异步action发送请求获得数据</strong></p>
+</blockquote>
+<p><strong>抽离reducer，, providerHoc, reducer, initialReucer，ADD_COUNTER到store.tsx文件</strong></p>
+<pre><code>//stroe.tsx
+import React, &#123; useReducer, createContext, Context &#125; from &#39;react&#39;;
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;//action-type的类型
+
+export const addActions =()=&gt; (&#123; type: ADD_COUNTER &#125;);//创建一个同步action
+
+export const initialReucer = &#123;//初始化的state
+    count: 100
+&#125;                    //    state的类型,action的类型
+export function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+export const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+export const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, dispatch &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+</code></pre>
+<blockquote>
+<p>test.tsx文件</p>
+</blockquote>
+<pre><code>import React, &#123; useContext &#125; from &#39;react&#39;;
+import &#123; ProviderContext, addActions, providerHoc, reducer, initialReucer &#125; from &#39;./store&#39;;
+function Test(): JSX.Element &#123;
+    const &#123; state, dispatch &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; dispatch(addActions())&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+// 注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre>
+<blockquote>
+<p>这时我们只是将组件抽离出来，执行结果还是和以前一样======我们要对代码进行改造~  ~  ~ ~  ~    ~</p>
+</blockquote>
+<blockquote>
+<p>store.ts</p>
+</blockquote>
+<pre><code>import React, &#123; useReducer, createContext, Context, Dispatch &#125; from &#39;react&#39;;
+const ADD_COUNTER = &#39;ADD_COUNTER&#39;;
+
+const addActions = () =&gt; (&#123; type: ADD_COUNTER &#125;);//创建一个同步action
+// 创建一个异步action的函数，返回一个action对象
+const asyncAction = (dispatch: Dispatch&lt;any&gt;) =&gt; &#123;
+    return &#123;
+        asyncAddaction() &#123;//这是一个异步的添加action,定时器模拟异步
+            console.log(&#39;执行addActions之前,发送请求 : &#39; + Date.now());//打印一下时间
+            setTimeout(() =&gt; &#123;
+                console.log(&#39;执行addActions ,请求后: &#39; + Date.now());
+                dispatch(addActions());//执行同步action
+            &#125;, 1000);
+        &#125;
+    &#125;
+&#125;
+export const initialReucer = &#123;
+    count: 100
+&#125;
+export function reducer(state: typeof initialReucer, action: &#123; type: typeof ADD_COUNTER &#125;) &#123;
+    switch (action.type) &#123;
+        case ADD_COUNTER:
+            return &#123; ...state, count: state.count + 1 &#125;
+        default:
+            return state;
+    &#125;
+&#125;
+export const ProviderContext: Context&lt;any&gt; = createContext(&#39;provider&#39;);//创建上下文实例
+//高阶组件，给函数组件注入上下文
+export const providerHoc = (reducer: Function, initialState: any) =&gt; (Com: React.FC&lt;any&gt;) =&gt; &#123;
+    return () =&gt; &#123;
+        const [state, dispatch] = useReducer&lt;any&gt;(reducer, initialState);
+        const asyncActions: any = asyncAction(dispatch);//对dispatch进行注入包裹,然后返回
+        return (
+            &lt;ProviderContext.Provider value=&#123;&#123; state, asyncActions &#125;&#125;&gt;
+                &lt;Com /&gt;
+            &lt;/ProviderContext.Provider &gt;
+        );
+    &#125;
+&#125;
+</code></pre>
+<blockquote>
+<p>test.tsx如下</p>
+</blockquote>
+<pre><code>import React, &#123; useContext &#125; from &#39;react&#39;;
+import &#123; ProviderContext, providerHoc, reducer, initialReucer &#125; from &#39;./store&#39;;
+function Test(): JSX.Element &#123;
+    const &#123; state, asyncActions &#125; = useContext(ProviderContext);//通过ProviderContext这个上下文实例获取到value，解构出
+    const &#123; asyncAddaction &#125; = asyncActions;//取出asyncAddaction
+    console.log(state);
+    return (
+        &lt;&gt;
+            &lt;h2&gt;&#123;state.count&#125;&lt;/h2&gt;
+            &lt;button onClick=&#123;() =&gt; asyncAddaction()&#125;&gt;++&lt;/button&gt;
+        &lt;/&gt;
+    );
+&#125;
+export default providerHoc(reducer, initialReucer)(Test);
+//注入reducer,initialReucer到Test组件中，通过高阶组件对Test组件进行包裹注入
+</code></pre>
+<blockquote>
+<p>执行结果：=&gt;</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/hooks6.png"
+                     
+                ></p>
+<hr>
+<hr>
+<hr>
+<blockquote>
+<p>目前这种useReducer+useContext+createContext的组合使用看起来有些凌乱。</p>
+</blockquote>
+<blockquote>
+<p>推荐使用mobx全局状态管理</p>
+</blockquote>
+<blockquote>
+<p>🌍<a class="link"   href="http://my.ignorantscholar.cn/2019/12/06/mobx/#more" >Mobx全局状态管理参考<i class="fas fa-external-link-alt"></i></a>🌍</p>
+</blockquote>
+<hr>
+<hr>
+<hr>
+]]></content>
+      <tags>
+        <tag>hooks</tag>
+        <tag>react</tag>
+      </tags>
   </entry>
   <entry>
     <title>👑Mobx.👑</title>
@@ -631,17 +1458,32 @@ android:icon=&quot;@mipmap/ic_launcher&quot; //APP图标的文件名称
 <blockquote>
 <p>这里会有报错： 如下</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.0.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.0.png"
+                     
+                ></p>
 <p><strong>很容易知道，没有环境变量，这里我们就不去配值，直接拿到他的根目录进行执行</strong></p>
 <blockquote>
 <p>通过下面的命令进行查找他的根目录</p>
 </blockquote>
 <pre><code>flutter doctor -v
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.1.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.1.png"
+                     
+                ></p>
 <p><strong>这时候你直接拷贝命令并进行输入，但这里也有个坑，就是如果文件夹中间带有空空，你需要用带引号扩上。</strong></p>
 <p><strong>！！！有可能还会报错</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.2.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/F1.2.png"
+                     
+                ></p>
 <p>这个错误的主要问题是目录不存在和没有写权限，所以我们要更换一个有写权限的目录。我们把命令改成了下面的形式。</p>
 <pre><code>D:\Program\Android\&#39;Android Studio&#39;\jre\bin\keytool -genkey -v -keystore D:\key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias key
 </code></pre>
@@ -1490,6 +2332,35 @@ class MyApp extends StatelessWidget&#123;
       </tags>
   </entry>
   <entry>
+    <title>🍉js执行机制🍉</title>
+    <url>/2019/10/09/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><p>js 是一门非阻塞脚本语言，同一时刻只会允许一个代码执行，在单线程的机制中，执行异步任务是，在等待返回结果前，后面代码无法执行</p>
+<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><h2 id="设计单线程原因"><a href="#设计单线程原因" class="headerlink" title="设计单线程原因"></a>设计单线程原因</h2><p>如果 js 是多线程的话，因为 DOM 可以通过 js 去操作，如果此时有两个线程操作同一个 DOM，线程一删除了这个 DOM，而线程<br>二要操作这个 DOM，则会产生矛盾。</p>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><h3 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h3><ul>
+<li>Script</li>
+<li>setTimeout, setInterval</li>
+<li>I/O</li>
+<li>UI 渲染</li>
+<li>…</li>
+</ul>
+<h3 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h3><ul>
+<li>Promise</li>
+<li>…</li>
+</ul>
+<h2 id="执行规则"><a href="#执行规则" class="headerlink" title="执行规则"></a>执行规则</h2><blockquote>
+<p>js 是通过事件循环机制（EventLoop）来解决这一弊端</p>
+</blockquote>
+<ul>
+<li>所有代码进入到主线程执行栈，开始执行</li>
+<li>执行过程中，同步代码会立即执行，宏任务会进入到宏任务队列，微任务进入微任务队列</li>
+<li>当前宏任务执行完成出队，读取微任务列表有则执行，直至全部执行完毕</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>🍉Dart学习【基础】🍉</title>
     <url>/2019/10/09/Flutter_Dart/</url>
     <content><![CDATA[<h1 id="🍉Dart学习【基础】🍉"><a href="#🍉Dart学习【基础】🍉" class="headerlink" title="🍉Dart学习【基础】🍉"></a>🍉Dart学习【基础】🍉</h1><h2 id="🍌Dart简介"><a href="#🍌Dart简介" class="headerlink" title="🍌Dart简介"></a>🍌Dart简介</h2><ul>
@@ -2263,7 +3134,32 @@ let server=http.createServer(function(req,res)&#123;
     <title>flooks:可能是最简单的 React Hooks 状态管理器【转载】</title>
     <url>/2019/08/09/React_Hook_flooks/</url>
     <content><![CDATA[<h1 id="🍸-flooks-福禄克斯"><a href="#🍸-flooks-福禄克斯" class="headerlink" title="🍸 flooks 福禄克斯"></a>🍸 flooks <sup><sup><sub><sub>福禄克斯</sub></sub></sup></sup></h1><p>一个 React Hooks 状态管理器。也许是最简单的那个。^_^</p>
-<p><a href="https://www.npmjs.com/package/flooks"><img src="https://img.shields.io/npm/v/flooks?style=flat-square" alt="npm"></a><br><a href="https://travis-ci.org/nanxiaobei/flooks"><img src="https://img.shields.io/travis/nanxiaobei/flooks?style=flat-square" alt="Travis (.org)"></a><br><a href="https://codecov.io/gh/nanxiaobei/flooks"><img src="https://img.shields.io/codecov/c/github/nanxiaobei/flooks?style=flat-square" alt="Codecov"></a><br><a href="https://github.com/nanxiaobei/flooks/blob/master/src/index.ts"><img src="https://img.shields.io/npm/types/typescript?style=flat-square" alt="npm type definitions"></a><br><a href="https://github.com/nanxiaobei/flooks/blob/master/LICENSE"><img src="https://img.shields.io/github/license/nanxiaobei/flooks?style=flat-square" alt="GitHub"></a></p>
+<p><a href="https://www.npmjs.com/package/flooks"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.shields.io/npm/v/flooks?style=flat-square"
+                      alt="npm"
+                ></a><br><a href="https://travis-ci.org/nanxiaobei/flooks"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.shields.io/travis/nanxiaobei/flooks?style=flat-square"
+                      alt="Travis (.org)"
+                ></a><br><a href="https://codecov.io/gh/nanxiaobei/flooks"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.shields.io/codecov/c/github/nanxiaobei/flooks?style=flat-square"
+                      alt="Codecov"
+                ></a><br><a href="https://github.com/nanxiaobei/flooks/blob/master/src/index.ts"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.shields.io/npm/types/typescript?style=flat-square"
+                      alt="npm type definitions"
+                ></a><br><a href="https://github.com/nanxiaobei/flooks/blob/master/LICENSE"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://img.shields.io/github/license/nanxiaobei/flooks?style=flat-square"
+                      alt="GitHub"
+                ></a></p>
 <p>🍰 简单易用 | 🍭 自动 loading | 🍕 模块化 | 🥂 灵活</p>
 <hr>
 <h2 id="转载🍸-flooks-可能是最简单的-React-Hooks-状态管理器"><a href="#转载🍸-flooks-可能是最简单的-React-Hooks-状态管理器" class="headerlink" title="转载🍸 flooks: 可能是最简单的 React Hooks 状态管理器 !!!!"></a>转载<a class="link"   href="https://juejin.im/post/5d40b2436fb9a06ae835e7ed" >🍸 flooks: 可能是最简单的 React Hooks 状态管理器<i class="fas fa-external-link-alt"></i></a> !!!!</h2><hr>
@@ -2309,7 +3205,12 @@ function Counter() &#123;
     );
 &#125;
 </code></pre>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><a href="https://codesandbox.io/s/flooks-gqye5"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit flooks"></a></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><a href="https://codesandbox.io/s/flooks-gqye5"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://codesandbox.io/static/img/play-codesandbox.svg"
+                      alt="Edit flooks"
+                ></a></p>
 <h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="setModel"><a href="#setModel" class="headerlink" title="setModel()"></a>setModel()</h3><pre><code>setModel(name, model);
 </code></pre>
 <p>接收一个名称字符串和一个 model 对象，初始化 model。</p>
@@ -2502,7 +3403,7 @@ react-native run-android
   <entry>
     <title>使用react-native基础环境搭建</title>
     <url>/2019/05/22/react-native-windows/</url>
-    <content><![CDATA[<h2 id="使用react-native基础环境搭建"><a href="#使用react-native基础环境搭建" class="headerlink" title="使用react-native基础环境搭建"></a>使用react-native基础环境搭建</h2><h2 id="Android-Studio开发window环境搭建"><a href="#Android-Studio开发window环境搭建" class="headerlink" title="Android Studio开发window环境搭建"></a>Android Studio开发window环境搭建</h2><h3 id="Android-开发环境搭建"><a href="#Android-开发环境搭建" class="headerlink" title="Android 开发环境搭建"></a>Android 开发环境搭建</h3><p><strong>下载jdk</strong></p>
+    <content><![CDATA[<h2 id="使用react-native基础环境搭建"><a href="#使用react-native基础环境搭建" class="headerlink" title="使用react-native基础环境搭建"></a>使用react-native基础环境搭建</h2><h2 id="Android-Studio开发window环境搭建"><a href="#Android-Studio开发window环境搭建" class="headerlink" title="Android Studio开发window环境搭建"></a>Android Studio开发window环境搭建</h2><h3 id="Android-开发环境搭建"><a href="#Android-开发环境搭建" class="headerlink" title="Android 开发环境搭建"></a>Android 开发环境搭建</h3><p><strong>下载jdk</strong> </p>
 <blockquote>
 <p>在这里你可以点击<a class="link"   href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" >链接<i class="fas fa-external-link-alt"></i></a>去下载</p>
 </blockquote>
@@ -2510,34 +3411,79 @@ react-native run-android
 <blockquote>
 <p> 点进去以后是这么个页面</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.0.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.0.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.1.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.1.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.2.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.2.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.3.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.3.png"
+                     
+                ></p>
 <hr>
 <p><strong>傻瓜式操作</strong></p>
 <h3 id="接下来是配置环境变量"><a href="#接下来是配置环境变量" class="headerlink" title="接下来是配置环境变量"></a>接下来是配置环境变量</h3><blockquote>
 <p>小娜搜索</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.4.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.4.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.5.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.5.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.6.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.6.png"
+                     
+                ></p>
 <hr>
 <p>变量名：JAVA_HOME<br>变量值：当然是你安装的jdk目录了</p>
 <blockquote>
 <p>编辑Path变量值</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.7.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.7.png"
+                     
+                ></p>
 <p>在Path值的前头加上 %JAVA_HOME%\bin;</p>
 <blockquote>
 <p>CLASSPATH变量</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.8.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.8.png"
+                     
+                ></p>
 <hr>
 <p>看一下如果你的系统变量中没有CLASSPATH变量，就新建一个输入变量值 </p>
 <pre><code>.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
@@ -2548,50 +3494,130 @@ react-native run-android
 <p>好了，现在我们来测试一下我们的环境变量是否配置成功 “开始”–“cmd”打开我们的dos命了窗口输入 </p>
 <pre><code>javac
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.9.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.9.png"
+                     
+                ></p>
 <hr>
 <h3 id="安装Android-Studio"><a href="#安装Android-Studio" class="headerlink" title="安装Android Studio"></a>安装Android Studio</h3><p><strong>地址： <a class="link"   href="http://www.android-studio.org/"  title="http://www.android-studio.org/">http://www.android-studio.org/<i class="fas fa-external-link-alt"></i></a></strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.10.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.10.png"
+                     
+                ></p>
 <hr>
 <blockquote>
-<p>现在的安装包一般没有sdk安装，直接下一步，不要慌<br><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.11.png"></p>
+<p>现在的安装包一般没有sdk安装，直接下一步，不要慌<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.11.png"
+                     
+                ></p>
 </blockquote>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.12.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.12.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.13.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.13.png"
+                     
+                ></p>
 <hr>
 <p><strong>成功安装后，</strong></p>
 <h3 id="Android-Studio配置"><a href="#Android-Studio配置" class="headerlink" title="Android Studio配置"></a>Android Studio配置</h3><p>加载本地配置信息提示</p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.14.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.14.png"
+                     
+                ></p>
 <p><strong>刚开始打开的时候会问我们是否加载本地的配置信息，其实就是android studio的配置环境信息等，如果你以前没有用过，忽略掉就好了。直接按默认的点ok启动android studio</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.15.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.15.png"
+                     
+                ></p>
 <hr>
 <p><strong>接下来如果还有，直接Cancel</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.16.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.16.png"
+                     
+                ></p>
 <hr>
 <p><strong>这时候我们需要sdk</strong></p>
 <p>附上链接<a class="link"   href="https://www.androiddevtools.cn/"  title="https://www.androiddevtools.cn/">https://www.androiddevtools.cn/<i class="fas fa-external-link-alt"></i></a></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.17.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.17.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.18.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.18.png"
+                     
+                ></p>
 <hr>
 <blockquote>
 <p>安装完以后是这个样子</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.19.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.19.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.20.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.20.png"
+                     
+                ></p>
 <hr>
-<h3 id="设置sdk的环境变量"><a href="#设置sdk的环境变量" class="headerlink" title="设置sdk的环境变量"></a>设置sdk的环境变量</h3><p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.21.png"></p>
+<h3 id="设置sdk的环境变量"><a href="#设置sdk的环境变量" class="headerlink" title="设置sdk的环境变量"></a>设置sdk的环境变量</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.21.png"
+                     
+                ></p>
 <hr>
 <p><strong>设置adb环境变量【用来链接手机，这里不过多阐述】</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.22.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.22.png"
+                     
+                ></p>
 <hr>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.23.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.23.png"
+                     
+                ></p>
 <hr>
 <p><strong>验证</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.24.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.24.png"
+                     
+                ></p>
 <hr>
 <p><strong>基础环境以搭建完成</strong></p>
 <blockquote>
@@ -2614,12 +3640,22 @@ react-native run-android
 </code></pre>
 <p><strong>输入命令后，项目开始初始化运行，运行过程中会打开一个 node 服务窗口，如下所示：</strong></p>
 <ul>
-<li><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.25.png"></li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.25.png"
+                     
+                ></li>
 </ul>
 <hr>
 <p><strong>然后重新输入命令 react-native run-android 来初始化运行项目，程序首先会解压 gradle 压缩文件，第一次初始化可能需要一点时间：</strong></p>
 <p><strong>初始化完成后，项目运行成功，可以在手机上看到如下界面：</strong></p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.26.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/2.26.png"
+                     
+                ></p>
 <hr>
 <blockquote>
 <p>到现在为止，一个环境就搭建完成了，中还有少许挫折，但是还是成功了。。。。。。。。。</p>
@@ -4471,11 +5507,21 @@ componentWillUnMount = () =&gt; &#123;
 <blockquote>
 <p><strong>我们先看看在componentDidMount中setState的调用栈：</strong></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/3.0.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/3.0.png"
+                     
+                ></p>
 <blockquote>
 <p><strong>再看看在setTimeOut中的调用栈：</strong></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/3.1.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/3.1.png"
+                     
+                ></p>
 <p><strong>前两次是整个将React组件渲染到DOM的过程就处于一个大的事务中</strong></p>
 <p><strong>componentDidMount中调用setState时,两次setState的结果并没有立即生效，而是被放进了dirtyComponents中。因为新的state还没被应用到组件中。</strong></p>
 <p><strong>setTimeOut中的两次setState，因为没有跟随组件到渲染dom的一个流程，导致了新的state马上生效，也就是说，setTimeOut中的第一次执行，setState时，this.state.val为1，而setState完成后打印时this.state.val变成了2。第二次的setState同理。</strong></p>
@@ -4948,8 +5994,8 @@ router.afterEach((to, from) =&gt; &#123; // 后置
 <hr>
 ]]></content>
       <tags>
-        <tag>vue</tag>
         <tag>react</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -4974,8 +6020,8 @@ router.afterEach((to, from) =&gt; &#123; // 后置
 ]]></content>
       <tags>
         <tag>js</tag>
-        <tag>vue</tag>
         <tag>vue-router</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -5836,8 +6882,8 @@ mysql-community-source.repo
 <p><strong>如果此时在其他客户机上还是链接不上mysql，登录阿里云，查看实例的安全组有没有为3306端口开启规则；</strong></p>
 ]]></content>
       <tags>
-        <tag>linux服务器配置</tag>
         <tag>mysql</tag>
+        <tag>linux服务器配置</tag>
       </tags>
   </entry>
   <entry>
@@ -6200,10 +7246,20 @@ export default fetchs
 </blockquote>
 <pre><code>var a = 2;
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/4.0.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/4.0.png"
+                     
+                ></p>
 <pre><code>var b = new Object();
 </code></pre>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/4.1.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/4.1.png"
+                     
+                ></p>
 <h2 id="传值和传址"><a href="#传值和传址" class="headerlink" title="传值和传址"></a>传值和传址</h2><blockquote>
 <p><strong>从一个向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终指向同一个对象。即复制的是栈中的地址而不是堆中的对象。</strong></p>
 </blockquote>
@@ -6246,7 +7302,12 @@ export default fetchs
 <h3 id="ViewModel-通过双向数据绑定把-View-层和-Model-层连接了起来，而View-和-Model-之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM，-不需要关注数据状态的同步问题，复杂的数据状态维护完全由-MVVM-来统一管理。"><a href="#ViewModel-通过双向数据绑定把-View-层和-Model-层连接了起来，而View-和-Model-之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM，-不需要关注数据状态的同步问题，复杂的数据状态维护完全由-MVVM-来统一管理。" class="headerlink" title="ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM， 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。"></a>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM， 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</h3><h2 id="Vue-js-的细节"><a href="#Vue-js-的细节" class="headerlink" title="Vue.js 的细节"></a><strong>Vue.js 的细节</strong></h2><h4 id="Vue-js-可以说是MVVM-架构的最佳实践，专注于-MVVM-中的-ViewModel，不仅做到了数据双向绑定，而且也是一款相对来比较轻量级的JS-库，API-简洁，很容易上手。Vue的基础知识网上有现成的教程，此处不再赘述，-下面简单了解一下-Vue-js-关于双向绑定的一些实现细节："><a href="#Vue-js-可以说是MVVM-架构的最佳实践，专注于-MVVM-中的-ViewModel，不仅做到了数据双向绑定，而且也是一款相对来比较轻量级的JS-库，API-简洁，很容易上手。Vue的基础知识网上有现成的教程，此处不再赘述，-下面简单了解一下-Vue-js-关于双向绑定的一些实现细节：" class="headerlink" title="Vue.js 可以说是MVVM 架构的最佳实践，专注于 MVVM 中的 ViewModel，不仅做到了数据双向绑定，而且也是一款相对来比较轻量级的JS 库，API 简洁，很容易上手。Vue的基础知识网上有现成的教程，此处不再赘述， 下面简单了解一下 Vue.js 关于双向绑定的一些实现细节："></a>Vue.js 可以说是MVVM 架构的最佳实践，专注于 MVVM 中的 ViewModel，不仅做到了数据双向绑定，而且也是一款相对来比较轻量级的JS 库，API 简洁，很容易上手。Vue的基础知识网上有现成的教程，此处不再赘述， 下面简单了解一下 Vue.js 关于双向绑定的一些实现细节：</h4><blockquote>
 <p>Vue.js 是采用 Object.defineProperty 的 getter 和 setter，并结合观察者模式来实现数据绑定的。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 将它们转为 getter/setter。用户看不到 getter/setter，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.0.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.0.png"
+                     
+                ></p>
 <ul>
 <li>Observer ：数据监听器，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者，内部采用Object.defineProperty的getter和setter来实现</li>
 <li>Compile  ：指令解析器，它的作用对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数</li>
@@ -6264,11 +7325,26 @@ export default fetchs
 <li>View 很简单，就是用户看到的视图</li>
 <li>Model 同样很简单，一般就是本地数据和数据库中的数据</li>
 </ul>
-<h3 id="基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。"><a href="#基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。" class="headerlink" title="基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。"></a>基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。</h3><h4 id="传统的-MVC-架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。"><a href="#传统的-MVC-架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。" class="headerlink" title="传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。"></a>传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。</h4><p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.1.png"></p>
+<h3 id="基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。"><a href="#基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。" class="headerlink" title="基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。"></a>基本上，我们写的产品就是通过接口从数据库中读取数据，然后将数据经过处理展现到用户看到的视图上。当然我们还可以从视图上读取用户的输入，然后又将用户的输入通过接口写入到数据库中。但是，如何将数据展示到视图上，然后又如何将用户的输入写入到数据中，不同的人就产生了不同的看法，从此出现了很多种架构设计。</h3><h4 id="传统的-MVC-架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。"><a href="#传统的-MVC-架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。" class="headerlink" title="传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。"></a>传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.1.png"
+                     
+                ></p>
 <p>####但是 MVC 有一个巨大的缺陷就是控制器承担的责任太大了，随着项目愈加复杂，控制器中的代码会越来越臃肿，导致出现不利于维护的情况。</p>
-<h3 id="在-MVVM-架构中，引入了-ViewModel-的概念。ViewModel-只关心数据和业务的处理，不关心-View-如何处理数据，在这种情况下，View-和-Model-都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个-ViewModel-中，让多个-View-复用这个-ViewModel。"><a href="#在-MVVM-架构中，引入了-ViewModel-的概念。ViewModel-只关心数据和业务的处理，不关心-View-如何处理数据，在这种情况下，View-和-Model-都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个-ViewModel-中，让多个-View-复用这个-ViewModel。" class="headerlink" title="在 MVVM 架构中，引入了 ViewModel 的概念。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。"></a>在 MVVM 架构中，引入了 ViewModel 的概念。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。</h3><p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.2.png"></p>
+<h3 id="在-MVVM-架构中，引入了-ViewModel-的概念。ViewModel-只关心数据和业务的处理，不关心-View-如何处理数据，在这种情况下，View-和-Model-都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个-ViewModel-中，让多个-View-复用这个-ViewModel。"><a href="#在-MVVM-架构中，引入了-ViewModel-的概念。ViewModel-只关心数据和业务的处理，不关心-View-如何处理数据，在这种情况下，View-和-Model-都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个-ViewModel-中，让多个-View-复用这个-ViewModel。" class="headerlink" title="在 MVVM 架构中，引入了 ViewModel 的概念。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。"></a>在 MVVM 架构中，引入了 ViewModel 的概念。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.2.png"
+                     
+                ></p>
 <h3 id="以-Vue-框架来举例，ViewModel-就是组件的实例。View-就是模板，Model-的话在引入-Vuex-的情况下是完全可以和组件分离的。"><a href="#以-Vue-框架来举例，ViewModel-就是组件的实例。View-就是模板，Model-的话在引入-Vuex-的情况下是完全可以和组件分离的。" class="headerlink" title="以 Vue 框架来举例，ViewModel 就是组件的实例。View 就是模板，Model 的话在引入 Vuex 的情况下是完全可以和组件分离的。"></a>以 Vue 框架来举例，ViewModel 就是组件的实例。View 就是模板，Model 的话在引入 Vuex 的情况下是完全可以和组件分离的。</h3><p>####除了以上三个部分，其实在 MVVM 中还引入了一个隐式的 Binder 层，实现了 View 和 ViewModel 的绑定。</p>
-<p><img src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.3.png"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/1.3.png"
+                     
+                ></p>
 <h5 id="同样以-Vue-框架来举例，这个隐式的-Binder-层就是-Vue-通过解析模板中的插值和指令从而实现-View-与-ViewModel-的绑定。"><a href="#同样以-Vue-框架来举例，这个隐式的-Binder-层就是-Vue-通过解析模板中的插值和指令从而实现-View-与-ViewModel-的绑定。" class="headerlink" title="同样以 Vue 框架来举例，这个隐式的 Binder 层就是 Vue 通过解析模板中的插值和指令从而实现 View 与 ViewModel 的绑定。"></a>同样以 Vue 框架来举例，这个隐式的 Binder 层就是 Vue 通过解析模板中的插值和指令从而实现 View 与 ViewModel 的绑定。</h5><p>对于 MVVM 来说，其实最重要的并不是通过双向绑定或者其他的方式将 View 与 ViewModel 绑定起来，<strong>而是通过 ViewModel 将视图中的状态和用户的行为分离出一个抽象，这才是 MVVM 的精髓。</strong></p>
 ]]></content>
       <tags>
@@ -7082,8 +8158,8 @@ export default &#123;
 </ul>
 ]]></content>
       <tags>
-        <tag>vue</tag>
         <tag>vue-router</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -7346,6 +8422,51 @@ v-on:leave-cancelled=&quot;leaveCancelled&quot;
       </tags>
   </entry>
   <entry>
+    <title>知识点总汇</title>
+    <url>/2019/01/25/all/</url>
+    <content><![CDATA[<h2 id="react-总汇图片查看"><a href="#react-总汇图片查看" class="headerlink" title="react 总汇图片查看"></a>react 总汇图片查看</h2><h3 id="下载下来进行查看"><a href="#下载下来进行查看" class="headerlink" title="下载下来进行查看 ********"></a>下载下来进行查看 <strong>**</strong>****<strong>**</strong></h3><blockquote>
+<p><strong><a class="link"   href="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/react.png" >react 知识点总汇图片查看<i class="fas fa-external-link-alt"></i></a></strong></p>
+</blockquote>
+<h2 id="js-基本知识总汇图片查看"><a href="#js-基本知识总汇图片查看" class="headerlink" title="js 基本知识总汇图片查看"></a>js 基本知识总汇图片查看</h2><h3 id="下载下来进行查看-1"><a href="#下载下来进行查看-1" class="headerlink" title="下载下来进行查看 ********"></a>下载下来进行查看 <strong>**</strong>****<strong>**</strong></h3><blockquote>
+<p><strong><a class="link"   href="https://raw.githubusercontent.com/Ignorance-of-Dong/GraphBed/master/images/js.png" >js 基本知识总汇图片查看<i class="fas fa-external-link-alt"></i></a></strong></p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>代码整洁之道：程序员的职业素养</title>
+    <url>/2019/01/25/index/</url>
+    <content><![CDATA[<hr>
+<h1 id="代码整洁之道：程序员的职业素养"><a href="#代码整洁之道：程序员的职业素养" class="headerlink" title="代码整洁之道：程序员的职业素养"></a>代码整洁之道：程序员的职业素养</h1><hr>
+<blockquote>
+<p>我们并非是因为喜欢和其他人在一起工作才选择做程序员的。我们都认为人际关系难以应付而且毫无规律。编程用的机器则整洁，行为也可预见。如果可以一个人待在房间里数个小时沉浸在一些真正有趣的问题上，那将会是最开心的时光。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>以下全部内容均为本人 2019 年读书过程中所喜欢或者有感触的片段的摘录，来自于不同的书目，每本书标注了书名，书籍排序仅仅是阅读顺序（倒时间顺序），版权归原作者所有，这里仅作摘录整理。</strong></p>
+</blockquote>
+<h1 id="阿加莎·克里斯蒂的真实人生"><a href="#阿加莎·克里斯蒂的真实人生" class="headerlink" title="阿加莎·克里斯蒂的真实人生"></a>阿加莎·克里斯蒂的真实人生</h1><hr>
+<blockquote>
+<p>你无法创作命运，命运会不请自来，就是这么回事。<br>人人都做梦，但他们的梦不一样。<br>那些夜里在脏兮兮的脑袋瓜里做梦的人，<br>白天一觉醒来发现不过是虚幻一场；<br>要小心那些在白天做梦的人，<br>因为他们会睁大眼睛做梦，<br>用行动让梦想变成现实。<br>天真是一种罪过，冷漠是一种爱。律师以为自己操纵着游戏，但不过是他想加害的人手中的玩偶。</p>
+</blockquote>
+<hr>
+<h1 id="牧羊少年奇幻之旅"><a href="#牧羊少年奇幻之旅" class="headerlink" title="牧羊少年奇幻之旅"></a>牧羊少年奇幻之旅</h1><hr>
+<blockquote>
+<p>不管是牧羊人、海员，还是推销员，总会有一个地方令他们魂牵梦萦，那里会有一个人让他们忘记自由自在周游世界的快乐。<br>当总是面对同样的面孔，像在神学院里那样，就会渐渐让那些人成为生活的一部分。而由于他们是你生活的一部分，当然就想改变你的生活。如果你不像他们所期望的那样，他们就会不高兴。因为，对于该怎样生活，所有人都有固定的观念。但是他们对于自己该怎样生活却一头雾水，就像那个给人解梦、却不会把梦变成现实的老妇人。<br>男孩心想，人总会说一些刁钻古怪的事情。有的时候，最好与羊群为伴，羊群不声不响，只顾吃草和水晶。与书为伴也行，书总是在人们最想听故事的时候，告诉你一些意想不到的事情。但是，当人与人交谈的时候，有些人说的话会让我们无所适从，不知该怎样把谈话继续下去。<br>「天命就是你一直期望去做的事情。人一旦步入青年时期，就知道什么是自己的天命了。在人生的这个阶段，一切都那么明朗，没有做不到的事情。人们敢于梦想，期待完成他们一生中喜欢做的一切事情。但是，随着时光的流逝，一股神秘的力量开始企图证明，根本不可能实现天命。」<br>实际上，每天都一成不变，是因为人们已经失去了对美好事物的敏锐感觉。<br>我和别人没什么两样：总是以理想的眼光看待世界，以为事情会按理想的方式发展，而不会用现实的眼光看待世界，看不到事情真相。<br>「因为麦加是支撑我活下去的希望，使我能够忍受平庸的岁月，忍受橱柜里那些不会说话的水晶，忍受那间糟糕透顶的餐厅里的午饭和晚饭。我害怕实现我的梦想，实现之后，我就没有活下去的动力了。」<br>「你的梦想是羊群和金字塔。你与我不同，因为你希望实现你的梦想，而我只是想保有去麦加的梦想。我曾无数次地想象过，如何穿过沙漠，到达安放着圣石的广场，在触摸圣石之前，围着它绕行七圈。我曾想象过有些人站在我身旁，有些人站在我前面，还有我们的谈话和共同的祈祷。可是，我担心会大失所望，所以我宁愿只保留一个梦想。」<br>「你一度成为我的福音。而今天我明白了一个道理，任何不被接纳的福音，都会变成诅咒。我对生活没有更多的要求。而你正迫使我盯着从未见过的财富和前景。现在，我知道了这些财富和前景，也知道了我完全有可能拥有它们。可是我的感觉却比以前糟糕了。因为我知道我自己可以拥有这一切，却不愿拥有它们。」<br>别的事情不好说，但在这件事上，男孩坚信不疑，尽管他的父母以及先辈都说过，必须在恋爱、订婚、相互了解和有了钱之后才可以结婚。说这话的人大概从来不了解宇宙的语言，因为如果掌握了这种语言，很容易就能理解，世上总有人在等待着另外一个人，无论是在大沙漠还是在大城市。当这两个人最终相遇，四目相对的时候，过去的一切和将来的一切全都变得无足轻重了，只有眼前的这一刻最重要。<br>因为生活永远是，也仅仅是我们现在经历的这一刻。<br>这正是需要爱发挥力量的地方，因为当我们有爱的时候，总是希望自己变得更好。</p>
+</blockquote>
+<hr>
+<h1 id="且听风吟"><a href="#且听风吟" class="headerlink" title="且听风吟"></a>且听风吟</h1><hr>
+<blockquote>
+<p>说到底，写文章并非自我诊治的手段，充其量不过是自我疗养的一种小小的尝试。<br>问题是，直言不讳是件极为困难的事。甚至越是想直言不讳，直率的言语越是遁入黑暗的深处。<br>死去的祖母常说「心情抑郁的人只能做抑郁的梦，要是更加抑郁的，连梦都不做的。」<br>如果你志在追求艺术追求文学，那么去读一读希腊人写的东西好了。因为要诞生真正的艺术，奴隶制度是必不可少的。而古希腊人便是这样：奴隶们耕种、烧饭、划船，而市民们则在地中海的阳光下陶醉于吟诗作赋，埋头于数学解析。所谓艺术便是这么一种玩意儿。<br>至于半夜三点半在悄无声息的厨房寻找电冰箱里的食品的人，只能写出这等模样的文章。<br>而那就是我。<br>「我时常想：假如活着不给任何人添麻烦该有多好！你说能做到吗？」<br>「怎么说呢，大概因为厌烦了吧。可我也在尽我的努力——就连自己都难以置信。我也在考虑别人，像考虑自己的事一样，也因此挨过警察的揍。但到时候人们终究要各归其位，唯独我无处可归，就像玩『抢椅子』游戏没了椅子。」<br>「不过你认真想想看：条件大伙都一样，就像同坐一架出了故障的飞机。诚然，有的运气好些，有的运气差些，有的坚强些有的懦弱些，有的有钱有的没钱。但没有一个家伙怀有超乎常人的自信，大家一个样，拥有什么的家伙生怕一旦失去，一无所有的家伙担心永远一无所有，大家一个样。所以，早些察觉到这一点的人 应该力争使自己多少怀有自信，哪怕装模做样也好，对吧？什么自信之人，那样的人根本没有，有的不过是能够装出自信的人。」<br>「把谁都知道的事写成小说，那究竟有何意味可言？」<br>我有时说谎。<br>最后一次说谎是在去年。<br>说谎是非常令人讨厌的勾当。不妨说，说谎与沉默是现代人类中流行的两大罪过。我们实际上经常说谎，也往往沉默不语。<br>然而，倘若我们一年四季都喋喋不休，而且喋喋不休的无不真实，那么真实的价值必然荡然无存。</p>
+</blockquote>
+<hr>
+<h1 id="超能力侦探事务所"><a href="#超能力侦探事务所" class="headerlink" title="超能力侦探事务所"></a>超能力侦探事务所</h1><hr>
+<blockquote>
+<p>和事件无关的人，只要时间够久，或有新的事件发生，就会很快忘记过往的事。<br>世界上永远没有「感同身受」这件事，因为没有亲身经历，无法体会到当事人的痛苦。</p>
+</blockquote>
+<hr>
+]]></content>
+  </entry>
+  <entry>
     <title>px2rem 移动端自适应方案</title>
     <url>/2019/01/25/px2rem/</url>
     <content><![CDATA[<hr>
@@ -7526,121 +8647,6 @@ vm.$destroy //手动渲染
       </tags>
   </entry>
   <entry>
-    <title>Vue slot-scope的理解（适合初学者）</title>
-    <url>/2018/08/04/vue%20slot-scope/</url>
-    <content><![CDATA[<h1 id="Vue-slot-scope的理解（适合初学者）"><a href="#Vue-slot-scope的理解（适合初学者）" class="headerlink" title="Vue slot-scope的理解（适合初学者）"></a>Vue slot-scope的理解（适合初学者）</h1><blockquote>
-<p>1/26/2019 2:58:04 PM </p>
-</blockquote>
-<hr>
-<blockquote>
-<h5 id="Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。"><a href="#Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。" class="headerlink" title="Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。"></a>Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。</h5></blockquote>
-<blockquote>
-<h3 id="实际上，插槽的概念很简单"><a href="#实际上，插槽的概念很简单" class="headerlink" title="实际上，插槽的概念很简单"></a>实际上，插槽的概念很简单</h3></blockquote>
-<h3 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h3><ul>
-<li><strong>概念：插槽，也就是槽，是组件的一块HTML模板，这块模板显示不显示，以及怎样显示由父组件来决定。</strong></li>
-</ul>
-<h3 id="插槽可以分为3部分来说"><a href="#插槽可以分为3部分来说" class="headerlink" title="插槽可以分为3部分来说"></a>插槽可以分为3部分来说</h3><ul>
-<li><p><strong>单个插槽</strong></p>
-<hr>
-<ul>
-<li><h4 id="首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。"><a href="#首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。" class="headerlink" title="首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。"></a>首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。</h4></li>
-<li><h4 id="单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。"><a href="#单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。" class="headerlink" title="单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。"></a>单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。</h4></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<pre><code>下面通过一个例子来展示。
-</code></pre>
-</blockquote>
-<p><strong>父组件：</strong></p>
-<pre><code>    &lt;div class=&quot;slot-righ&quot;&gt;
-                &lt;p&gt;22222&lt;/p&gt;
-                &lt;Slo&gt;
-                    &lt;div class=&quot;con&quot;&gt;
-                        111111
-                    &lt;/div&gt;
-                &lt;/Slo&gt;
-            &lt;/div&gt;
-</code></pre>
-<p><strong>子组件：</strong></p>
-<pre><code>    &lt;div class=&quot;sol&quot;&gt;
-        &lt;p&gt;11111&lt;/p&gt;
-        &lt;slot&gt;&lt;/slot&gt;
-      &lt;/div&gt;
-</code></pre>
-<ul>
-<li><strong>具名插槽</strong><ul>
-<li>匿名插槽没有名称属性，所以是匿名插槽，那么，插槽加了名称属性，就变成了具名插槽。具名插槽可以在一个组件中出现Ñ次，出现在不同的位置。下面的例子，一个就是有两个具名插槽状语从句：单个插槽的组件，这三个插槽被父组件用同一套的CSS样式显示了出来，不同的是内容上略有区别。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>下面通过一个例子来展示。</p>
-</blockquote>
-<p><strong>父组件：</strong>    </p>
-<pre><code>&lt;div class=&quot;slot-righ&quot;&gt;
-            &lt;p&gt;22222&lt;/p&gt;
-            &lt;Slo&gt;
-                &lt;div class=&quot;con&quot; slot=&quot;up&quot;&gt;
-                    111111
-                &lt;/div&gt;
-            &lt;/Slo&gt;
-        &lt;/div&gt;
-    
-</code></pre>
-<p><strong>子组件：</strong></p>
-<pre><code>&lt;div class=&quot;sol&quot;&gt;
-    &lt;p&gt;11111&lt;/p&gt;
-    &lt;slot name=&quot;up&quot;&gt;&lt;/slot&gt;//具名插槽
-  &lt;/div&gt;
-</code></pre>
-<ul>
-<li><p><strong>作用域插槽| 带数据的插槽</strong></p>
-<ul>
-<li>最后，就是我们的作用域插槽。这个稍微难理解一点。官方叫它作用域插槽，实际上，对比前面两种插槽，我们可以叫它带数据的插槽。什么意思呢，就是前面两种，都是在组件的模板里面写</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>下面通过一个例子来展示。</p>
-</blockquote>
-<p><strong>父组件：</strong>    </p>
-<pre><code>&lt;div class=&quot;slot-righ&quot;&gt;
-                &lt;p&gt;22222&lt;/p&gt;
-                &lt;Slo&gt;
-                    &lt;div class=&quot;con&quot; slot-scope=&quot;user&quot;&gt;//父组件拿到数据
-                        &#123;&#123;user.data&#125;&#125;
-                    &lt;/div&gt;
-                &lt;/Slo&gt;
-            &lt;/div&gt;
-</code></pre>
-<p><strong>子组件：</strong></p>
-<pre><code>&lt;template&gt;
-  &lt;div class=&quot;sol&quot;&gt;
-    &lt;p&gt;11111&lt;/p&gt;
-    &lt;slot :data=&quot;data&quot;&gt;&lt;/slot&gt;//这里再插槽上绑定数据
-  &lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-    export default &#123;
-      data()&#123;
-        return &#123;
-          data:11111111
-        &#125;
-      &#125;
-    &#125;
-&lt;/script&gt;
-</code></pre>
-<blockquote>
-<h4 id="正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。"><a href="#正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。" class="headerlink" title="正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。"></a>正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。</h4></blockquote>
-]]></content>
-      <tags>
-        <tag>js</tag>
-        <tag>vue</tag>
-        <tag>slot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>sass基本语法使用</title>
     <url>/2018/08/04/sass/</url>
     <content><![CDATA[<h2 id="1-26-2019-10-54-49-AM"><a href="#1-26-2019-10-54-49-AM" class="headerlink" title="1/26/2019 10:54:49 AM "></a>1/26/2019 10:54:49 AM </h2><h1 id="sass"><a href="#sass" class="headerlink" title="sass"></a>sass</h1><h3 id="学过CSS的人都知道，它不是一种编程语言。"><a href="#学过CSS的人都知道，它不是一种编程语言。" class="headerlink" title="学过CSS的人都知道，它不是一种编程语言。"></a>学过CSS的人都知道，它不是一种编程语言。</h3><h4 id="你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。"><a href="#你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。" class="headerlink" title="你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。"></a>你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。</h4><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><ul>
@@ -7768,6 +8774,121 @@ vm.$destroy //手动渲染
         <tag>css</tag>
         <tag>scss</tag>
         <tag>sass</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue slot-scope的理解（适合初学者）</title>
+    <url>/2018/08/04/vue%20slot-scope/</url>
+    <content><![CDATA[<h1 id="Vue-slot-scope的理解（适合初学者）"><a href="#Vue-slot-scope的理解（适合初学者）" class="headerlink" title="Vue slot-scope的理解（适合初学者）"></a>Vue slot-scope的理解（适合初学者）</h1><blockquote>
+<p>1/26/2019 2:58:04 PM </p>
+</blockquote>
+<hr>
+<blockquote>
+<h5 id="Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。"><a href="#Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。" class="headerlink" title="Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。"></a>Vue中关于插槽的文档说明很短，语言又写的很凝练，再加上其和方法，数据，计算机等常用选项在使用频率，使用先后上的差别，这就有可能造成初次接触插槽的开发者容易产生“算了吧，回头再学，反正已经可以写基础组件了”的想法，于是就关闭了VUE的说明文档。</h5></blockquote>
+<blockquote>
+<h3 id="实际上，插槽的概念很简单"><a href="#实际上，插槽的概念很简单" class="headerlink" title="实际上，插槽的概念很简单"></a>实际上，插槽的概念很简单</h3></blockquote>
+<h3 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h3><ul>
+<li><strong>概念：插槽，也就是槽，是组件的一块HTML模板，这块模板显示不显示，以及怎样显示由父组件来决定。</strong></li>
+</ul>
+<h3 id="插槽可以分为3部分来说"><a href="#插槽可以分为3部分来说" class="headerlink" title="插槽可以分为3部分来说"></a>插槽可以分为3部分来说</h3><ul>
+<li><p><strong>单个插槽</strong></p>
+<hr>
+<ul>
+<li><h4 id="首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。"><a href="#首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。" class="headerlink" title="首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。"></a>首先是单个插槽，单个插槽的英文VUE的官方叫法，但是其实也可以叫它默认插槽，或者与具名插槽相对，我们可以叫它匿名插槽。因为它不用设置名称属性。</h4></li>
+<li><h4 id="单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。"><a href="#单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。" class="headerlink" title="单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。"></a>单个插槽可以放置在组件的任意位置，但是就像它的名字一样，一个组件中只能有一个该类插槽。相对应的，具名插槽就可以有很多个，只要名字（名称属性）不同就可以了。</h4></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<pre><code>下面通过一个例子来展示。
+</code></pre>
+</blockquote>
+<p><strong>父组件：</strong></p>
+<pre><code>    &lt;div class=&quot;slot-righ&quot;&gt;
+                &lt;p&gt;22222&lt;/p&gt;
+                &lt;Slo&gt;
+                    &lt;div class=&quot;con&quot;&gt;
+                        111111
+                    &lt;/div&gt;
+                &lt;/Slo&gt;
+            &lt;/div&gt;
+</code></pre>
+<p><strong>子组件：</strong></p>
+<pre><code>    &lt;div class=&quot;sol&quot;&gt;
+        &lt;p&gt;11111&lt;/p&gt;
+        &lt;slot&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+</code></pre>
+<ul>
+<li><strong>具名插槽</strong><ul>
+<li>匿名插槽没有名称属性，所以是匿名插槽，那么，插槽加了名称属性，就变成了具名插槽。具名插槽可以在一个组件中出现Ñ次，出现在不同的位置。下面的例子，一个就是有两个具名插槽状语从句：单个插槽的组件，这三个插槽被父组件用同一套的CSS样式显示了出来，不同的是内容上略有区别。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>下面通过一个例子来展示。</p>
+</blockquote>
+<p><strong>父组件：</strong>    </p>
+<pre><code>&lt;div class=&quot;slot-righ&quot;&gt;
+            &lt;p&gt;22222&lt;/p&gt;
+            &lt;Slo&gt;
+                &lt;div class=&quot;con&quot; slot=&quot;up&quot;&gt;
+                    111111
+                &lt;/div&gt;
+            &lt;/Slo&gt;
+        &lt;/div&gt;
+    
+</code></pre>
+<p><strong>子组件：</strong></p>
+<pre><code>&lt;div class=&quot;sol&quot;&gt;
+    &lt;p&gt;11111&lt;/p&gt;
+    &lt;slot name=&quot;up&quot;&gt;&lt;/slot&gt;//具名插槽
+  &lt;/div&gt;
+</code></pre>
+<ul>
+<li><p><strong>作用域插槽| 带数据的插槽</strong></p>
+<ul>
+<li>最后，就是我们的作用域插槽。这个稍微难理解一点。官方叫它作用域插槽，实际上，对比前面两种插槽，我们可以叫它带数据的插槽。什么意思呢，就是前面两种，都是在组件的模板里面写</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>下面通过一个例子来展示。</p>
+</blockquote>
+<p><strong>父组件：</strong>    </p>
+<pre><code>&lt;div class=&quot;slot-righ&quot;&gt;
+                &lt;p&gt;22222&lt;/p&gt;
+                &lt;Slo&gt;
+                    &lt;div class=&quot;con&quot; slot-scope=&quot;user&quot;&gt;//父组件拿到数据
+                        &#123;&#123;user.data&#125;&#125;
+                    &lt;/div&gt;
+                &lt;/Slo&gt;
+            &lt;/div&gt;
+</code></pre>
+<p><strong>子组件：</strong></p>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;sol&quot;&gt;
+    &lt;p&gt;11111&lt;/p&gt;
+    &lt;slot :data=&quot;data&quot;&gt;&lt;/slot&gt;//这里再插槽上绑定数据
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    export default &#123;
+      data()&#123;
+        return &#123;
+          data:11111111
+        &#125;
+      &#125;
+    &#125;
+&lt;/script&gt;
+</code></pre>
+<blockquote>
+<h4 id="正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。"><a href="#正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。" class="headerlink" title="正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。"></a>正因为作用域插槽绑定了一套数据，父组件可以拿来用于是，情况就变成了这样：样式父组件说了算，但内容可以显示子组件插槽绑定的。</h4></blockquote>
+]]></content>
+      <tags>
+        <tag>js</tag>
+        <tag>vue</tag>
+        <tag>slot</tag>
       </tags>
   </entry>
 </search>
