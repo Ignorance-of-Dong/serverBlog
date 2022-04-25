@@ -1,6 +1,519 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>TypeScript 基础</title>
+    <url>/2022/04/25/typescript/</url>
+    <content><![CDATA[<h1 id="TypeScript-基础"><a href="#TypeScript-基础" class="headerlink" title="TypeScript 基础"></a>TypeScript 基础</h1><h2 id="TS-与-JS-的区别"><a href="#TS-与-JS-的区别" class="headerlink" title="TS 与 JS 的区别"></a>TS 与 JS 的区别</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>TypeScript 是一种由微软开发的自由和开源的编程语言，他是JavaScript的一个超集，而且本质上向这个语言添加了可选的静态类和基于类的面向对象编程</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">TypeScript</th>
+<th align="center">JavaScript</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">JavaScript的超集，用于解决大型项目的代码复杂性</td>
+<td align="center">一种脚本语言，用于创建动态网页</td>
+</tr>
+<tr>
+<td align="center">强类型，支持静态和动态类型</td>
+<td align="center">动态弱语言类型</td>
+</tr>
+<tr>
+<td align="center">可以在编译的时候发现并纠正错误</td>
+<td align="center">只能在编译完成后发现错误（运行时）</td>
+</tr>
+<tr>
+<td align="center">不允许改变变量的数据类型</td>
+<td align="center">变量可以被赋值任意类型的值</td>
+</tr>
+</tbody></table>
+<h2 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h2><h3 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> bool: <span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> str: <span class="built_in">string</span> = <span class="string">&quot;hello&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> variable: <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">object</span>: <span class="literal">null</span> = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><code>undefined</code> 和 <code>null</code> 是所有类型的字类型，可以把<code>undefined</code> <code>null</code> 赋值给任意的其他基础类型</li>
+<li><strong>但是如果在<code>tsconfig.json</code>指定<code>strictNullChecks</code>的话,则只能赋值给void以及他们自身，不然就会报错</strong></li>
+</ul>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> str: <span class="built_in">string</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="any"><a href="#any" class="headerlink" title="any"></a>any</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> str: <span class="built_in">any</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">any</span> = <span class="number">11</span>;</span><br><span class="line"><span class="keyword">let</span> bool: <span class="built_in">any</span> = <span class="literal">true</span>;</span><br><span class="line">bool = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">str = <span class="number">11</span>;</span><br><span class="line">bool = <span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>any类型可以赋值给任意类型</p>
+</blockquote>
+<h3 id="unknown"><a href="#unknown" class="headerlink" title="unknown"></a>unknown</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num: unknown;</span><br><span class="line"><span class="comment">// 配合断言使用  不写as断言的话，报错：运算符“+”不能应用于类型“unknown”和“10”。</span></span><br><span class="line">num = (num <span class="keyword">as</span> <span class="built_in">number</span>) + <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> a;</span><br><span class="line">    a = <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>用来表示没返回任何类型</p>
+</blockquote>
+<h3 id="never"><a href="#never" class="headerlink" title="never"></a>never</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params"></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;this is a error&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>never表示永远不存在值的类型</p>
+</blockquote>
+<h3 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr: <span class="built_in">number</span>[] = [<span class="number">11</span>, <span class="number">122</span>];</span><br><span class="line"><span class="keyword">let</span> arr1: <span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">11</span>, <span class="number">122</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="元组类型"><a href="#元组类型" class="headerlink" title="元组类型"></a>元组类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> tuple: [<span class="built_in">number</span>, <span class="built_in">string</span>] = [<span class="number">11</span>, <span class="string">&quot;122&quot;</span>];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>元组Tuple表示一个已知（数量，类型）数组元素</p>
+</blockquote>
+<h3 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义函数类型需要定 参数类型 和 输出类型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数没有返回值的时候，返回void</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;log&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选参数，参数后加问号，可选参数在函数入参的最后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y ? x + y : x </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认参数 与js一样在参数上直接赋值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span> = <span class="number">10</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">string</span></span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">any</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">1</span>);</span><br><span class="line">add(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="literal">true</span>); <span class="comment">// 报错</span></span><br><span class="line"><span class="comment">// 没有与此调用匹配的重载。</span></span><br><span class="line"><span class="comment">//   第 1 个重载(共 2 个)，“(x: number): number”，出现以下错误。</span></span><br><span class="line"><span class="comment">//     类型“boolean”的参数不能赋给类型“number”的参数。</span></span><br><span class="line"><span class="comment">//   第 2 个重载(共 2 个)，“(x: string): string”，出现以下错误。</span></span><br><span class="line"><span class="comment">//     类型“boolean”的参数不能赋给类型“string”的参数。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实现函数重载，需要多次声明这个函数，前几次是函数定义，列出所有情况，最后一次是啊函数实现，函数实现是需要定义包含以上重载的类型</p>
+</blockquote>
+<h2 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h2><h3 id="root"><a href="#root" class="headerlink" title="root"></a>root</h3><blockquote>
+<p>interface (接口) 是用来定义对象类型的，可以对对象类型进行描述，定义时一般字母大写</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user: Person = &#123;</span><br><span class="line">  name: <span class="string">&quot;111&quot;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user: Person = &#123;</span><br><span class="line">  name: <span class="string">&quot;111&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>和函数的可选参数类似，在属性上加？，就代表这个属性是可选的</p>
+</blockquote>
+<h3 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  <span class="keyword">readonly</span> name: <span class="built_in">string</span>;</span><br><span class="line">  age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user: Person = &#123;</span><br><span class="line">  name: <span class="string">&quot;111&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">user.name = <span class="string">&quot;22&quot;</span> <span class="comment">// Error: 无法分配到 &quot;name&quot; ，因为它是只读属性。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>只读属性：只可以读取不可以修改，修改时会报错</p>
+</blockquote>
+<h3 id="描述函数类型"><a href="#描述函数类型" class="headerlink" title="描述函数类型"></a>描述函数类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Func &#123;</span><br><span class="line">    (x: <span class="built_in">number</span>, <span class="attr">y</span>: <span class="built_in">number</span>): <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> adds: Func = <span class="function"><span class="keyword">function</span> (<span class="params">x,y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义函数类型"><a href="#自定义函数类型" class="headerlink" title="自定义函数类型"></a>自定义函数类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Params &#123;</span><br><span class="line">    [propName: <span class="built_in">string</span>]: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> callback = <span class="function"><span class="keyword">function</span> (<span class="params">obj: Params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callback(&#123;</span><br><span class="line">    a: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">    b: <span class="string">&quot;line&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当属性上的类型定义完全一样的话，同时不确定有多少属性的时候使用</p>
+</blockquote>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><blockquote>
+<p>ts 通过<code>public, private, protected</code> 三个修饰符来增强js中的类</p>
+</blockquote>
+<h3 id="基本写法"><a href="#基本写法" class="headerlink" title="基本写法"></a>基本写法</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">speak</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;lilei&quot;</span>);</span><br><span class="line">p1.speak();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Public"><a href="#Public" class="headerlink" title="Public"></a>Public</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> name: <span class="built_in">string</span>;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="title">speak</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;lilei&quot;</span>);</span><br><span class="line">p1.speak();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>public 公有的，一个类里面默认所有方法属性都是public（可写可不写）</p>
+</blockquote>
+<h3 id="private"><a href="#private" class="headerlink" title="private"></a>private</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> name: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">speak</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;lilei&quot;</span>);</span><br><span class="line">p1.speak();</span><br><span class="line">p1.name; <span class="comment">// 报错： 属性“name”为私有属性，只能在类“Person”中访问。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">///////////////////////////</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person1</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name:  <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name); <span class="comment">// 报错： 属性“name”为私有属性，只能在类“Person”中访问。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>private 私有的，只属于类自己，他的实例和继承他的子类都访问不到</p>
+</blockquote>
+<h3 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> name: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">speak</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;lilei&quot;</span>);</span><br><span class="line">p1.speak();</span><br><span class="line">p1.name; <span class="comment">// 报错： 属性“name”受保护，只能在类“Person”及其子类中访问。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">///////////////////////////</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person1</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name:  <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name); <span class="comment">// 可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>protected代表是受保护的，继承他的子类可以访问到</p>
+</blockquote>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> surname = <span class="string">&quot;张&quot;</span>;</span><br><span class="line">  <span class="keyword">public</span> nickName: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.nickName = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="title">speak</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(Person.surname + <span class="built_in">this</span>.nickName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;li lei&quot;</span>);</span><br><span class="line">p1.speak();</span><br><span class="line">p1.surname <span class="comment">// 报错</span></span><br><span class="line"><span class="comment">// 属性“surname”在类型“Person”上不存在。你的意思是改为访问静态成员“Person.surname”吗?</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>static 是静态属性，类上的常量，实例不能访问</p>
+</blockquote>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><blockquote>
+<p>抽象类不能被实例化，只能被继承【抽象类中的方法必须被子类实现】抽象类使用<code>abstract</code>关键字来定义</p>
+</blockquote>
+<p><strong>抽象类不能被实例化</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">new</span> Animal() <span class="comment">// 报错：无法创建抽象类的实例。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>抽象类中的抽象方法必须被子类实现</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span> </span>&#123;</span><br><span class="line">  <span class="keyword">abstract</span> printMeeting(): <span class="built_in">void</span>; <span class="comment">// 这个方法必须在派生类中实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountingDepartment</span> <span class="keyword">extends</span> <span class="title">Department</span> </span>&#123;</span><br><span class="line">  printMeeting(): <span class="built_in">void</span> &#123;&#125; <span class="comment">// 如果不实现该方法则会报错</span></span><br><span class="line">  <span class="comment">//非抽象类“AccountingDepartment”不会实现继承自“Department”类的抽象成员“printMeeting”。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>通俗来说抽象类是用来定义一个基类，声明共有的属性和方法。目的是为了被继承</li>
+<li>好处是可以抽离出事物的共性，有利于提高代码的复用率</li>
+</ul>
+</blockquote>
+<h2 id="interface-与-class"><a href="#interface-与-class" class="headerlink" title="interface 与 class"></a>interface 与 class</h2><blockquote>
+<p>interface 是用来定义对象类型的，对对象进行描述，但是他也可以对class进行约束。需要使用到<code>implements</code>关键字</p>
+</blockquote>
+<h3 id="implements"><a href="#implements" class="headerlink" title="implements"></a>implements</h3><blockquote>
+<p>implements 是实现的意思，class实现interface</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> ClockInterface &#123;</span><br><span class="line">  currentTime: <span class="built_in">Date</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义了约束后，需要满足接口上的所有条件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="title">implements</span> <span class="title">ClockInterface</span> </span>&#123;</span><br><span class="line">  currentTime: <span class="built_in">Date</span>; <span class="comment">// 不实现该变量则会报错： 如下</span></span><br><span class="line">  <span class="comment">// 类“Clock”错误实现接口“ClockInterface”。</span></span><br><span class="line">  <span class="comment">// 类型 &quot;Clock&quot; 中缺少属性 &quot;currentTime&quot;，但类型 &quot;ClockInterface&quot; 中需要该属性。</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理公共的属性和方法"><a href="#处理公共的属性和方法" class="headerlink" title="处理公共的属性和方法"></a>处理公共的属性和方法</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> MusicInterface &#123;</span><br><span class="line">  playMusic(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> <span class="title">implements</span> <span class="title">MusicInterface</span> </span>&#123;</span><br><span class="line">  playMusic(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">// ..</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ipad</span> <span class="title">implements</span> <span class="title">MusicInterface</span> </span>&#123;</span><br><span class="line">  playMusic(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多约束写法</span></span><br><span class="line"><span class="keyword">interface</span> MusicInterface &#123;</span><br><span class="line">  playMusic(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> EmailInterface &#123;</span><br><span class="line">  sendEmail(): <span class="built_in">void</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> <span class="title">implements</span> <span class="title">MusicInterface</span>, <span class="title">EmailInterface</span> </span>&#123;</span><br><span class="line">  playMusic(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">// ..</span></span><br><span class="line">  &#125;</span><br><span class="line">  sendEmail(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">// ..</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="约束构造结构和静态属性"><a href="#约束构造结构和静态属性" class="headerlink" title="约束构造结构和静态属性"></a>约束构造结构和静态属性</h3><blockquote>
+<p>使用implements 只能约束实例上的属性和方法，要想约束构造函数和静态属性需要给class定义一个变量</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> ParamsInterface &#123;</span><br><span class="line">    <span class="keyword">new</span>(name: <span class="built_in">string</span>): <span class="built_in">void</span></span><br><span class="line">    nickName: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Person2: ParamsInterface = <span class="class"><span class="keyword">class</span> <span class="title">Person2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> nickName:<span class="built_in">string</span>;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="枚举（Enum）"><a href="#枚举（Enum）" class="headerlink" title="枚举（Enum）"></a>枚举（Enum）</h2><h3 id="数字枚举"><a href="#数字枚举" class="headerlink" title="数字枚举"></a>数字枚举</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">enum</span> Week &#123;</span><br><span class="line">  Monday,</span><br><span class="line">  Tuesday,</span><br><span class="line">  Wednesday,</span><br><span class="line">  Thursday,</span><br><span class="line">  Friday,</span><br><span class="line">  Saturday,</span><br><span class="line">  Sunday</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 如上定义了一个数字枚举 Monday 初始值为0 ，其他值进行自增</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">0</span>])      <span class="comment">// Monday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">1</span>])      <span class="comment">// Tuesday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">2</span>])      <span class="comment">// Wednesday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">3</span>])      <span class="comment">// Thursday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以设定默认值。</span></span><br><span class="line"><span class="built_in">enum</span> Week &#123;</span><br><span class="line">  Monday = <span class="number">1</span>,</span><br><span class="line">  Tuesday,</span><br><span class="line">  Wednesday,</span><br><span class="line">  Thursday,</span><br><span class="line">  Friday,</span><br><span class="line">  Saturday,</span><br><span class="line">  Sunday</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这样就会从 1 开始递增（从初始值开始递增）</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">1</span>])      <span class="comment">// Monday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">2</span>])      <span class="comment">// Tuesday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">3</span>])      <span class="comment">// Wednesday</span></span><br><span class="line"><span class="built_in">console</span>.log(Week[<span class="number">4</span>])      <span class="comment">// Thursday</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串枚举"><a href="#字符串枚举" class="headerlink" title="字符串枚举"></a>字符串枚举</h3><blockquote>
+<p>字符串枚举：在每一个字符串枚举中，每个成员都必须用字符串的字面量（初始化）</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 多用于映射</span></span><br><span class="line"><span class="built_in">enum</span> Direction &#123;</span><br><span class="line">    Up = <span class="string">&quot;UP&quot;</span>,</span><br><span class="line">    Down = <span class="string">&quot;DOWN&quot;</span>,</span><br><span class="line">    Left = <span class="string">&quot;LEFT&quot;</span>,</span><br><span class="line">    Right = <span class="string">&quot;RIGHT&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反相映射"><a href="#反相映射" class="headerlink" title="反相映射"></a>反相映射</h3><blockquote>
+<p>数字枚举具有反射映射特性，从枚举值到枚举值枚举名字</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">enum</span> Enum &#123;</span><br><span class="line">    A</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = Enum.A; <span class="comment">// 0</span></span><br><span class="line"><span class="keyword">let</span> nameOfA = Enum[a]; <span class="comment">//Enum[0]  =  &quot;A&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>枚举的意义在于可以定义一些名字的常量集合，可以更清晰的调试和理解<br>多用于定义一些状态值（提高代码的阅读性）</p>
+</blockquote>
+<h2 id="高级类型"><a href="#高级类型" class="headerlink" title="高级类型"></a>高级类型</h2><h3 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h3><blockquote>
+<p>如果希望一个变量可以支持多种类型（例如：一个变量可以支持number 又可以支持string）</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num: <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br><span class="line">num = <span class="number">8</span>;</span><br><span class="line">num = <span class="string">&quot;str&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>联合类型只能访问他们身上的公有属性</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num: <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br><span class="line">num.length <span class="comment">// 报错</span></span><br><span class="line"><span class="comment">// 类型“string | number”上不存在属性“length”。</span></span><br><span class="line"><span class="comment">// 类型“number”上不存在属性“length”。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="交叉类型"><a href="#交叉类型" class="headerlink" title="交叉类型"></a>交叉类型</h3><blockquote>
+<p>如果想要对对象进行扩展可以使用交叉类型 <code>&amp;</code></p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 比如 Person 有 name 和 age 的属性，而 Student 在 name 和 age 的基础上还有 grade 属性，就可以这么写，</span></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student = Person &amp; &#123; <span class="attr">grade</span>: <span class="built_in">number</span> &#125; <span class="comment">// 类似于extend</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="类型别名-（type）"><a href="#类型别名-（type）" class="headerlink" title="类型别名 （type）"></a>类型别名 （type）</h3><blockquote>
+<p>类型别名会给类型起一个新的名字，可以作用于原始值，联合类型，元组以及其他需要手写的类型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Name = <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameResolver = <span class="function">() =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameOrResolver = Name | NameResolver;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">n: NameOrResolver</span>): <span class="title">Name</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> n === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="interface-和-type-的区别"><a href="#interface-和-type-的区别" class="headerlink" title="interface 和 type 的区别"></a>interface 和 type 的区别</h3><ul>
+<li><p>相同点： </p>
+<ul>
+<li>都可以定义一个对象和函数</li>
+<li>都可以允许继承</li>
+</ul>
+</li>
+<li><p>不同点：</p>
+<ul>
+<li>interface是用来专门定义对象类型的，对对象类型进行藐视</li>
+<li>type 是类型别名，可以声明任何类型，interface 不行（只能声明对象和函数）</li>
+<li>interface 可以合并重复声明，type 不行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 重复声明 interface，就合并了</span></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> person: Person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;lin&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用type 就报错了</span></span><br><span class="line"><span class="keyword">type</span> Person = &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 报错：标识符“Person”重复。</span></span><br><span class="line"><span class="keyword">type</span> Person = &#123;</span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 报错：对象文字可以只指定已知属性，并且“name”不在类型“Person”中。</span></span><br><span class="line"><span class="keyword">const</span> person: Person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;lin&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h3><blockquote>
+<p>对于一些ts无法识别的类型同时开发者清楚这些变量的类型，就是可以使用，语法：<code>值 as 类型</code></p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">arg: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> str = arg <span class="keyword">as</span> <span class="built_in">string</span> <span class="comment">// 先断言为字符串</span></span><br><span class="line">    <span class="keyword">if</span> (str.length) &#123; <span class="comment">// 如果有length属性，则输出 </span></span><br><span class="line">        <span class="keyword">return</span> str.length</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有length 属性 则断言为 number类型</span></span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">number</span> = arg <span class="keyword">as</span> <span class="built_in">number</span></span><br><span class="line">        <span class="comment">// 转为字符串输出length</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">number</span>.toString().length</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意⚠️：类型断言不是类型转换，把一个类型断言成联合类型不存在的类型就会报错</strong></p>
+</blockquote>
+<h3 id="字面量类型"><a href="#字面量类型" class="headerlink" title="字面量类型"></a>字面量类型</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Size = <span class="string">&quot;mini&quot;</span> | <span class="string">&quot;small&quot;</span> | <span class="string">&quot;large&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果乱取值就会报错：不能将类型“&quot;normal&quot;”分配给类型“Size”。</span></span><br><span class="line"><span class="keyword">let</span> size:Size = <span class="string">&quot;normal&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><blockquote>
+<p>使用泛型解决重用性的问题,使其可以支持多种类型的数据</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 写一个函数，并定义其参数类型是string，并且返回这个参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">arg: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line">print(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"><span class="comment">// 如果想要将其参数变为number，可以使用联合类型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">arg: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 但是如果还有其他类型，不可能一直用联合类型写，any当然也不行，不能保证返回类型与参数类型一致</span></span><br><span class="line"><span class="comment">// 可以使用泛型来处理</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用泛型处理函数"><a href="#使用泛型处理函数" class="headerlink" title="使用泛型处理函数"></a>使用泛型处理函数</h3><blockquote>
+<p>泛型的语法是 <code>&lt;&gt;</code> 里面写参数，一般可以用 <code>T</code> 来表示</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prints</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line">prints&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;1&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>泛型中的  <code>T</code>  就像一个占位符，或者说是一个变量，在使用的时候可以把定义的类型像参数一样传入，他可以原封不动的输出</p>
+</blockquote>
+<p><strong>泛型可以使用两种方式进行指定类型</strong></p>
+<ul>
+<li>定义自己要使用的类型</li>
+<li>TS类型推断，自动推导出类型</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">prints&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;1&quot;</span>) <span class="comment">// 定义T为string</span></span><br><span class="line"></span><br><span class="line">prints(<span class="string">&quot;1&quot;</span>) <span class="comment">// ts类型推断，自动推导</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 <code>type</code> <code>interface</code> 方式定义函数类型</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用type定义</span></span><br><span class="line"><span class="keyword">type</span> Print = &lt;T&gt;<span class="function">(<span class="params">arg: T</span>) =&gt;</span> T;</span><br><span class="line"><span class="keyword">const</span> printFn: Print = <span class="function">(<span class="params">arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用interface定义</span></span><br><span class="line"><span class="keyword">interface</span> Print&lt;T&gt; &#123;</span><br><span class="line">    (arg: T): T</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> printFn: Print&lt;<span class="built_in">string</span>&gt; = <span class="function">(<span class="params">arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="泛型默认参数"><a href="#泛型默认参数" class="headerlink" title="泛型默认参数"></a>泛型默认参数</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 类似函数的默认参数</span></span><br><span class="line"><span class="keyword">interface</span> Print&lt;T = number&gt; &#123;</span><br><span class="line">    (arg: T): T</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> printFn: Print = <span class="function">(<span class="params">arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理多个函数参数"><a href="#处理多个函数参数" class="headerlink" title="处理多个函数参数"></a>处理多个函数参数</h3><p><strong>创建一个函数，参数为只有两项的元组数据，交换元组数据并返回</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt;(<span class="params">tuple: [T, U]</span>): [<span class="title">U</span>, <span class="title">T</span>] </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [tuple[<span class="number">1</span>], tuple[<span class="number">0</span>]];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// let result: [number, string]</span></span><br><span class="line"><span class="keyword">let</span> result = swap([<span class="string">&quot;string&quot;</span>, <span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数的副作用操作"><a href="#函数的副作用操作" class="headerlink" title="函数的副作用操作"></a>函数的副作用操作</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这样可以清晰的获取到返回的类型是什么数据结构，提高了开发效率</span></span><br><span class="line"><span class="keyword">interface</span> UserInfo &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>&lt;<span class="title">T</span>&gt;(<span class="params">url:<span class="built_in">string</span></span>): <span class="title">Promise</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fetch(url).then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span><br><span class="line">&#125;</span><br><span class="line">request&lt;UserInfo&gt;(<span class="string">&#x27;user/info&#x27;</span>).then(<span class="function"><span class="params">res</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="约束泛型"><a href="#约束泛型" class="headerlink" title="约束泛型"></a>约束泛型</h3><p>新建一个函数，打印传入参数的长度</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLength</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 因为 T 属于泛型，则只能在函数被调用的时候才能知道他是什么类型</span></span><br><span class="line">    <span class="comment">// 这里要获取length，ts不知道该变量是否有length属性，则会报错</span></span><br><span class="line">    <span class="comment">// 类型“T”上不存在属性“length”。</span></span><br><span class="line">    <span class="built_in">console</span>.log(arg.length)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决方法：使用interface 来约束泛型</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> ILength &#123;</span><br><span class="line">    length: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 让泛型继承接口 ILength ，这样就能约束泛型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLength</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">ILength</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg.length)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义的变量一定要有length属性，才会通过编译</span></span><br><span class="line"><span class="keyword">const</span> str = printLength(<span class="string">&#x27;lin&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> arr = printLength([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">const</span> obj = printLength(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果该参数上没有 length 属性则会报错： 类型“number”的参数不能赋给类型“ILength”的参数。</span></span><br><span class="line"><span class="keyword">const</span> num = printLength(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="泛型的应用"><a href="#泛型的应用" class="headerlink" title="泛型的应用"></a>泛型的应用</h3><hr>
+<ul>
+<li>泛型约束类</li>
+</ul>
+<hr>
+<p><strong>定义栈，有入栈和出栈两个方法，如果想让入栈和出栈的数据类型一样，可以这样写</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> data: T[] = [];</span><br><span class="line">  <span class="function"><span class="title">push</span>(<span class="params">item: T</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.data.push(item);</span><br><span class="line">  &#125;</span><br><span class="line">  pop(): T | <span class="literal">undefined</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.data.pop();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> s1 = <span class="keyword">new</span> Stack&lt;<span class="built_in">number</span>&gt;();</span><br><span class="line">s1.push(<span class="number">1</span>)</span><br><span class="line">s1.pop() <span class="comment">// 返回最后一位</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>泛型约束接口</li>
+</ul>
+<hr>
+<blockquote>
+<p>对接口进行改造，是interface 更灵活</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IkeyVlaue&lt;T, U&gt; &#123;</span><br><span class="line">  key: T;</span><br><span class="line">  value: U;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> k1: IkeyVlaue&lt;<span class="built_in">string</span>, <span class="built_in">number</span>&gt; = &#123; <span class="attr">key</span>: <span class="string">&quot;111&quot;</span>, <span class="attr">value</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> k2: IkeyVlaue&lt;<span class="built_in">number</span>, <span class="built_in">string</span>&gt; = &#123; <span class="attr">key</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="string">&quot;22&quot;</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>泛型定义数组</li>
+</ul>
+<hr>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr:<span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="comment">// 如果数组中包含不属于number类型的值则会报错：不能将类型“string”分配给类型“number”。</span></span><br><span class="line"><span class="keyword">const</span> arr:<span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="string">&quot;1&quot;</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>总结：</strong></p>
+<ul>
+<li>泛型是指在定义函数，接口或类的时候，不预先指定具体类型，而是在使用的时候进行指定</li>
+<li>泛型中的 <code>T</code> 就像一个占位符或者说是一个变量 ，在使用的时候可以把定义 的类型像参数一样传入，他可以原封不动的输出</li>
+<li>泛型在成员之间提供有意义 的约束，这些成员可以是： 函数参数，函数返回值，类的实例成员，类的方法</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>好处：</strong></p>
+<ul>
+<li>函数和类可以轻松的支持多种类型，增强程序的扩展性</li>
+<li>不必写冗余的联合类型，增强代码的可读性</li>
+<li>灵活控制类型之间的约束</li>
+</ul>
+</blockquote>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><p>从对象中抽取一些属性的值，然后拼接成数组</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> userInfo = &#123;</span><br><span class="line">  name: <span class="string">&quot;lin&quot;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValues</span>(<span class="params">userInfo: <span class="built_in">any</span>, keys: <span class="built_in">string</span>[]</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> keys.map(<span class="function"><span class="params">key</span> =&gt;</span> userInfo[key]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(getValues(userInfo, [<span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>])); <span class="comment">// [&quot;lin&quot;, 22]</span></span><br><span class="line"><span class="built_in">console</span>.log(getValues(userInfo, [<span class="string">&quot;sex&quot;</span>, <span class="string">&quot;outlook&quot;</span>])); <span class="comment">// [undefined, undefined]</span></span><br></pre></td></tr></table></figure>
+<p>虽然对象中没有 sex 和 outlook，但是ts检测并未报错</p>
+<p><strong>此时使用ts索引类型，对这种情况做类型约束，实现动态属性的检查</strong></p>
+<blockquote>
+<p>要想使用索引类型，需要先理解 <code>keyof (索引查询)，T[K] (索引访问), extends (泛型约束)</code></p>
+</blockquote>
+<h3 id="keyof-索引查询"><a href="#keyof-索引查询" class="headerlink" title="keyof (索引查询)"></a>keyof (索引查询)</h3><blockquote>
+<p>keyof 操作符可以用于获取某种类型的所有键值，其返回的类型是联合类型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPerson &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Test = keyof IPerson; <span class="comment">// &quot;name&quot; | &quot;age&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> names: Test = <span class="string">&quot;name&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 报错：不能将类型“&quot;11&quot;”分配给类型“keyof IPerson”。</span></span><br><span class="line"><span class="keyword">const</span> names: Test = <span class="string">&quot;11&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="T-K-索引访问"><a href="#T-K-索引访问" class="headerlink" title="T[K] 索引访问"></a>T[K] 索引访问</h3><blockquote>
+<p>T[K]，表示接口 T 的属性 K 所代表的类型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPerson &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> type1: IPerson[<span class="string">&quot;name&quot;</span>] = <span class="string">&quot;11&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> type2: IPerson[<span class="string">&quot;age&quot;</span>] = <span class="number">11</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="extends-泛型约束"><a href="#extends-泛型约束" class="headerlink" title="extends (泛型约束)"></a>extends (泛型约束)</h3><blockquote>
+<p>T extends U ，表示泛型变量可以通过继承某个类型，获得某些属性</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> ILength &#123;</span><br><span class="line">    length: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 让泛型继承接口 ILength ，这样就能约束泛型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLength</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">ILength</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg.length)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义的变量一定要有length属性，才会通过编译</span></span><br><span class="line"><span class="keyword">const</span> str = printLength(<span class="string">&#x27;lin&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> arr = printLength([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">const</span> obj = printLength(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="检测动态属性"><a href="#检测动态属性" class="headerlink" title="检测动态属性"></a>检测动态属性</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> userInfo = &#123;</span><br><span class="line">  name: <span class="string">&quot;lin&quot;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValues</span>(<span class="params">userInfo: <span class="built_in">any</span>, keys: <span class="built_in">string</span>[]</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> keys.map(<span class="function"><span class="params">key</span> =&gt;</span> userInfo[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>定义泛型T U ， 用于约束userInfo和keys</li>
+<li>为K增加一个泛型约束,使 K 继承userInfo的所有属性的联合类型，即 <code>U extends keyof T</code></li>
+</ul>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValues</span>&lt;<span class="title">T</span>, <span class="title">U</span> <span class="title">extends</span> <span class="title">keyof</span> <span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  userInfo: T,</span></span></span><br><span class="line"><span class="function"><span class="params">  keys: <span class="built_in">Array</span>&lt;U&gt;</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Array</span>&lt;<span class="title">T</span>[<span class="title">U</span>]&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> keys.map(<span class="function"><span class="params">key</span> =&gt;</span> userInfo[key]);</span><br><span class="line">&#125;</span><br><span class="line">getValues(userInfo, [<span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>]);</span><br><span class="line"><span class="comment">// 如果指定的属性不在对象里的时候，就会报错：不能将类型“&quot;sex&quot;”分配给类型“&quot;name&quot; | &quot;age&quot;”</span></span><br><span class="line">getValues(userInfo, [<span class="string">&quot;name&quot;</span>, <span class="string">&quot;ages&quot;</span>]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="映射类型"><a href="#映射类型" class="headerlink" title="映射类型"></a>映射类型</h2><blockquote>
+<p>ts 允许将一个类型映射成另一个类型</p>
+</blockquote>
+<h3 id="in"><a href="#in" class="headerlink" title="in"></a><code>in</code></h3><blockquote>
+<p><code>in</code>操作符，用来对联合类型实现遍历</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Persons = <span class="string">&quot;name&quot;</span> | <span class="string">&quot;school&quot;</span> | <span class="string">&quot;magor&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Obj = &#123;</span><br><span class="line">    [p <span class="keyword">in</span> Persons]: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 解析出来如下</span></span><br><span class="line"><span class="keyword">type</span> Obj = &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    school: <span class="built_in">string</span>;</span><br><span class="line">    magor: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Partial"><a href="#Partial" class="headerlink" title="Partial"></a>Partial</h3><blockquote>
+<p>Partial<T> 将 T 的所有属性映射成可选的</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPersons &#123;</span><br><span class="line">    name: <span class="built_in">string</span>,</span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p3: IPerson = &#123;</span><br><span class="line">    name: <span class="string">&quot;li lei&quot;</span>,</span><br><span class="line">    age: <span class="number">12</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 要想讲 IPersons 中的类型变为可选属性，就可以使用 Partial</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPartial = Partial&lt;IPersons&gt;;</span><br><span class="line"><span class="comment">// 解析出来，如下</span></span><br><span class="line"><span class="keyword">type</span> IPartial = &#123;</span><br><span class="line">    name?: <span class="built_in">string</span>;</span><br><span class="line">    age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> p4: IPartial = &#123;&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Partail 原理： 使用  in 和 keyof</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IPartial&lt;T&gt; = &#123;</span><br><span class="line">  [P <span class="keyword">in</span> keyof T]?: T[P];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> p4: IPartial&lt;IPersons&gt; = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>[P in keyof T]</code> 遍历 T 上的所有属性</li>
+<li><code>?</code>  设置可选属性类型</li>
+<li><code>T[P]</code> 设置类型为原来属性的类型</li>
+</ul>
+<h3 id="Readonly"><a href="#Readonly" class="headerlink" title="Readonly"></a>Readonly</h3><blockquote>
+<p>Readonly<T> 将 T 的所有属性映射为只读</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPersons &#123;</span><br><span class="line">    name: <span class="built_in">string</span>,</span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IReadonly = Readonly&lt;IPersons&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p2: IReadonly = &#123;</span><br><span class="line">  name: <span class="string">&quot;lin&quot;</span>,</span><br><span class="line">  age: <span class="number">12</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 只读属性不能修改，报错：无法分配到 &quot;name&quot; ，因为它是只读属性。</span></span><br><span class="line">p2.name = <span class="string">&quot;lihua&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>原理和<code>Partail</code> 一样</strong></p>
+<h3 id="Pick"><a href="#Pick" class="headerlink" title="Pick"></a>Pick</h3><blockquote>
+<p> <code>Pick</code> 用于抽取对象子集，挑选一组属性并组成一个新的类型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPerson1 &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">  sex: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将 name 和 age 抽取</span></span><br><span class="line"><span class="keyword">type</span> IPick = Pick&lt;IPerson1, <span class="string">&quot;name&quot;</span> | <span class="string">&quot;age&quot;</span>&gt;;</span><br><span class="line"><span class="comment">// 解析出来如下</span></span><br><span class="line"><span class="keyword">type</span> IPick = &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p5: IPick = &#123;</span><br><span class="line">  name: <span class="string">&quot;li lei&quot;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Pick 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IPicks&lt;T, K <span class="keyword">extends</span> keyof T&gt; = &#123;</span><br><span class="line">  [P <span class="keyword">in</span> K]: T[P];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数 T 代表要抽取的目标对象</li>
+<li>第二参数 K 代表要分离的属性key 值，但是他必须被约束在 参数 T 的key值范围内</li>
+</ul>
+<h3 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h3><blockquote>
+<p>Record 是会创建新的非同态映射类型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPerson3 &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IRecord = Record&lt;<span class="built_in">string</span>, IPerson3&gt;;</span><br><span class="line"><span class="comment">// 解析出来，如下</span></span><br><span class="line"><span class="keyword">type</span> IRecord = &#123;</span><br><span class="line">    [x: <span class="built_in">string</span>]: IPerson3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> PersonMap: IRecord = &#123;</span><br><span class="line">  person1: &#123;</span><br><span class="line">    name: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">    age: <span class="number">12</span></span><br><span class="line">  &#125;,</span><br><span class="line">  person2: &#123;</span><br><span class="line">    name: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">    age: <span class="number">12</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Record 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> RecordPlus&lt;K <span class="keyword">extends</span> keyof <span class="built_in">any</span>, T&gt; = &#123;</span><br><span class="line">  [P <span class="keyword">in</span> K]: T;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数可以是任意类型，因此约束与any的各种类型</li>
+<li>第二参数作为，新创建对象的值被传入</li>
+</ul>
+<h2 id="条件类型"><a href="#条件类型" class="headerlink" title="条件类型"></a>条件类型</h2><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果类型 T 可以被赋值给类型 U ，那么结果类型就是 X 类型，否则就是 Y 类型</span></span><br><span class="line">T <span class="keyword">extends</span> U ? X : Y</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Exclude 和 Extract 的实现就用到了条件类型</p>
+</blockquote>
+<h3 id="Exclude-排除的意思"><a href="#Exclude-排除的意思" class="headerlink" title="Exclude: 排除的意思"></a><code>Exclude</code>: 排除的意思</h3><blockquote>
+<p>Exclude 的意思是不包含，<code>Exclude&lt;T, U&gt;</code> 会返回联合类型 T 中 不包含 联合类型 U 的部分</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Test1 = Exclude&lt;<span class="string">&quot;a&quot;</span> | <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>&gt;</span><br><span class="line"><span class="comment">// 解析出来，如下</span></span><br><span class="line"><span class="keyword">type</span> Test1 = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Exclude原理：</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Exclude&lt;T, U&gt; = T <span class="keyword">extends</span> U ? <span class="built_in">never</span> : T</span><br><span class="line"><span class="keyword">type</span> Test1 = Exclude&lt;<span class="string">&quot;a&quot;</span> | <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>&gt;</span><br><span class="line"><span class="comment">// 解析</span></span><br><span class="line"><span class="string">&quot;a&quot;</span> <span class="keyword">extends</span> <span class="string">&quot;a&quot;</span> = <span class="built_in">never</span> </span><br><span class="line"><span class="keyword">type</span> Test1 = <span class="built_in">never</span></span><br><span class="line"><span class="string">&quot;b&quot;</span> <span class="keyword">extends</span> <span class="string">&quot;a&quot;</span> = <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="keyword">type</span> Test1 = <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="keyword">type</span> Test1 = <span class="built_in">never</span> | <span class="string">&quot;b&quot;</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="Extract-提取的意思"><a href="#Extract-提取的意思" class="headerlink" title="Extract: 提取的意思"></a><code>Extract</code>: 提取的意思</h3><blockquote>
+<p><code>Extract&lt;T, U&gt;</code> 提取联合类型 T 和联合类型 U 的所有交集</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Test2 = Extract&lt;<span class="string">&quot;a&quot;</span> | <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>&gt;</span><br><span class="line"><span class="comment">// 解析出来如下：</span></span><br><span class="line"><span class="keyword">type</span> Test2 = <span class="string">&quot;a&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Extract原理：</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Extract&lt;T, U&gt; = T <span class="keyword">extends</span> U ? T : <span class="built_in">never</span></span><br><span class="line"><span class="keyword">type</span> Test2 = Extract&lt;<span class="string">&quot;a&quot;</span> | <span class="string">&quot;b&quot;</span>, <span class="string">&quot;a&quot;</span>&gt;</span><br><span class="line"><span class="comment">// 解析</span></span><br><span class="line"><span class="string">&quot;a&quot;</span> <span class="keyword">extends</span> <span class="string">&quot;a&quot;</span> = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="string">&quot;b&quot;</span> <span class="keyword">extends</span> <span class="string">&quot;a&quot;</span> = <span class="built_in">never</span></span><br><span class="line"><span class="keyword">type</span> Test2 = <span class="string">&quot;a&quot;</span> | <span class="built_in">never</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="工具类型-（util-type）"><a href="#工具类型-（util-type）" class="headerlink" title="工具类型 （util type）"></a>工具类型 （util type）</h2><h3 id="Omit"><a href="#Omit" class="headerlink" title="Omit"></a>Omit</h3><blockquote>
+<p><code>Omit&lt;T, U&gt;</code> 从类型 T 中 删除 U 中的所有属性</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> IPerson4 &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> IOmit = Omit&lt;IPerson4, <span class="string">&quot;age&quot;</span>&gt;</span><br><span class="line"><span class="comment">// 结果如下</span></span><br><span class="line"><span class="keyword">type</span> IOmit = &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Omit 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Omits&lt;T, K <span class="keyword">extends</span> keyof <span class="built_in">any</span>&gt; = Pick&lt;T, Exclude&lt;keyof T, K&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pick: 用于从 T 中 挑选 一组属性组成一个新的类型</span></span><br><span class="line"><span class="comment">// Exclude: 排除 T 中 的 k 属性  </span></span><br><span class="line"><span class="comment">// 组合 = Omit</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="NonNullable"><a href="#NonNullable" class="headerlink" title="NonNullable"></a>NonNullable</h3><blockquote>
+<p><code>NonNullable&lt;T&gt;</code> 用来过滤类型中的null 以及 undefined 类型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> T0 = NonNullable&lt;<span class="built_in">string</span> | <span class="built_in">number</span> | <span class="literal">undefined</span>&gt;; <span class="comment">// string number</span></span><br><span class="line"><span class="keyword">type</span> T1 = NonNullable&lt;<span class="built_in">string</span> | <span class="built_in">number</span> | <span class="literal">null</span>&gt;; <span class="comment">// string number</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>NonNullable 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> NonNullable&lt;T&gt; = T <span class="keyword">extends</span> <span class="literal">undefined</span> | <span class="literal">null</span> ? <span class="built_in">never</span> : T;</span><br><span class="line"><span class="comment">// ....</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><blockquote>
+<p>Parameters 获取函数的参数类型，并将每一个参数放入一个元组中</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Fn = <span class="function">(<span class="params">arg: <span class="built_in">string</span>, arg2: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"><span class="keyword">type</span> P1 = Parameters&lt;Fn&gt;;</span><br><span class="line"><span class="comment">// 结果为</span></span><br><span class="line"><span class="keyword">type</span> P1 = [arg: <span class="built_in">string</span>, <span class="attr">arg2</span>: <span class="built_in">number</span>]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Parameters 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> ParametersPlus&lt;T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">any</span>&gt; = T <span class="keyword">extends</span> (...args: infer P) =&gt; <span class="built_in">any</span> ? P : <span class="built_in">never</span> </span><br><span class="line"><span class="keyword">type</span> Fn = <span class="function">(<span class="params">arg: <span class="built_in">string</span>, arg2: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"><span class="keyword">type</span> P1 = ParametersPlus&lt;Fn&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Paramaters 首先必须约束参数 T 必须是一个函数类型</span></span><br><span class="line"><span class="comment">// 判断 T 是否为函数类型，如果是 则定义 P 暂存 函数的参数类型 ，否则就返回never</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ReturnType"><a href="#ReturnType" class="headerlink" title="ReturnType"></a>ReturnType</h3><blockquote>
+<p>ReturnType 获取函数类型的返回类型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Fn = <span class="function">(<span class="params">arg: <span class="built_in">string</span>, arg2: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"><span class="keyword">type</span> R1 = ReturnType&lt;Fn&gt;</span><br><span class="line"><span class="comment">// 结果为</span></span><br><span class="line"><span class="keyword">type</span> R1 = <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ReturnType 原理</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 同 Parameters 原理</span></span><br><span class="line"><span class="keyword">type</span> ReturnTypePlus&lt;T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">any</span>&gt; = T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; infer P ? P : <span class="built_in">never</span></span><br><span class="line"><span class="keyword">type</span> R1 = ReturnTypePlus&lt;Fn&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>ts</tag>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清除单文件应用浏览器缓存</title>
+    <url>/2022/02/23/clearCache/</url>
+    <content><![CDATA[<h1 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h1><blockquote>
+<p>开发网页时，需要清除用户的页面缓存，各个厂商标准不一致，也不给类似说明，是个令人头疼的问题，经调研，有一种方式可以清除页面的缓存，甚至是小程序里webview页面类似牛皮鲜一样顽固的缓存都可以清除掉</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> href = location.href, origin = location.origin, pathname = location.pathname, search = location.search, hash = location.hash;</span><br><span class="line">  <span class="keyword">var</span> searchs = search.replace(<span class="regexp">/_t_=[^&amp;\?]*[&amp;\?]*/g</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="regexp">/(^[&amp;\?]*)|([&amp;\?]*$)/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> ct = <span class="built_in">parseInt</span>(<span class="keyword">new</span> <span class="built_in">Date</span>().valueOf() / <span class="number">10000</span>);</span><br><span class="line">  <span class="keyword">var</span> _t_ = (<span class="regexp">/_t_=[^&amp;\?]*[&amp;\?]*/</span>.exec(href) || [])[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">if</span>(_t_)&#123;</span><br><span class="line">    _t_ = +_t_.replace(<span class="regexp">/(_t_=)|\?|&amp;/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> _t_p = +(<span class="built_in">localStorage</span>.getItem(<span class="string">&#x27;_t_&#x27;</span>) || ct);</span><br><span class="line">    _t_p !== ct ? add() : clear();</span><br><span class="line">  &#125; <span class="keyword">else</span> add(<span class="literal">true</span>);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">bol</span>)</span>&#123;</span><br><span class="line">    (<span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;html&#x27;</span>)[<span class="number">0</span>] || &#123;&#125;).innerHTML = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="built_in">localStorage</span>.setItem(<span class="string">&#x27;_t_&#x27;</span>, ct);</span><br><span class="line">    <span class="keyword">if</span>(bol) location.replace(origin + pathname + <span class="string">&#x27;?&#x27;</span> + searchs + (searchs ? <span class="string">&#x27;&amp;&#x27;</span> : <span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;_t_=&#x27;</span> + ct + hash);</span><br><span class="line">    <span class="keyword">else</span> location.replace(origin + pathname + <span class="string">&#x27;?&#x27;</span> + searchs + (searchs ? <span class="string">&#x27;&amp;&#x27;</span> : <span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;_t_=&#x27;</span> + ct + hash);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">clear</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    history.replaceState(&#123;&#125;, <span class="literal">null</span>, origin + pathname + (searchs ? <span class="string">&#x27;?&#x27;</span> : <span class="string">&#x27;&#x27;</span>) + searchs + hash);</span><br><span class="line">    clear = <span class="literal">undefined</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>将以下代码复制到页面里，写到最顶部的script,就可以清除页面的缓存了，速度快，不影响使用</p>
+</blockquote>
+<blockquote>
+<p>可以有效解决meta nocha标签，链接加时间戳不生效的缓存</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>js</tag>
+        <tag>catch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue2.0 某些原理概述</title>
+    <url>/2021/07/06/vueSource/</url>
+    <content><![CDATA[<h1 id="Vue2-0"><a href="#Vue2-0" class="headerlink" title="Vue2.0"></a>Vue2.0</h1><h2 id="Vue初始化过程中（new-Vue-options-）-都做了什么"><a href="#Vue初始化过程中（new-Vue-options-）-都做了什么" class="headerlink" title="Vue初始化过程中（new Vue(options)） 都做了什么"></a>Vue初始化过程中（new Vue(options)） 都做了什么</h2><ul>
+<li><p>处理组件配置项</p>
+<ul>
+<li>初始化根组件进行了 选项合并操作，将全局配置合并到根组件的局部配置上</li>
+<li>初始化每个子组件做了一些性能优化，将组件配置对象上的一些深层次的属性放到vm.$options选项中，提高代码执行效率</li>
+</ul>
+</li>
+<li><p>初始化组件实例的关系属性，如$pranet, $children, $root, $refs</p>
+</li>
+<li><p>处理自定义事件</p>
+</li>
+<li><p>调用beforeCreate 钩子函数</p>
+</li>
+<li><p>初始化inject 配置项，得到<code>ret[key] = val</code>形式的配置对象，然后对该配置进行响应式处理，并代理每个key到vm实例上</p>
+</li>
+<li><p>数据响应式，处理props methods data watch 等选项</p>
+</li>
+<li><p>解析组件配置上的provide对象，将其挂载到vm_provoded属性上</p>
+</li>
+<li><p>调用created钩子函数</p>
+</li>
+<li><p>如果发现配置选项中有el选项，则自动调用$mount方法，如果没有el选项则需要调用$mount</p>
+</li>
+<li><p>接下来进入挂载阶段</p>
+</li>
+</ul>
+<h2 id="vue-响应式原理实现"><a href="#vue-响应式原理实现" class="headerlink" title="vue 响应式原理实现"></a>vue 响应式原理实现</h2><ul>
+<li><p>响应式的核心是通过Object.defondProperty 拦截对数据的访问和设置</p>
+</li>
+<li><p>响应式的数据分为两类</p>
+<ul>
+<li>对象，循环遍历对象的所有属性，为每个属性设置getter，setter，以达到拦截访问和设置的母的，如果属性值依旧为对象<br>，则递归为属性值上的每一个key设置getter，setter<ul>
+<li>访问数据是<code>&#123;obj.key&#125;</code>进行依赖收集，在dep中存储相关的watcher</li>
+<li>设置数据时有dep通知相关的watcher去更新</li>
+</ul>
+</li>
+<li>数组，增强数组的那7个可以更改自身的原型方法，然后拦截对这些方法的操作<ul>
+<li>添加新数据进行响应式处理，然后dep通知watcher去更新</li>
+<li>删除数据时，也要有dep通知watcher去更新</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="methods-computed-和-watch有什么区别"><a href="#methods-computed-和-watch有什么区别" class="headerlink" title="methods, computed, 和 watch有什么区别"></a>methods, computed, 和 watch有什么区别</h2><ul>
+<li><p>使用场景</p>
+<ul>
+<li>methods 一般用于封装一写较为复杂的处理逻辑（同步 or 异步）</li>
+<li>computed 一般用于封装一些简单的同步逻辑，将处理的数据返回，然后显示在模版中，以减轻模版的重量</li>
+<li>watch 一般用于当需要在数据变化时需要执行操作</li>
+</ul>
+</li>
+<li><p>区别</p>
+<ul>
+<li>methods VS conputed</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>vue2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vue3 新特性</title>
     <url>/2021/04/26/vue3%E6%96%B0%E7%89%B9%E6%80%A7/</url>
     <content><![CDATA[<h1 id="vue3-新特性"><a href="#vue3-新特性" class="headerlink" title="vue3 新特性"></a>vue3 新特性</h1><h2 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a><code>v-model</code></h2><h3 id="不同版本使用方式"><a href="#不同版本使用方式" class="headerlink" title="不同版本使用方式"></a>不同版本使用方式</h3><blockquote>
@@ -2332,35 +2845,6 @@ class MyApp extends StatelessWidget&#123;
       </tags>
   </entry>
   <entry>
-    <title>🍉js执行机制🍉</title>
-    <url>/2019/10/09/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><p>js 是一门非阻塞脚本语言，同一时刻只会允许一个代码执行，在单线程的机制中，执行异步任务是，在等待返回结果前，后面代码无法执行</p>
-<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><h2 id="设计单线程原因"><a href="#设计单线程原因" class="headerlink" title="设计单线程原因"></a>设计单线程原因</h2><p>如果 js 是多线程的话，因为 DOM 可以通过 js 去操作，如果此时有两个线程操作同一个 DOM，线程一删除了这个 DOM，而线程<br>二要操作这个 DOM，则会产生矛盾。</p>
-<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><h3 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h3><ul>
-<li>Script</li>
-<li>setTimeout, setInterval</li>
-<li>I/O</li>
-<li>UI 渲染</li>
-<li>…</li>
-</ul>
-<h3 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h3><ul>
-<li>Promise</li>
-<li>…</li>
-</ul>
-<h2 id="执行规则"><a href="#执行规则" class="headerlink" title="执行规则"></a>执行规则</h2><blockquote>
-<p>js 是通过事件循环机制（EventLoop）来解决这一弊端</p>
-</blockquote>
-<ul>
-<li>所有代码进入到主线程执行栈，开始执行</li>
-<li>执行过程中，同步代码会立即执行，宏任务会进入到宏任务队列，微任务进入微任务队列</li>
-<li>当前宏任务执行完成出队，读取微任务列表有则执行，直至全部执行完毕</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>🍉Dart学习【基础】🍉</title>
     <url>/2019/10/09/Flutter_Dart/</url>
     <content><![CDATA[<h1 id="🍉Dart学习【基础】🍉"><a href="#🍉Dart学习【基础】🍉" class="headerlink" title="🍉Dart学习【基础】🍉"></a>🍉Dart学习【基础】🍉</h1><h2 id="🍌Dart简介"><a href="#🍌Dart简介" class="headerlink" title="🍌Dart简介"></a>🍌Dart简介</h2><ul>
@@ -2721,6 +3205,35 @@ say(&#39;Hello Flutter&#39;, 1)//❌ 因为  1 赋值给了 from,但是 from 是
       <tags>
         <tag>Dart</tag>
         <tag>flutter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>🍉js执行机制🍉</title>
+    <url>/2019/10/09/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><p>js 是一门非阻塞脚本语言，同一时刻只会允许一个代码执行，在单线程的机制中，执行异步任务是，在等待返回结果前，后面代码无法执行</p>
+<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><h2 id="设计单线程原因"><a href="#设计单线程原因" class="headerlink" title="设计单线程原因"></a>设计单线程原因</h2><p>如果 js 是多线程的话，因为 DOM 可以通过 js 去操作，如果此时有两个线程操作同一个 DOM，线程一删除了这个 DOM，而线程<br>二要操作这个 DOM，则会产生矛盾。</p>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><h3 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h3><ul>
+<li>Script</li>
+<li>setTimeout, setInterval</li>
+<li>I/O</li>
+<li>UI 渲染</li>
+<li>…</li>
+</ul>
+<h3 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h3><ul>
+<li>Promise</li>
+<li>…</li>
+</ul>
+<h2 id="执行规则"><a href="#执行规则" class="headerlink" title="执行规则"></a>执行规则</h2><blockquote>
+<p>js 是通过事件循环机制（EventLoop）来解决这一弊端</p>
+</blockquote>
+<ul>
+<li>所有代码进入到主线程执行栈，开始执行</li>
+<li>执行过程中，同步代码会立即执行，宏任务会进入到宏任务队列，微任务进入微任务队列</li>
+<li>当前宏任务执行完成出队，读取微任务列表有则执行，直至全部执行完毕</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -8355,30 +8868,6 @@ Vue.use(directives);
       </tags>
   </entry>
   <entry>
-    <title>vue中的Dom操作</title>
-    <url>/2019/01/27/vue-dom/</url>
-    <content><![CDATA[<h2 id="vue中的Dom操作"><a href="#vue中的Dom操作" class="headerlink" title="vue中的Dom操作"></a>vue中的Dom操作</h2><h3 id="在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作"><a href="#在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作" class="headerlink" title="在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作"></a>在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作</h3><h2 id="dom操作的方法"><a href="#dom操作的方法" class="headerlink" title="dom操作的方法"></a>dom操作的方法</h2><hr>
-<blockquote>
-</blockquote>
-<ol>
-<li>transition:组件中的钩子函数可以接受一个el属性，作用动画的dom，可以多dom添加实现动画效果</li>
-<li>ref：ref可以作用在dom元素和组件元素上，作用在dom元素上通过refs获取到就是dom节点，作用在组件元素上获取到组件实例</li>
-<li>在mounted生命周期中我们可以使用document的dom的操作方法，比如添加一些滚动事件…</li>
-<li>#el：可以获取组件的根节点元素</li>
-<li>￥mount()：可以手动渲染组件，成为真实的dom节点</li>
-<li>事件中的e.target可以获取都绑定事件的dom，但不准确，因为获取到的是点击最内层的元素，当然如果作用在表单元素就无所谓</li>
-<li>指令也可以操作dom的<blockquote>
-</blockquote>
-</li>
-</ol>
-<hr>
-]]></content>
-      <tags>
-        <tag>vue</tag>
-        <tag>dom</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue transfrom属性</title>
     <url>/2019/01/27/transition/</url>
     <content><![CDATA[<h1 id="Vue-transfrom属性"><a href="#Vue-transfrom属性" class="headerlink" title="Vue transfrom属性"></a>Vue transfrom属性</h1><h2 id="vue中的动画可以使用transfrom组件完成"><a href="#vue中的动画可以使用transfrom组件完成" class="headerlink" title="vue中的动画可以使用transfrom组件完成"></a>vue中的动画可以使用transfrom组件完成</h2><h3 id="transfrom组件提供两个过渡状态"><a href="#transfrom组件提供两个过渡状态" class="headerlink" title="transfrom组件提供两个过渡状态"></a>transfrom组件提供两个过渡状态</h3><blockquote>
@@ -8419,6 +8908,30 @@ v-on:leave-cancelled=&quot;leaveCancelled&quot;
       <tags>
         <tag>vue</tag>
         <tag>transfrom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue中的Dom操作</title>
+    <url>/2019/01/27/vue-dom/</url>
+    <content><![CDATA[<h2 id="vue中的Dom操作"><a href="#vue中的Dom操作" class="headerlink" title="vue中的Dom操作"></a>vue中的Dom操作</h2><h3 id="在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作"><a href="#在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作" class="headerlink" title="在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作"></a>在vue，react，。。。。以数据驱动视图的框架，都是通过数据更新视图，一般不使用dom操作，但是也有一些特定的时候需要用到dom操作</h3><h2 id="dom操作的方法"><a href="#dom操作的方法" class="headerlink" title="dom操作的方法"></a>dom操作的方法</h2><hr>
+<blockquote>
+</blockquote>
+<ol>
+<li>transition:组件中的钩子函数可以接受一个el属性，作用动画的dom，可以多dom添加实现动画效果</li>
+<li>ref：ref可以作用在dom元素和组件元素上，作用在dom元素上通过refs获取到就是dom节点，作用在组件元素上获取到组件实例</li>
+<li>在mounted生命周期中我们可以使用document的dom的操作方法，比如添加一些滚动事件…</li>
+<li>#el：可以获取组件的根节点元素</li>
+<li>￥mount()：可以手动渲染组件，成为真实的dom节点</li>
+<li>事件中的e.target可以获取都绑定事件的dom，但不准确，因为获取到的是点击最内层的元素，当然如果作用在表单元素就无所谓</li>
+<li>指令也可以操作dom的<blockquote>
+</blockquote>
+</li>
+</ol>
+<hr>
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>dom</tag>
       </tags>
   </entry>
   <entry>
